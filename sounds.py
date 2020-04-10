@@ -7,8 +7,27 @@
 
 
 class Sound(object):
+    '''
 
-    _AIRWAY = 'pulmonic non-pulmonic'.split()
+    The Sound class contains properties and auxiliary functions for encoding
+    and decoding sound properties like articulation (manner, place, voicing)
+    and airway types (e.g., pulmonic). This class serves as the parent class
+    for the Consonant and Vowel classes.
+
+    Attributes
+    ----------
+        ipa : International Phonetic Alphabet (IPA) symbol as unicode
+        phoneme : Simple representation of this with ASCII characters
+        airway : How air moves to make this sound
+        route : Oral or nasal sounds
+        sonority : How 'open' or sonorous a sound is
+        place : Place of articulation for this sound (e.g., bilabial)
+        manner : Manner of articulation for this sound (e.g., fricative)
+        voicing : Voicing for this sound (e.g., unvoiced)
+
+    '''
+
+    _AIRWAY = 'ingressive egressive'.split()
     _ROUTE = 'nasal oral'.split()
     _VOICING = 'unvoiced voiced'.split()
     _MANNER = 'stop fricative approximant affricate lateral'.split()
@@ -74,6 +93,28 @@ class Sound(object):
         self._phoneme = phoneme
 
     @property
+    def route(self):
+        return self._route
+
+    @route.setter
+    def route(self, route):
+        if isinstance(route, int) and route < len(self._ROUTE):
+            self._route = route
+        elif isinstance(route, str):
+            self._route = self._ROUTE.index(route.lower())
+
+    @property
+    def airway(self):
+        return self._airway
+
+    @airway.setter
+    def airway(self, airway):
+        if isinstance(airway, int) and airway < len(self._AIRWAY):
+            self._airway = airway
+        elif isinstance(airway, str):
+            self._airway = self._AIRWAY.index(airway.lower())
+
+    @property
     def sonority(self):
         return self._sonority
 
@@ -96,17 +137,6 @@ class Sound(object):
             self._place = self._PLACE.index(place.lower())
 
     @property
-    def voicing(self):
-        return self._voicing
-
-    @voicing.setter
-    def voicing(self, voicing):
-        if isinstance(voicing, int) and voicing < len(self._VOICING):
-            self._voicing = voicing
-        elif isinstance(voicing, str):
-            self._voicing = self._VOICING.index(voicing.lower())
-
-    @property
     def manner(self):
         return self._manner
 
@@ -116,6 +146,17 @@ class Sound(object):
             self._manner = manner
         elif isinstance(manner, str):
             self._manner = self._MANNER.index(manner.lower())
+
+    @property
+    def voicing(self):
+        return self._voicing
+
+    @voicing.setter
+    def voicing(self, voicing):
+        if isinstance(voicing, int) and voicing < len(self._VOICING):
+            self._voicing = voicing
+        elif isinstance(voicing, str):
+            self._voicing = self._VOICING.index(voicing.lower())
 
     def encode_articulation(self, articulation):
         '''
