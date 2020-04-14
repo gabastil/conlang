@@ -330,34 +330,6 @@ class Sound(object):
                 raise IndexError(f'value must be less than {len(features)}')
         return self._FEATURE_LABELS[feature]
 
-    def encode_articulation(self, articulation):
-        '''
-        Convert an articulation string into an integer
-
-        Properties
-        ----------
-            articulation (str) : Type of articulation (e.g., place, manner)
-
-        Returns
-        -------
-            Integer representation of the articulation type
-        '''
-        return self._ATTRIBUTE_LABELS.index(articulation)
-
-    def decode_articulation(self, articulation):
-        '''
-        Convert an integer into an articulation string
-
-        Properties
-        ----------
-            articulation (int) : Type of articulation as an integer
-
-        Returns
-        -------
-            String representation of the articulation type
-        '''
-        return self._ATTRIBUTE_LABELS[articulation]
-
 
 class Consonant(Sound):
 
