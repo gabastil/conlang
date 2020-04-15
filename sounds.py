@@ -31,9 +31,9 @@ PLACE = ['bilabial',
 
 # Technique used to restrict airflow during articulation
 MANNER = ['stop',
+          'affricate',
           'fricative',
           'approximant',
-          'affricate',
           'lateral']
 
 # Usage of vocal chords to produce sound
@@ -166,7 +166,7 @@ class Sound(object):
             self.__parse_features(*features)
 
         self._ipa = kwargs.get('ipa')
-        self._phoneme = kwargs.get('phoneme')
+        self._character = kwargs.get('character')
 
     @property
     def ipa(self):
@@ -178,13 +178,13 @@ class Sound(object):
         self._ipa = ipa
 
     @property
-    def phoneme(self):
-        ''' Return this sound's phoneme value '''
-        return self._phoneme
+    def character(self):
+        ''' Return this sound's character value '''
+        return self._character
 
-    @phoneme.setter
-    def phoneme(self, phoneme):
-        self._phoneme = phoneme
+    @character.setter
+    def character(self, character):
+        self._character = character
 
     @property
     def place(self):
@@ -374,19 +374,113 @@ class Sound(object):
             return features[value]
         return FEATURE_LABELS[feature]
 
+    def weaken(self):
+        raise NotImplementedError()
+
+    def strengthen(self):
+        raise NotImplementedError()
+
 
 class Consonant(Sound):
 
-    def __init__(self):
-        super().__init__('voiceless stop')
+    def __init__(self, *features, **kwargs):
+        super().__init__('unvoiced stop', *features, **kwargs)
+
+    def __repr__(self):
+        voicing = VOICING[self.voicing] if self.voicing is not None else None
+        place = PLACE[self.place] if self.place is not None else None
+        manner = MANNER[self.manner] if self.manner is not None else None
+
+        description = ''
+
+        for feature in [voicing, place, manner]:
+            if feature:
+                description += f'{feature}'
+
+        if self.character:
+            description += f" written as '{self.character}'"
+
+        return description.strip()
 
     @property
     def type(self):
         return 'C'
 
+    def __get_index_array(self, feature):
+        ''' Return an index and array associated with this feature '''
+        idx = self.encode(feature)
+        return idx, self._features[idx]
+
+    def __get_argmax_array(self, array):
+        ''' Return the argmax for the input array and a zero array'''
+        return array.argmax() + 1, np.zeros(array.size)
+
+    def __update_feature(self, idx, argmax, array, weaken=True):
+        '''
+        Update the specified features array with an argmax
+
+        Parameters
+        ----------
+            idx (int) : Feature index
+            argmax (int) : New feature to set
+            array (np.array) : Array of feature values
+            weaken (bool) : Weaken or strengthen (i.e., move left or right on
+                            the specified array)
+        '''
+        if weaken:
+            if argmax > array.size:
+                argmax = array.size - 1
+        else:
+            if argmax < 0:
+                argmax = 0
+
+        array[argmax] = 1
+        self._features[idx] = array
+
+    def __weaken(self, feature):
+        '''
+        Weaken the specified feature
+
+        Parameters
+        ----------
+            feature (str) : Name of feature to weaken
+        '''
+        idx, array = self.__get_index_array(feature)
+        argmax, array = self.__get_argmax_array(array)
+        self.__update_feature(self, idx, argmax, array, True)
+
+    def __strengthen(self, feature):
+        '''
+        Strengthen the specified feature
+
+        Parameters
+        ----------
+            feature (str) : Name of feature to weaken
+        '''
+        idx, array = self.__get_index_array(feature)
+        argmax, array = self.__get_argmax_array(array)
+        self.__update_feature(self, idx, argmax, array, False)
+
+    def weaken(self):
+        '''
+        Weaken this consonant like when a consonant undergoes lenition
+
+        Notes
+        -----
+            Features changes:
+
+            Place: Front -> Back
+            Manner: Stop -> Fricative
+            Voicing: Voiced -> Unvoiced
+            Tone: Present -> Absent
+        '''
+        if self.voicing:
+            self.__weaken('voicing')
+        else:
+            self.__weaken('manner')
+
 
 class Vowel(Sound):
-
 
     def __init__(self):
         super().__init__('voiced')
@@ -403,34 +497,41 @@ class Syllable(Sound):
 
 
 if __name__ == '__main__':
-    s = Sound()
-    # print(s.ATTRIBUTES)
-    # print(s[1])
-    # print(s['voicing'])
-    s.manner = 'affricate'
-    s.place = 2
-    print(s.manner)
-    print(s.place)
-    # print(s[1][s.manner])
-    print(s.encode('manner'))
-    print(s.decode(1))
+    cons = Consonant(character='kh')
+    print(cons)
+    cons.weaken()
+    print(cons)
+    cons.weaken()
+    print(cons)
 
-    q = Sound('voiced alveolar stop')
-    p = Sound('voiced', 'glottal', 'stop')
-    print(q._features)
-    print(p._features)
-    print(p._features.shape)
+    # s = Sound()
+    # # print(s.ATTRIBUTES)
+    # # print(s[1])
+    # # print(s['voicing'])
+    # s.manner = 'affricate'
+    # s.place = 2
+    # print(s.manner)
+    # print(s.place)
+    # # print(s[1][s.manner])
+    # print(s.encode('manner'))
+    # print(s.decode(1))
 
-    print(p.place)
-    p.place = 'dental'
-    print(p.place)
-    p.place = 8
+    # q = Sound('voiced alveolar stop')
+    # p = Sound('voiced', 'glottal', 'stop')
+    # print(q._features)
+    # print(p._features)
+    # print(p._features.shape)
 
-    print(p.manner)
-    print(p.voicing)
-    print(p.place)
+    # print(p.place)
+    # p.place = 'dental'
+    # print(p.place)
+    # p.place = 8
 
-    print(p.encode('manner', 'fricative'))
-    print(p.encode('airway'))
-    print(p.decode(3, 1))
-    print(p.decode(2))
+    # print(p.manner)
+    # print(p.voicing)
+    # print(p.place)
+
+    # print(p.encode('manner', 'fricative'))
+    # print(p.encode('airway'))
+    # print(p.decode(3, 1))
+    # print(p.decode(2))
