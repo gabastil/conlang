@@ -62,7 +62,7 @@ FRONTNESS = ['front',
              'back']
 
 # How open the mouth is
-OPENESS = ['open',
+OPENNESS = ['open',
            'mid-open',
            'mid',
            'mid-close',
@@ -90,7 +90,7 @@ FEATURE_LABELS = ['place',
                   'cavity',
                   'airway',
                   'frontness',
-                  'openess',
+                  'openness',
                   'roundness'
                   'sonority']
 
@@ -103,7 +103,7 @@ FEATURE_ARRAY = [PLACE,
                  CAVITY,
                  AIRWAY,
                  FRONTNESS,
-                 OPENESS,
+                 OPENNESS,
                  ROUNDNESS,
                  SONORITY]
 
@@ -334,6 +334,46 @@ class Sound(object):
                     self._features[feature_index][value_index] = 1
                     break
 
+    def __get_index_array(self, feature):
+        ''' Return an index and array associated with this feature '''
+        idx = self.encode(feature)
+        return idx, self._features[idx]
+
+    def __get_argmax_array(self, idx, array, direction):
+        '''
+        Return the argmax for the input array and a zero array
+
+        Parameters
+        ----------
+            idx (int) : Feature index
+            array (np.array) : feature array
+            direction (int) : Positive (weaken) or negative (strengthen) one.
+
+        Returns
+        -------
+            Tuple containing the new position and an empty array.
+        '''
+        argmax, array = array.argmax() + direction, np.zeros(array.size)
+        maxlength = len(FEATURE_ARRAY[idx])
+        if argmax >= maxlength:
+            argmax = maxlength - 1
+        elif argmax < 0:
+            argmax = 0
+        return argmax, array
+
+    def __update_feature(self, idx, argmax, array):
+        '''
+        Update the specified features array with an argmax
+
+        Parameters
+        ----------
+            idx (int) : Feature index
+            argmax (int) : New feature to set
+            array (np.array) : Array of feature values
+        '''
+        array[argmax] = 1
+        self._features[idx] = array
+
     def encode(self, feature, value=None):
         '''
         Convert a string to its corresponding integer value. If value is indic-
@@ -374,11 +414,29 @@ class Sound(object):
             return features[value]
         return FEATURE_LABELS[feature]
 
-    def weaken(self):
-        raise NotImplementedError()
+    def weaken(self, feature):
+        '''
+        Weaken the specified feature by moving the feature away from zero.
 
-    def strengthen(self):
-        raise NotImplementedError()
+        Parameters
+        ----------
+            feature (str) : Name of feature to weaken
+        '''
+        idx, array = self.__get_index_array(feature)
+        argmax, array = self.__get_argmax_array(idx, array, 1)
+        self.__update_feature(idx, argmax, array)
+
+    def strengthen(self, feature):
+        '''
+        Strengthen the specified feature by move the feature closer to zero.
+
+        Parameters
+        ----------
+            feature (str) : Name of feature to weaken
+        '''
+        idx, array = self.__get_index_array(feature)
+        argmax, array = self.__get_argmax_array(idx, array, -1)
+        self.__update_feature(idx, argmax, array)
 
 
 class Consonant(Sound):
@@ -395,7 +453,7 @@ class Consonant(Sound):
 
         for feature in [voicing, place, manner]:
             if feature:
-                description += f'{feature}'
+                description += f' {feature}'
 
         if self.character:
             description += f" written as '{self.character}'"
@@ -404,62 +462,8 @@ class Consonant(Sound):
 
     @property
     def type(self):
+        ''' Return Sound type of consonant '''
         return 'C'
-
-    def __get_index_array(self, feature):
-        ''' Return an index and array associated with this feature '''
-        idx = self.encode(feature)
-        return idx, self._features[idx]
-
-    def __get_argmax_array(self, array):
-        ''' Return the argmax for the input array and a zero array'''
-        return array.argmax() + 1, np.zeros(array.size)
-
-    def __update_feature(self, idx, argmax, array, weaken=True):
-        '''
-        Update the specified features array with an argmax
-
-        Parameters
-        ----------
-            idx (int) : Feature index
-            argmax (int) : New feature to set
-            array (np.array) : Array of feature values
-            weaken (bool) : Weaken or strengthen (i.e., move left or right on
-                            the specified array)
-        '''
-        if weaken:
-            if argmax > array.size:
-                argmax = array.size - 1
-        else:
-            if argmax < 0:
-                argmax = 0
-
-        array[argmax] = 1
-        self._features[idx] = array
-
-    def __weaken(self, feature):
-        '''
-        Weaken the specified feature
-
-        Parameters
-        ----------
-            feature (str) : Name of feature to weaken
-        '''
-        idx, array = self.__get_index_array(feature)
-        argmax, array = self.__get_argmax_array(array)
-        self.__update_feature(self, idx, argmax, array, True)
-
-    def __strengthen(self, feature):
-        '''
-        Strengthen the specified feature
-
-        Parameters
-        ----------
-            feature (str) : Name of feature to weaken
-        '''
-        idx, array = self.__get_index_array(feature)
-        argmax, array = self.__get_argmax_array(array)
-        self.__update_feature(self, idx, argmax, array, False)
 
     def weaken(self):
         '''
@@ -472,12 +476,28 @@ class Consonant(Sound):
             Place: Front -> Back
             Manner: Stop -> Fricative
             Voicing: Voiced -> Unvoiced
-            Tone: Present -> Absent
         '''
         if self.voicing:
-            self.__weaken('voicing')
+            super().weaken('voicing')
         else:
-            self.__weaken('manner')
+            super().weaken('manner')
+
+    def strengthen(self):
+        '''
+        Strengthen this consonant like when a consonant undergoes lenition
+
+        Notes
+        -----
+            Features changes:
+
+            Place: Back -> Front
+            Manner: Fricative -> Stop
+            Voicing: Unvoiced -> Voiced
+        '''
+        if self.voicing:
+            super().strengthen('voicing')
+        else:
+            super().strengthen('manner')
 
 
 class Vowel(Sound):
@@ -498,6 +518,11 @@ class Syllable(Sound):
 
 if __name__ == '__main__':
     cons = Consonant(character='kh')
+    print(cons)
+    cons.strengthen()
+    cons.strengthen()
+    cons.strengthen()
+    cons.strengthen()
     print(cons)
     cons.weaken()
     print(cons)
