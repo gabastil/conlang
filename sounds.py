@@ -6,6 +6,15 @@
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
 
+AIRWAY = None
+CAVITY = None
+VOICING = None
+MANNER = None
+PLACE = None
+
+SONORITY_LOFI = None
+SONORITY_HIFI = None
+
 class Sound(object):
     '''
 
