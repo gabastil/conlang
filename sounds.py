@@ -6,6 +6,108 @@
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
 
+# --- Base features used by the Sound class and its descendents ---
+
+# Direction of airflow to produce this sound
+AIRWAY = ['ingressive',
+          'egressive']
+
+# Part of the airway that air travels through
+CAVITY = ['nasal',
+          'oral']
+
+# Points of articulation in the oral cavity
+PLACE = ['bilabial',
+         'labiodental',
+         'dental',
+         'alveolar',
+         'postalveolar',
+         'retroflex',
+         'palatal',
+         'velar',
+         'uvular',
+         'pharyngeal',
+         'glottal']
+
+# Technique used to restrict airflow during articulation
+MANNER = ['stop',
+          'fricative',
+          'approximant',
+          'affricate',
+          'lateral']
+
+# Usage of vocal chords to produce sound
+VOICING = ['unvoiced',
+           'voiced']
+
+# Phonemic pitch used with sound
+TONE = ['high',
+        'mid-high',
+        'mid',
+        'low-mid',
+        'low']
+
+# Supravocal properties like creakiness or breathiness
+MODE = ['creaky',
+        'breathy']
+
+# Duration of sound during production
+TIME = ['fast',
+        'medium',
+        'slow']
+
+# Tongue placement in the oral cavity
+FRONTNESS = ['front',
+             'mid',
+             'back']
+
+# How open the mouth is
+OPENESS = ['open',
+           'mid-open',
+           'mid',
+           'mid-close',
+           'close']
+
+# Lip rounding
+ROUNDNESS = ['rounded',
+             'unrounded']
+
+# Narrow descriptions of sonority of a sound
+SONORITY = ['vowel',
+            'liquid',
+            'nasal',
+            'fricative',
+            'affricate',
+            'voiced-stop',
+            'unvoiced-stop']
+
+FEATURE_LABELS = ['place',
+                  'manner',
+                  'voicing',
+                  'tone',
+                  'mode',
+                  'time',
+                  'cavity',
+                  'airway',
+                  'frontness',
+                  'openess',
+                  'roundness'
+                  'sonority']
+
+FEATURE_ARRAY = [PLACE,
+                 MANNER,
+                 VOICING,
+                 TONE,
+                 MODE,
+                 TIME,
+                 CAVITY,
+                 AIRWAY,
+                 FRONTNESS,
+                 OPENESS,
+                 ROUNDNESS,
+                 SONORITY]
+
+
 class Sound(object):
     '''
 
@@ -26,34 +128,8 @@ class Sound(object):
         voicing : Voicing for this sound (e.g., unvoiced)
 
     '''
-
-    # (A.1) Features (Base)
-    _AIRWAY = 'ingressive egressive'.split()
-    _CAVITY = 'nasal oral'.split()
-    _VOICING = 'unvoiced voiced'.split()
-    _MANNER = 'stop fricative approximant affricate lateral'.split()
-    _PLACE = ('bilabial labiodental dental alveolar ' +
-              'postalveolar retroflex palatal velar ' +
-              'uvular pharyngeal glottal').split()
-
-    # (A.2) Features (Sonority)
-    SONORITY_HIFI = 'vowel sonorant obstruent'.split()
-    SONORITY_LOFI = ('vowel liquid nasal fricative ' +
-                     'affricate voiced-stop unvoiced-stop').split()
-
-    # (B.1) Attributes and Labels
-    _ATTRIBUTE_LABELS = 'place manner voicing cavity airway'.split()
-    _ATTRIBUTE_ARRAY = [_PLACE, _MANNER, _VOICING, _CAVITY, _AIRWAY]
-
-    # (B.2) Features and Labels
-    _FEATURE_LABELS = _ATTRIBUTE_LABELS + 'sonority_lofi sonority_hifi'.split()
-    _FEATURE_ARRAY = _ATTRIBUTE_ARRAY + [SONORITY_LOFI, SONORITY_HIFI]
-
-    _INT_KEYS = [[(a, b) for a, b in enumerate(_)] for _ in _ATTRIBUTE_ARRAY]
-    _STR_KEYS = [[(b, a) for a, b in enumerate(_)] for _ in _ATTRIBUTE_ARRAY]
-
-    _ATTRIBUTES = {a: dict(b) for a, b in zip(_ATTRIBUTE_LABELS, _INT_KEYS)}
-    _ATTRIBUTESR = {a: dict(b) for a, b in zip(_ATTRIBUTE_LABELS, _STR_KEYS)}
+    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in FEATURE_ARRAY]
+    ATTRIBUTES = {a: dict(b) for a, b in zip(FEATURE_LABELS, STR_KEYS)}
 
     def __init__(self, *features, **kwargs):
         """
@@ -81,8 +157,8 @@ class Sound(object):
                 Include orthographical values like: IPA character and phoneme
 
         """
-        self.rows = len(self._FEATURE_ARRAY)
-        self.columns = max([len(__) for __ in self._FEATURE_ARRAY])
+        self.rows = len(FEATURE_ARRAY)
+        self.columns = max([len(__) for __ in FEATURE_ARRAY])
 
         self._features = np.zeros((self.rows, self.columns))
 
@@ -91,33 +167,6 @@ class Sound(object):
 
         self._ipa = kwargs.get('ipa')
         self._phoneme = kwargs.get('phoneme')
-
-
-    def __getitem__(self, i):
-        '''
-        Return the mapping dictionarys {int : str} or {str : int} for the
-        articulation type i
-
-        Parameters
-        ----------
-            i (str, int) : articulation type to return the dictionary for
-
-        Returns
-        -------
-            Mapping for encoding or decoding an articulation type as a dict.
-        '''
-        is_string, is_int = isinstance(i, str), isinstance(i, int)
-
-        if not (is_string or is_int):
-            raise ValueError('Indices must be strings or integers')
-
-        if is_string:
-            i = i.lower()
-            attributes = self._ATTRIBUTESR
-        else:
-            i = self._ATTRIBUTE_LABELS[i]
-            attributes = self._ATTRIBUTES
-        return attributes[i]
 
     @property
     def ipa(self):
@@ -210,7 +259,6 @@ class Sound(object):
             return None
         return arr.argmax()
 
-
     def __set_feature(self, feature, value):
         '''
         Assign a feature a certain value
@@ -224,7 +272,7 @@ class Sound(object):
         arr = self._features[idx]
 
         if isinstance(value, str):
-            features = self._FEATURE_ARRAY[idx]
+            features = FEATURE_ARRAY[idx]
             value = features.index(value.lower())
 
         if isinstance(value, int) and value < arr.shape[-1]:
@@ -244,7 +292,7 @@ class Sound(object):
 
         if not isinstance(attribute, str):
             return int(attribute)
-        return self._ATTRIBUTE_LABELS.index(attribute)
+        return FEATURE_LABELS.index(attribute)
 
     def __normalize_features(self, features):
         '''
@@ -276,9 +324,8 @@ class Sound(object):
         features = self.__normalize_features(features)
 
         for feature in features:
-            for feature_, values in self._ATTRIBUTESR.items():
+            for feature_, values in self.ATTRIBUTES.items():
                 feature_match = feature in values
-
 
                 if feature_match:
                     feature_index = self.__feature_index(feature_)
@@ -304,13 +351,13 @@ class Sound(object):
         '''
         idx = self.__feature_index(feature)
         if value:
-            return self._FEATURE_ARRAY[idx].index(value)
+            return FEATURE_ARRAY[idx].index(value)
         return idx
 
     def decode(self, feature, value=None):
         '''
-        Convert an integer to its corresponding string value. If value is indic-
-        ated, return that decoding. Otherwise, return feature's high-level
+        Convert an integer to its corresponding string value. If value is
+        indicated, return that decoding. Otherwise, return feature's high-level
         decoding.
 
         Parameters
@@ -323,18 +370,15 @@ class Sound(object):
             If no value is supplied, the feature name will be decoded.
         '''
         if value:
-            features = self._FEATURE_ARRAY[feature]
-            try:
-                return features[value]
-            except IndexError:
-                raise IndexError(f'value must be less than {len(features)}')
-        return self._FEATURE_LABELS[feature]
+            features = FEATURE_ARRAY[feature]
+            return features[value]
+        return FEATURE_LABELS[feature]
 
 
 class Consonant(Sound):
 
     def __init__(self):
-        super().__init__()
+        super().__init__('voiceless stop')
 
     @property
     def type(self):
@@ -343,8 +387,9 @@ class Consonant(Sound):
 
 class Vowel(Sound):
 
+
     def __init__(self):
-        super().__init__()
+        super().__init__('voiced')
 
     @property
     def type(self):
@@ -352,28 +397,29 @@ class Vowel(Sound):
 
 
 class Syllable(Sound):
-    pass
+
+    def __init__(self):
+        pass
 
 
 if __name__ == '__main__':
     s = Sound()
-    # print(s._ATTRIBUTES)
-    print(s[1])
-    print(s['voicing'])
+    # print(s.ATTRIBUTES)
+    # print(s[1])
+    # print(s['voicing'])
     s.manner = 'affricate'
     s.place = 2
     print(s.manner)
     print(s.place)
     # print(s[1][s.manner])
-    print(s.encode_articulation('manner'))
-    print(s.decode_articulation(1))
+    print(s.encode('manner'))
+    print(s.decode(1))
 
     q = Sound('voiced alveolar stop')
     p = Sound('voiced', 'glottal', 'stop')
     print(q._features)
     print(p._features)
     print(p._features.shape)
-    print(p._FEATURE_LABELS)
 
     print(p.place)
     p.place = 'dental'

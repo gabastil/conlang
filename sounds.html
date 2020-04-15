@@ -1061,99 +1061,424 @@ body .markdown-body
 <h1 id="author-glenn-abastillas">author: glenn abastillas<a class="headerlink" href="#author-glenn-abastillas" title="Permanent link"></a></h1>
 <h1 id="created-2020-04-10">created: 2020-04-10<a class="headerlink" href="#created-2020-04-10" title="Permanent link"></a></h1>
 <h1 id="description-classes-and-functions-to-represent-and-manipulate-phonemes">description: classes and functions to represent and manipulate phonemes<a class="headerlink" href="#description-classes-and-functions-to-represent-and-manipulate-phonemes" title="Permanent link"></a></h1>
-<p>class Sound(object):</p>
-<div class="codehilite"><pre>PLACE = (&#39;bilabial labiodental dental alveolar postalveolar retroflex &#39; +
-         &#39;palatal velar glottal&#39;)
-MANNER = &#39;stop fricative approximant affricate lateral&#39;.split()
-VOICING = &#39;unvoiced voiced&#39;.split()
-ROUTE = &#39;nasal oral&#39;.split()
-AIRWAY = &#39;pulmonic non-pulmonic&#39;.split()
+<p>import numpy as np</p>
+<h1 id="-base-features-used-by-the-sound-class-and-its-descendents-">&mdash; Base features used by the Sound class and its descendents &mdash;<a class="headerlink" href="#-base-features-used-by-the-sound-class-and-its-descendents-" title="Permanent link"></a></h1>
+<h1 id="direction-of-airflow-to-produce-this-sound">Direction of airflow to produce this sound<a class="headerlink" href="#direction-of-airflow-to-produce-this-sound" title="Permanent link"></a></h1>
+<p>AIRWAY = [&lsquo;ingressive&rsquo;,
+          &lsquo;egressive&rsquo;]</p>
+<h1 id="part-of-the-airway-that-air-travels-through">Part of the airway that air travels through<a class="headerlink" href="#part-of-the-airway-that-air-travels-through" title="Permanent link"></a></h1>
+<p>CAVITY = [&lsquo;nasal&rsquo;,
+          &lsquo;oral&rsquo;]</p>
+<h1 id="points-of-articulation-in-the-oral-cavity">Points of articulation in the oral cavity<a class="headerlink" href="#points-of-articulation-in-the-oral-cavity" title="Permanent link"></a></h1>
+<p>PLACE = [&lsquo;bilabial&rsquo;,
+         &lsquo;labiodental&rsquo;,
+         &lsquo;dental&rsquo;,
+         &lsquo;alveolar&rsquo;,
+         &lsquo;postalveolar&rsquo;,
+         &lsquo;retroflex&rsquo;,
+         &lsquo;palatal&rsquo;,
+         &lsquo;velar&rsquo;,
+         &lsquo;uvular&rsquo;,
+         &lsquo;pharyngeal&rsquo;,
+         &lsquo;glottal&rsquo;]</p>
+<h1 id="technique-used-to-restrict-airflow-during-articulation">Technique used to restrict airflow during articulation<a class="headerlink" href="#technique-used-to-restrict-airflow-during-articulation" title="Permanent link"></a></h1>
+<p>MANNER = [&lsquo;stop&rsquo;,
+          &lsquo;fricative&rsquo;,
+          &lsquo;approximant&rsquo;,
+          &lsquo;affricate&rsquo;,
+          &lsquo;lateral&rsquo;]</p>
+<h1 id="usage-of-vocal-chords-to-produce-sound">Usage of vocal chords to produce sound<a class="headerlink" href="#usage-of-vocal-chords-to-produce-sound" title="Permanent link"></a></h1>
+<p>VOICING = [[&lsquo;unvoiced&rsquo;, &lsquo;voiceless&rsquo;],
+           &lsquo;voiced&rsquo;]</p>
+<h1 id="broad-descriptions-of-sonority-of-a-sound">Broad descriptions of sonority of a sound<a class="headerlink" href="#broad-descriptions-of-sonority-of-a-sound" title="Permanent link"></a></h1>
+<p>SONORITY_LOFI = [&lsquo;vowel&rsquo;,
+                 &lsquo;sonorant&rsquo;,
+                 &lsquo;obstruent&rsquo;]</p>
+<h1 id="narrow-descriptions-of-sonority-of-a-sound">Narrow descriptions of sonority of a sound<a class="headerlink" href="#narrow-descriptions-of-sonority-of-a-sound" title="Permanent link"></a></h1>
+<p>SONORITY_HIFI = [&lsquo;vowel&rsquo;,
+                 &lsquo;liquid&rsquo;,
+                 &lsquo;nasal&rsquo;,
+                 &lsquo;fricative&rsquo;,
+                 &lsquo;affricate&rsquo;,
+                 &lsquo;voiced-stop&rsquo;,
+                 &lsquo;unvoiced-stop&rsquo;]</p>
+<p>class Sound(object):
+    &lsquo;&rsquo;&lsquo;</p>
+<div class="codehilite"><pre>The Sound class contains properties and auxiliary functions for encoding
+and decoding sound properties like articulation (manner, place, voicing)
+and airway types (e.g., pulmonic). This class serves as the parent class
+for the Consonant and Vowel classes.
 
-SONORITY_HIGH_LEVEL = &#39;vowel sonorant obstruent&#39;.split()
-SONORITY_LOW_LEVEL = (&#39;vowel liquid nasal fricative &#39; +
-                      &#39;affricate voiced-stop unvoiced-stop&#39;).stop()
+Attributes
+----------
+    ipa : International Phonetic Alphabet (IPA) symbol as unicode
+    phoneme : Simple representation of this with ASCII characters
+    airway : How air moves to make this sound
+    cavity : Oral or nasal sounds
+    sonority : How &#39;open&#39; or sonorous a sound is
+    place : Place of articulation for this sound (e.g., bilabial)
+    manner : Manner of articulation for this sound (e.g., fricative)
+    voicing : Voicing for this sound (e.g., unvoiced)
 
-ATTRIBUTE_LABELS = &#39;place manner voicing route airway&#39;.split()
-ATTRIBUTE_ARRAY = [PLACE, MANNER, VOICING, ROUTE, AIRWAY]
-ATTRIBUTES = {a: b for a, b in zip(ATTRIBUTE_LABELS, ATTRIBUTE_ARRAY)}
+&#39;&#39;&#39;
 
-def __init__(self):
-    pass
+# # (A.1) Features (Base)
+# _AIRWAY = &#39;ingressive egressive&#39;.split()
+# _CAVITY = &#39;nasal oral&#39;.split()
+# _VOICING = &#39;unvoiced voiced&#39;.split()
+# _MANNER = &#39;stop fricative approximant affricate lateral&#39;.split()
+# _PLACE = (&#39;bilabial labiodental dental alveolar &#39; +
+#           &#39;postalveolar retroflex palatal velar &#39; +
+#           &#39;uvular pharyngeal glottal&#39;).split()
 
-def __getitem__(self, i, j=None):
-    if isinstance(i, str):
-        i = self.ATTRIBUTE_LABELS.index(i.lower())
-    elif not isinstance(i, int):
-        raise ValueError(&#39;First index must be a string or integer &#39; +
-                         &#39;representing the attribute to index&#39;)
+# # (A.2) Features (Sonority)
+# SONORITY_HIFI = &#39;vowel sonorant obstruent&#39;.split()
+# SONORITY_LOFI = (&#39;vowel liquid nasal fricative &#39; +
+#                  &#39;affricate voiced-stop unvoiced-stop&#39;).split()
 
-    attribute = self.ATTRIBUTES[i]
+# (B.1) Attributes and Labels
+ATTRIBUTE_LABELS = [&#39;place&#39;, &#39;manner&#39;, &#39;voicing&#39;, &#39;cavity&#39;, &#39;airway&#39;]
+ATTRIBUTE_ARRAY = [PLACE, MANNER, VOICING, CAVITY, AIRWAY]
 
-    if j is not None:
-        if isinstance(j, str):
-            attribute = attribute.index(j.lower())
-        elif not isinstance(j, int):
-            raise ValueError(&#39;Second index must be a string or integer &#39; +
-                             &#39;representing the attribute\&#39;s value&#39;)
+# (B.2) Features and Labels
+FEATURE_LABELS = ATTRIBUTE_LABELS + [&#39;sonority_lofi&#39;, &#39;sonority_hifi&#39;]
+FEATURE_ARRAY = ATTRIBUTE_ARRAY + [SONORITY_LOFI, SONORITY_HIFI]
 
-    return attribute
+INT_KEYS = [[(a, b) for a, b in enumerate(_)] for _ in ATTRIBUTE_ARRAY]
+STR_KEYS = [[(b, a) for a, b in enumerate(_)] for _ in ATTRIBUTE_ARRAY]
+
+ATTRIBUTES = {a: dict(b) for a, b in zip(ATTRIBUTE_LABELS, INT_KEYS)}
+ATTRIBUTESR = {a: dict(b) for a, b in zip(ATTRIBUTE_LABELS, STR_KEYS)}
+
+def __init__(self, *features, **kwargs):
+    &quot;&quot;&quot;
+    Initialize this sound class with positional arguments describing the
+    sound and any orthographical elements as keyword arguments.
+
+    Parameters
+    ----------
+        features (list) : Positional arguments for sound features.
+        kwargs (dict) : Keyword arguments for orthographical elements.
+
+    Notes
+    -----
+        Features
+            Include values related to:
+                1. Place of articulation
+                2. Manner of articulation
+                3. Voicing
+                4. Cavity
+                5. Airway
+                6. Sonority (low fidelity)
+                7. Sonority (high fidelity)
+
+        Kwargs
+            Include orthographical values like: IPA character and phoneme
+
+    &quot;&quot;&quot;
+    self.rows = len(self.FEATURE_ARRAY)
+    self.columns = max([len(__) for __ in self.FEATURE_ARRAY])
+
+    self._features = np.zeros((self.rows, self.columns))
+
+    if features:
+        self.__parse_features(*features)
+
+    self._ipa = kwargs.get(&#39;ipa&#39;)
+    self._phoneme = kwargs.get(&#39;phoneme&#39;)
+
+
+def __getitem__(self, i):
+    &#39;&#39;&#39;
+    Return the mapping dictionarys {int : str} or {str : int} for the
+    articulation type i
+
+    Parameters
+    ----------
+        i (str, int) : articulation type to return the dictionary for
+
+    Returns
+    -------
+        Mapping for encoding or decoding an articulation type as a dict.
+    &#39;&#39;&#39;
+    is_string, is_int = isinstance(i, str), isinstance(i, int)
+
+    if not (is_string or is_int):
+        raise ValueError(&#39;Indices must be strings or integers&#39;)
+
+    if is_string:
+        i = i.lower()
+        attributes = self.ATTRIBUTESR
+    else:
+        i = self.ATTRIBUTE_LABELS[i]
+        attributes = self.ATTRIBUTES
+    return attributes[i]
 
 @property
 def ipa(self):
+    &#39;&#39;&#39; Return this sound&#39;s ipa value &#39;&#39;&#39;
     return self._ipa
 
-@property.setter
+@ipa.setter
 def ipa(self, ipa):
     self._ipa = ipa
 
 @property
 def phoneme(self):
+    &#39;&#39;&#39; Return this sound&#39;s phoneme value &#39;&#39;&#39;
     return self._phoneme
 
-@property.setter
+@phoneme.setter
 def phoneme(self, phoneme):
     self._phoneme = phoneme
 
 @property
-def sonority(self):
-    return self._sonority
-
-@property.setter
-def sonority(self, sonority):
-    self._sonority = sonority
-
-@property
 def place(self):
-    return self._place
+    &#39;&#39;&#39; Return this sound&#39;s place value &#39;&#39;&#39;
+    return self.__get_feature(&#39;place&#39;)
 
-@property.setter
+@place.setter
 def place(self, place):
-    self._place = place
-
-@property
-def voicing(self):
-    return self._voicing
-
-@property.setter
-def voicing(self, voicing):
-    self._voicing = voicing
+    self.__set_feature(&#39;place&#39;, place)
 
 @property
 def manner(self):
-    return self._manner
+    &#39;&#39;&#39; Return this sound&#39;s manner value &#39;&#39;&#39;
+    return self.__get_feature(&#39;manner&#39;)
 
-@property.setter
+@manner.setter
 def manner(self, manner):
-    self._manner = manner
+    self.__set_feature(&#39;manner&#39;, manner)
+
+@property
+def voicing(self):
+    &#39;&#39;&#39; Return this sound&#39;s voicing value &#39;&#39;&#39;
+    return self.__get_feature(&#39;voicing&#39;)
+
+@voicing.setter
+def voicing(self, voicing):
+    self.__set_feature(&#39;voicing&#39;, voicing)
+
+@property
+def cavity(self):
+    &#39;&#39;&#39; Return this sound&#39;s cavity value &#39;&#39;&#39;
+    return self.__get_feature(&#39;cavity&#39;)
+
+@cavity.setter
+def cavity(self, cavity):
+    self.__set_feature(&#39;cavity&#39;, cavity)
+
+@property
+def airway(self):
+    &#39;&#39;&#39; Return this sound&#39;s airway value &#39;&#39;&#39;
+    return self.__get_feature(&#39;airway&#39;)
+
+@airway.setter
+def airway(self, airway):
+    self.__set_feature(&#39;airway&#39;, airway)
+
+@property
+def sonority(self):
+    &#39;&#39;&#39; Return this sound&#39;s sonority value &#39;&#39;&#39;
+    return self.__get_feature(&#39;sonority&#39;)
+
+@sonority.setter
+def sonority(self, sonority):
+    self.__set_feature(&#39;sonority&#39;, sonority)
+
+def __get_feature(self, feature):
+    &#39;&#39;&#39;
+    Return the index value of a specfied feature
+
+    Parameters
+    ----------
+        feature (str) : Feature name to retrieve values for
+
+    Returns
+    -------
+        Integer of property if exists, else None
+    &#39;&#39;&#39;
+    idx = self.__feature_index(feature)
+    arr = self._features[idx]
+
+    if arr.sum() == 0:
+        return None
+    return arr.argmax()
+
+
+def __set_feature(self, feature, value):
+    &#39;&#39;&#39;
+    Assign a feature a certain value
+
+    Parameters
+    ----------
+        feature (str) : Name of feature to set
+        value (str, int) : Feature value to set
+    &#39;&#39;&#39;
+    idx = self.__feature_index(feature)
+    arr = self._features[idx]
+
+    if isinstance(value, str):
+        features = self.FEATURE_ARRAY[idx]
+        value = features.index(value.lower())
+
+    if isinstance(value, int) and value &lt; arr.shape[-1]:
+        arr = np.zeros(arr.size)
+        arr[value] = 1
+
+    self._features[idx] = arr
+
+def __feature_index(self, attribute):
+    &#39;&#39;&#39;
+    Return the feature index for an attribute
+
+    Parameters
+    ----------
+        attribute (str, int) : Name or index of an attribute
+    &#39;&#39;&#39;
+
+    if not isinstance(attribute, str):
+        return int(attribute)
+    return self.ATTRIBUTE_LABELS.index(attribute)
+
+def __normalize_features(self, features):
+    &#39;&#39;&#39;
+    [TO BE DEVELOPED]
+    Create regular expressions to identify variations of similar
+    feature names
+
+    Parameters
+    ----------
+        features (list) : List of features for normalization
+
+    Notes
+    -----
+        Currently, this function just returns the current list of features
+    &#39;&#39;&#39;
+    return features
+
+def __parse_features(self, *features):
+    &#39;&#39;&#39;
+    Configure this sound&#39;s feature matrix with specified input features
+
+    Parameters
+    ----------
+        features (list): Positional arguments corresponding to features
+    &#39;&#39;&#39;
+    if isinstance(features, tuple) and len(features) == 1:
+        features = features[0].split()
+
+    features = self.__normalize_features(features)
+
+    for feature in features:
+        for feature_, values in self.ATTRIBUTESR.items():
+            feature_match = feature in values
+
+
+            if feature_match:
+                feature_index = self.__feature_index(feature_)
+                value_index = list(values.keys()).index(feature)
+
+                self._features[feature_index][value_index] = 1
+                break
+
+def encode(self, feature, value=None):
+    &#39;&#39;&#39;
+    Convert a string to its corresponding integer value. If value is indic-
+    ated, return that encoding. Otherwise, return feature&#39;s high-level
+    encoding.
+
+    Parameters
+    ----------
+        feature (str) : High-level feature name (e.g., place, manner)
+        value (str) : feature value (e.g., for place, dental)
+
+    Notes
+    -----
+        If no value is supplied, the feature name will be encoded.
+    &#39;&#39;&#39;
+    idx = self.__feature_index(feature)
+    if value:
+        return self.FEATURE_ARRAY[idx].index(value)
+    return idx
+
+def decode(self, feature, value=None):
+    &#39;&#39;&#39;
+    Convert an integer to its corresponding string value. If value is indic-
+    ated, return that decoding. Otherwise, return feature&#39;s high-level
+    decoding.
+
+    Parameters
+    ----------
+        feature (str) : High-level feature name (e.g., place, manner)
+        value (str) : feature value (e.g., for place, dental)
+
+    Notes
+    -----
+        If no value is supplied, the feature name will be decoded.
+    &#39;&#39;&#39;
+    if value:
+        features = self.FEATURE_ARRAY[feature]
+        try:
+            return features[value]
+        except IndexError:
+            raise IndexError(f&#39;value must be less than {len(features)}&#39;)
+    return self.FEATURE_LABELS[feature]
 </pre></div>
 
 
-<p>class Consonant(Sound):
-    pass</p>
-<p>class Vowel(Sound):
-    pass</p>
+<p>class Consonant(Sound):</p>
+<div class="codehilite"><pre>def __init__(self):
+    super().__init__()
+
+@property
+def type(self):
+    return &#39;C&#39;
+</pre></div>
+
+
+<p>class Vowel(Sound):</p>
+<div class="codehilite"><pre>def __init__(self):
+    super().__init__()
+
+@property
+def type(self):
+    return &#39;V&#39;
+</pre></div>
+
+
 <p>class Syllable(Sound):
     pass</p>
-<p>if <strong>name</strong>==&rsquo;<strong>main</strong>&rsquo;:
+<p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
     s = Sound()
-    print(s)</p></article></body></html>
+    # print(s.ATTRIBUTES)
+    print(s[1])
+    print(s[&lsquo;voicing&rsquo;])
+    s.manner = &lsquo;affricate&rsquo;
+    s.place = 2
+    print(s.manner)
+    print(s.place)
+    # print(s[1][s.manner])
+    print(s.encode_articulation(&lsquo;manner&rsquo;))
+    print(s.decode_articulation(1))</p>
+<div class="codehilite"><pre>q = Sound(&#39;voiced alveolar stop&#39;)
+p = Sound(&#39;voiced&#39;, &#39;glottal&#39;, &#39;stop&#39;)
+print(q._features)
+print(p._features)
+print(p._features.shape)
+print(p.FEATURE_LABELS)
+
+print(p.place)
+p.place = &#39;dental&#39;
+print(p.place)
+p.place = 8
+
+print(p.manner)
+print(p.voicing)
+print(p.place)
+
+print(p.encode(&#39;manner&#39;, &#39;fricative&#39;))
+print(p.encode(&#39;airway&#39;))
+print(p.decode(3, 1))
+print(p.decode(2))
+</pre></div></article></body></html>
