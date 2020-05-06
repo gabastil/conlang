@@ -1,0 +1,56 @@
+phonology:
+
+  - airway:
+    - ingressive
+    - egressive
+
+  - cavity:
+    - nasal
+    - oral
+
+  - place:
+    - bilabial
+    - labiodental
+    - dental
+    - alveolar
+    - postalveolar
+    - retroflex
+    - palatal
+    - velar
+    - uvular
+    - pharyngeal
+    - glottal
+
+  - manner:
+    - stop
+    - affricate
+    - fricative
+    - approximant
+    - lateral
+    - click
+
+  - voicing:
+    - voiced
+    - [unvoiced, voiceless]
+
+  - tone:
+    - high
+    - mid-high
+    - mid
+    - low-mid
+    - low
+
+  - mode:
+    - creaky
+    - breathy
+
+  - openness:
+    - open
+    - mid-open
+    - mid
+    - mid-close
+    - close
+
+orthography:
+  - vowels
+  - consonants
