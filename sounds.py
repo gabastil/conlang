@@ -5,6 +5,7 @@
 # created: 2020-04-10
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
+import yaml
 
 # --- Base features used by the Sound class and its descendents ---
 
