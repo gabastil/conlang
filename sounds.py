@@ -243,7 +243,8 @@ class Sound(object):
 
     def __get_argmax_array(self, idx, array, direction):
         '''
-        Return the argmax for the input array and a zero array
+        Return the argmax for the input array and a zero array. Used for mutat-
+        ing the properties of this Sound's sound matrix.
 
         Parameters
         ----------
@@ -341,6 +342,19 @@ class Sound(object):
         self.__update_feature(idx, argmax, array)
 
 
+class Mora():
+
+	def __init__(self):
+		self.weight = 1
+
+	def add(self):
+		self.weight += 1
+
+	def remove(self):
+		if self.weight > -1:
+			self.weight -= 1
+
+
 class Consonant(Sound):
 
     def __init__(self, *features, **kwargs):
@@ -412,10 +426,21 @@ class Vowel(Sound):
         return 'V'
 
 
-class Syllable(Sound):
+class Syllable(Sound, Mora):
 
     def __init__(self):
-        pass
+        super().__init__()
+
+        self.structure = None
+
+    def onset(self):
+    	pass
+
+    def nucleus(self):
+    	pass
+
+    def coda(self):
+    	pass
 
 
 if __name__ == '__main__':
