@@ -1,14 +1,14 @@
 phonology:
 
-  - airway:
+  airway: &airway
     - ingressive
     - egressive
 
-  - cavity:
+  cavity: &cavity
     - nasal
     - oral
 
-  - place:
+  place: &place
     - bilabial
     - labiodental
     - dental
@@ -21,7 +21,7 @@ phonology:
     - pharyngeal
     - glottal
 
-  - manner:
+  manner: &manner
     - stop
     - affricate
     - fricative
@@ -29,27 +29,78 @@ phonology:
     - lateral
     - click
 
-  - voicing:
+  voicing: &voicing
     - voiced
-    - [unvoiced, voiceless]
+    - voiceless
 
-  - tone:
+  tone: &tone
     - high
     - mid-high
     - mid
     - low-mid
     - low
 
-  - mode:
+  mode: &mode
     - creaky
     - breathy
 
-  - openness:
+  time: &time
+    - fast
+    - medium
+    - slow
+
+  frontness: &frontness
+    - front
+    - mid
+    - back
+
+  openness: &openness
     - open
     - mid-open
     - mid
     - mid-close
     - close
+
+  roundness: &roundness
+    - rounded
+    - unrounded
+
+  sonority: &sonority
+    - vowel
+    - liquid
+    - nasal
+    - fricative
+    - affricate
+    - voiced-stop
+    - unvoiced-stop
+
+  labels:
+    - place
+    - manner
+    - voicing
+    - tone
+    - mode
+    - time
+    - cavity
+    - airway
+    - frontness
+    - openness
+    - roundness
+    - sonority
+
+  features:
+    - *place
+    - *manner
+    - *voicing
+    - *tone
+    - *mode
+    - *time
+    - *cavity
+    - *airway
+    - *frontness
+    - *openness
+    - *roundness
+    - *sonority
 
 orthography:
   - vowels
