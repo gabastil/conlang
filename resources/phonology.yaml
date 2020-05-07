@@ -27,7 +27,6 @@ phonology:
     - fricative
     - approximant
     - lateral
-    - click
 
   voicing: &voicing
     - voiced
@@ -101,3 +100,15 @@ phonology:
     - *openness
     - *roundness
     - *sonority
+
+orthography:
+
+  consonants:
+    p: {place : [bilabial], manner : [stop], voicing : [voiceless]}
+    b: {place : [bilabial], manner : [stop], voicing : [voiced]}
+    f: {place : [labiodental], manner : [fricative], voicing : [voiceless]}
+    v: {place : [labiodental], manner : [fricative], voicing : [voiced]}
+    th: {place : [dental], manner : [fricative], voicing : [voiceless]}
+    dh: {place : [dental], manner : [fricative], voicing : [voiced]}
+    t: {place : [alveolar], manner : [stop], voicing : [voiceless]}
+    d: {place : [alveolar], manner : [stop], voicing : [voiced]}

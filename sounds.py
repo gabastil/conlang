@@ -29,8 +29,10 @@ class Sound(object):
         voicing : Voicing for this sound (e.g., voiceless)
 
     '''
-    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in PHON.features]
-    ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, STR_KEYS)}
+    KEYS = [[(b, a) for a, b in enumerate(__)] for __ in PHON.features]
+    KEYR = [enumerate(__) for __ in PHON.features]
+    ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, KEYS)}
+    ATTRIBUTER = {a: dict(b) for a, b in zip(PHON.labels, KEYR)}
 
     def __init__(self, *features, **kwargs):
         """
@@ -64,13 +66,16 @@ class Sound(object):
         self._features = np.zeros((self.rows, self.columns))
 
         if features:
-            self.__parse(*features)
+            self._parse(*features)
 
         self._ipa = kwargs.get('ipa')
         self._character = kwargs.get('character')
 
     def __repr__(self):
         features = [getattr(self, __) for __ in PHON.labels]
+        features = [self.ATTRIBUTER[PHON.label[i]][j] for i, j in enumerate(features)]
+
+
         attributes = [f'{a}={b}' for a, b in zip(PHON.labels, features)]
         attributes = filter(lambda x : not x.endswith('None'), attributes)
         return "Sound({})".format(', '.join(attributes))
@@ -96,112 +101,112 @@ class Sound(object):
     @property
     def place(self):
         ''' Return this sound's place value '''
-        return self.__get_feature('place')
+        return self._get_feature('place')
 
     @place.setter
     def place(self, place):
-        self.__set_feature('place', place)
+        self._set_feature('place', place)
 
     @property
     def manner(self):
         ''' Return this sound's manner value '''
-        return self.__get_feature('manner')
+        return self._get_feature('manner')
 
     @manner.setter
     def manner(self, manner):
-        self.__set_feature('manner', manner)
+        self._set_feature('manner', manner)
 
     @property
     def voicing(self):
         ''' Return this sound's voicing value '''
-        return self.__get_feature('voicing')
+        return self._get_feature('voicing')
 
     @voicing.setter
     def voicing(self, voicing):
-        self.__set_feature('voicing', voicing)
+        self._set_feature('voicing', voicing)
 
     @property
     def cavity(self):
         ''' Return this sound's cavity value '''
-        return self.__get_feature('cavity')
+        return self._get_feature('cavity')
 
     @cavity.setter
     def cavity(self, cavity):
-        self.__set_feature('cavity', cavity)
+        self._set_feature('cavity', cavity)
 
     @property
     def airway(self):
         ''' Return this sound's airway value '''
-        return self.__get_feature('airway')
+        return self._get_feature('airway')
 
     @airway.setter
     def airway(self, airway):
-        self.__set_feature('airway', airway)
+        self._set_feature('airway', airway)
 
     @property
     def sonority(self):
         ''' Return this sound's sonority value '''
-        return self.__get_feature('sonority')
+        return self._get_feature('sonority')
 
     @sonority.setter
     def sonority(self, sonority):
-        self.__set_feature('sonority', sonority)
+        self._set_feature('sonority', sonority)
 
     @property
     def mode(self):
         ''' Return this sound's mode value '''
-        return self.__get_feature('mode')
+        return self._get_feature('mode')
 
     @mode.setter
     def mode(self, mode):
-        self.__set_feature('mode', mode)
+        self._set_feature('mode', mode)
 
     @property
     def tone(self):
         ''' Return this sound's tone value '''
-        return self.__get_feature('tone')
+        return self._get_feature('tone')
 
     @tone.setter
     def tone(self, tone):
-        self.__set_feature('tone', tone)
+        self._set_feature('tone', tone)
 
     @property
     def speed(self):
         ''' Return this sound's speed value '''
-        return self.__get_feature('speed')
+        return self._get_feature('speed')
 
     @speed.setter
     def speed(self, speed):
-        self.__set_feature('speed', speed)
+        self._set_feature('speed', speed)
 
     @property
     def frontness(self):
         ''' Return this sound's frontness value '''
-        return self.__get_feature('frontness')
+        return self._get_feature('frontness')
 
     @frontness.setter
     def frontness(self, frontness):
-        self.__set_feature('frontness', frontness)
+        self._set_feature('frontness', frontness)
 
     @property
     def openness(self):
         ''' Return this sound's openness value '''
-        return self.__get_feature('openness')
+        return self._get_feature('openness')
 
     @openness.setter
     def openness(self, openness):
-        self.__set_feature('openness', openness)
+        self._set_feature('openness', openness)
 
     @property
     def roundness(self):
         ''' Return this sound's roundness value '''
-        return self.__get_feature('roundness')
+        return self._get_feature('roundness')
 
     @roundness.setter
     def roundness(self, roundness):
-        self.__set_feature('roundness', roundness)
+        self._set_feature('roundness', roundness)
 
-    def __get_feature(self, feature):
+    def _get_feature(self, feature):
         '''
         Return the index value of a specfied feature
 
@@ -213,14 +218,14 @@ class Sound(object):
         -------
             Integer of property if exists, else None
         '''
-        idx = self.__feature_index(feature)
+        idx = self._feature_index(feature)
         arr = self._features[idx]
 
         if arr.sum() == 0:
             return None
         return arr.argmax()
 
-    def __set_feature(self, feature, value):
+    def _set_feature(self, feature, value):
         '''
         Assign a feature a certain value
 
@@ -229,7 +234,7 @@ class Sound(object):
             feature (str) : Name of feature to set
             value (str, int) : Feature value to set
         '''
-        idx = self.__feature_index(feature)
+        idx = self._feature_index(feature)
         arr = self._features[idx]
 
         if isinstance(value, str):
@@ -242,7 +247,7 @@ class Sound(object):
 
         self._features[idx] = arr
 
-    def __feature_index(self, attribute):
+    def _feature_index(self, attribute):
         '''
         Return the feature index for an attribute
 
@@ -255,7 +260,7 @@ class Sound(object):
             return int(attribute)
         return PHON.labels.index(attribute)
 
-    def __normalize(self, features):
+    def _normalize(self, features):
         '''
         [TO BE DEVELOPED]
         Create regular expressions to identify variations of similar
@@ -271,7 +276,7 @@ class Sound(object):
         '''
         return features
 
-    def __parse(self, *features):
+    def _parse(self, *features):
         '''
         Configure this sound's feature matrix with specified input features
 
@@ -282,23 +287,23 @@ class Sound(object):
         if isinstance(features, tuple) and len(features) == 1:
             features = features[0].split()
 
-        for feature in self.__normalize(features):
+        for feature in self._normalize(features):
             for feature_, values in self.ATTRIBUTES.items():
                 feature_match = feature in values
 
                 if feature_match:
-                    feature_index = self.__feature_index(feature_)
+                    feature_index = self._feature_index(feature_)
                     value_index = list(values.keys()).index(feature)
 
                     self._features[feature_index][value_index] = 1
                     break
 
-    def __get_index_array(self, feature):
+    def _get_index_array(self, feature):
         ''' Return an index and array associated with this feature '''
         idx = self.encode(feature)
         return idx, self._features[idx]
 
-    def __get_argmax_array(self, idx, array, direction):
+    def _get_argmax_array(self, idx, array, direction):
         '''
         Return the argmax for the input array and a zero array. Used for mutat-
         ing the properties of this Sound's sound matrix.
@@ -321,7 +326,7 @@ class Sound(object):
             argmax = 0
         return argmax, array
 
-    def __update_feature(self, idx, argmax, array):
+    def _update_feature(self, idx, argmax, array):
         '''
         Update the specified features array with an argmax
 
@@ -349,7 +354,7 @@ class Sound(object):
         -----
             If no value is supplied, the feature name will be encoded.
         '''
-        idx = self.__feature_index(feature)
+        idx = self._feature_index(feature)
         if value:
             return PHON.features[idx].index(value)
         return idx
@@ -382,9 +387,9 @@ class Sound(object):
         ----------
             feature (str) : Name of feature to weaken
         '''
-        idx, array = self.__get_index_array(feature)
-        argmax, array = self.__get_argmax_array(idx, array, 1)
-        self.__update_feature(idx, argmax, array)
+        idx, array = self._get_index_array(feature)
+        argmax, array = self._get_argmax_array(idx, array, 1)
+        self._update_feature(idx, argmax, array)
 
     def strengthen(self, feature):
         '''
@@ -394,9 +399,9 @@ class Sound(object):
         ----------
             feature (str) : Name of feature to weaken
         '''
-        idx, array = self.__get_index_array(feature)
-        argmax, array = self.__get_argmax_array(idx, array, -1)
-        self.__update_feature(idx, argmax, array)
+        idx, array = self._get_index_array(feature)
+        argmax, array = self._get_argmax_array(idx, array, -1)
+        self._update_feature(idx, argmax, array)
 
 
 class Mora():
@@ -415,13 +420,16 @@ class Mora():
 class Consonant(Sound):
 
     def __init__(self, *features, **kwargs):
-        super().__init__('voiceless stop', *features, **kwargs)
-        self.__default()
+        super().__init__(*features, **kwargs)
+
+        if not features and not kwargs:
+            self.__default()
 
     def __repr__(self):
+        ATTR = self.ATTRIBUTER
         features = [getattr(self, __) for __ in PHON.labels[:3]]
-        attributes = [f'{a}={b}' for a, b in zip(PHON.labels[:3], features)]
-        return 'Consonant({})'.format(*attributes)
+        features = [ATTR[PHON.labels[i]][j] for i, j in enumerate(features)]
+        return 'Consonant({})'.format(', '.join(features))
 
     def __default(self):
         ''' Set the default basic properties of a consonant if none exist '''
@@ -442,7 +450,7 @@ class Consonant(Sound):
     def set(self, *features, **kwargs):
         self.__init__(*features, **kwargs)
 
-    def weaken(self):
+    def weaken(self, intensify=False):
         '''
         Weaken this consonant like when a consonant undergoes lenition
 
@@ -454,9 +462,9 @@ class Consonant(Sound):
             Manner: Stop -> Fricative
             Voicing: Voiced -> Unvoiced
         '''
-        if self.voicing:
+        if self.voicing == 0:
             super().weaken('voicing')
-        elif self.manner:
+        elif self.manner < 2 or intensify:
             super().weaken('manner')
         else:
             super().weaken('place')
@@ -464,7 +472,7 @@ class Consonant(Sound):
         self.__default()
 
 
-    def strengthen(self):
+    def strengthen(self, intensify=False):
         '''
         Strengthen this consonant like when a consonant undergoes lenition
 
@@ -476,9 +484,9 @@ class Consonant(Sound):
             Manner: Fricative -> Stop
             Voicing: Unvoiced -> Voiced
         '''
-        if self.voicing:
+        if self.voicing > 0:
             super().strengthen('voicing')
-        elif self.manner:
+        elif self.manner > 0 or intensify:
             super().strengthen('manner')
         else:
             super().strengthen('place')
@@ -527,9 +535,9 @@ class Syllable(Sound, Mora):
 
     def __init__(self, structure):
         super().__init__()
-        self.__parse(structure)
+        self._parse(structure)
 
-    def __parse(self, structure):
+    def _parse(self, structure):
         structure = structure.lower()
         onset, coda = [__ for __ in structure.split('v') if __]
         self.onset(onset)
@@ -556,17 +564,23 @@ class Syllable(Sound, Mora):
 
 
 if __name__ == '__main__':
-    cons = Consonant(character='kh')
+    cons = Consonant('velar', 'voiceless', 'fricative', character='kh')
     print(cons)
     cons.strengthen()
+    print(cons)
     cons.strengthen()
-    cons.strengthen()
+    print(cons)
     cons.strengthen()
     print(cons)
     cons.weaken()
     print(cons)
     cons.weaken()
     print(cons)
+    cons.weaken()
+    print(cons)
+    cons.weaken()
+    print(cons)
+    print(Phonology().orthography)
 
     # s = Sound()
     # # print(s.ATTRIBUTES)
