@@ -8,6 +8,7 @@ import numpy as np
 from configuration import Phonology
 
 PHON = Phonology().phonology
+ORTH = Phonology().orthography
 
 
 class Sound(object):
@@ -68,17 +69,23 @@ class Sound(object):
         if features:
             self._parse(*features)
 
+        if kwargs.get('letter'):
+            kind, letter = kwargs.get('kind'), kwargs.get('letter')
+            self._parse_letter(kind, letter)
+
         self._ipa = kwargs.get('ipa')
         self._character = kwargs.get('character')
 
-    def __repr__(self):
+    def __repr__(self, label="Sound"):
         features = [getattr(self, __) for __ in PHON.labels]
-        features = [self.ATTRIBUTER[PHON.label[i]][j] for i, j in enumerate(features)]
+        features = enumerate(features)
 
+        A = self.ATTRIBUTER
+        features = [A[PHON.labels[i]][j] for i, j in features if j is not None]
 
-        attributes = [f'{a}={b}' for a, b in zip(PHON.labels, features)]
-        attributes = filter(lambda x : not x.endswith('None'), attributes)
-        return "Sound({})".format(', '.join(attributes))
+        attributes = ', '.join(features)
+
+        return "{}({})".format(label, attributes)
 
     @property
     def ipa(self):
@@ -287,6 +294,10 @@ class Sound(object):
         if isinstance(features, tuple) and len(features) == 1:
             features = features[0].split()
 
+            # Parse input as a consonant letter by default
+            if len(features) < 2 and len(features[0]) < 3:
+                self._parse_letter('c', features[0])
+
         for feature in self._normalize(features):
             for feature_, values in self.ATTRIBUTES.items():
                 feature_match = feature in values
@@ -297,6 +308,32 @@ class Sound(object):
 
                     self._features[feature_index][value_index] = 1
                     break
+
+    def _parse_letter(self, kind, letter):
+        '''
+        Set this sounds properties from the phonology file's set of sounds.
+
+        Parameters
+        ----------
+            kind (str) : Whether or not the letter is a vowel or consonant
+            letter (str) : Sound defined in phonology.yaml
+        '''
+        if kind.lower().startswith('c'):
+            orthography = ORTH.consonants
+        elif kind.lower().startswith('v'):
+            orthography = ORTH.vowels
+        else:
+            raise ValueError('`kind` must be `consonant` or `vowel`')
+
+        self.character = letter
+
+        for letter_ in orthography:
+            if letter_.name == letter:
+                features = list(letter_)[1:]
+                self._parse(*features)
+                break
+        else:
+            raise ValueError('Input `letter` or `kind` is incorrect.')
 
     def _get_index_array(self, feature):
         ''' Return an index and array associated with this feature '''
@@ -420,16 +457,13 @@ class Mora():
 class Consonant(Sound):
 
     def __init__(self, *features, **kwargs):
-        super().__init__(*features, **kwargs)
+        super().__init__(*features, **kwargs, kind='c')
 
         if not features and not kwargs:
             self.__default()
 
     def __repr__(self):
-        ATTR = self.ATTRIBUTER
-        features = [getattr(self, __) for __ in PHON.labels[:3]]
-        features = [ATTR[PHON.labels[i]][j] for i, j in enumerate(features)]
-        return 'Consonant({})'.format(', '.join(features))
+        return super().__repr__('Consonant')
 
     def __default(self):
         ''' Set the default basic properties of a consonant if none exist '''
@@ -507,9 +541,7 @@ class Vowel(Sound):
         self.__default()
 
     def __repr__(self):
-        features = [getattr(self, __) for __ in PHON.labels[:3]]
-        attributes = [f'{a}={b}' for a, b in zip(PHON.labels[:3], features)]
-        return 'Vowel({})'.format(*attributes)
+        return super().__repr__('Vowel')
 
     def __default(self):
         default = 'medium oral egressive open voiced mid unrounded'.split()
@@ -564,23 +596,28 @@ class Syllable(Sound, Mora):
 
 
 if __name__ == '__main__':
-    cons = Consonant('velar', 'voiceless', 'fricative', character='kh')
-    print(cons)
-    cons.strengthen()
-    print(cons)
-    cons.strengthen()
-    print(cons)
-    cons.strengthen()
-    print(cons)
-    cons.weaken()
-    print(cons)
-    cons.weaken()
-    print(cons)
-    cons.weaken()
-    print(cons)
-    cons.weaken()
-    print(cons)
-    print(Phonology().orthography)
+    c = Sound('sh')
+    print(c)
+
+    k = Consonant('k')
+    print(k)
+    # cons = Consonant('velar', 'voiceless', 'fricative', character='kh')
+    # print(cons)
+    # cons.strengthen()
+    # print(cons)
+    # cons.strengthen()
+    # print(cons)
+    # cons.strengthen()
+    # print(cons)
+    # cons.weaken()
+    # print(cons)
+    # cons.weaken()
+    # print(cons)
+    # cons.weaken()
+    # print(cons)
+    # cons.weaken()
+    # print(cons)
+    # print(Phonology().orthography)
 
     # s = Sound()
     # # print(s.ATTRIBUTES)

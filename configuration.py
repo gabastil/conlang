@@ -14,7 +14,7 @@ import os
 
 class Resource():
 
-    def __init__(self, resource):
+    def __init__(self, resource='phonology'):
         self.__initialize(f'resources/{resource}.yaml')
 
 
@@ -49,11 +49,6 @@ class Resource():
                                 values_.append(aor)
                     return values_
             else:
-                is_filepath = self.PATH_FINDER.match(str(value))
-
-                if is_filepath:
-                    return Path(value).expanduser()
-
                 return value
 
         # One of the values in value had a dict

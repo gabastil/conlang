@@ -72,228 +72,334 @@ phonology:
     - nasal
     - fricative
     - affricate
-    - voiced-stop
-    - unvoiced-stop
+    - voiced stop
+    - voiceless stop
 
   labels:
+    - cavity
+    - airway
     - place
     - voicing
     - manner
     - tone
     - mode
     - speed
-    - cavity
-    - airway
     - frontness
     - openness
     - roundness
     - sonority
 
   features:
+    - *cavity
+    - *airway
     - *place
     - *voicing
     - *manner
     - *tone
     - *mode
     - *speed
-    - *cavity
-    - *airway
     - *frontness
     - *openness
     - *roundness
     - *sonority
 
 orthography:
+  vowels:
+    a:
+      name: a
+      frontness: mid
+      openness: open
+      roundness: unrounded
 
-  cons
-      onants:p:
-      name: 'p'
-      place : 'bilabial'
-      manner : 'stop'
-      voicing : 'voiceless'
+    i:
+      name: i
+      frontness: front
+      openness: closed
+      roundness: unrounded
+
+    e:
+      name: e
+      frontness: front
+      openness: mid-closed
+      roundness: unrounded
+
+    o:
+      name: o
+      frontness: back
+      openness: mid
+      roundness: rounded
+
+    u:
+      name: u
+      frontness: back
+      openness: closed
+      roundness: rounded
+
+
+  consonants:
+
+    p:
+      name: p
+      place : bilabial
+      manner : stop
+      voicing : voiceless
+      cavity : oral
 
     b:
-      name: 'b'
-      place : 'bilabial'
-      manner : 'stop'
-      voicing : 'voiced'
+      name: b
+      place : bilabial
+      manner : stop
+      voicing : voiced
+      cavity : oral
+
+    m:
+      name: m
+      place : bilabial
+      manner : stop
+      voicing : voiced
+      cavity : nasal
 
     f:
-      name: 'f'
-      place : 'labiodental'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: f
+      place : labiodental
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     v:
-      name: 'v'
-      place : 'labiodental'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: v
+      place : labiodental
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     th:
-      name: 'th'
-      place : 'dental'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: th
+      place : dental
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     dh:
-      name: 'dh'
-      place : 'dental'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: dh
+      place : dental
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     t:
-      name: 't'
-      place : 'alveolar'
-      manner : 'stop'
-      voicing : 'voiceless'
+      name: t
+      place : alveolar
+      manner : stop
+      voicing : voiceless
+      cavity : oral
 
     d:
-      name: 'd'
-      place : 'alveolar'
-      manner : 'stop'
-      voicing : 'voiced'
+      name: d
+      place : alveolar
+      manner : stop
+      voicing : voiced
+      cavity : oral
+
+    n:
+      name: n
+      place : alveolar
+      manner : stop
+      voicing : voiced
+      cavity : nasal
 
     r:
-      name: 'r'
-      place : 'alveolar'
-      manner : 'tap'
-      voicing : 'voiced'
+      name: r
+      place : alveolar
+      manner : tap
+      voicing : voiced
+      cavity : oral
 
     R:
-      name: 'R'
-      place : 'retroflex'
-      manner : 'approximant'
-      voicing : 'voiced'
+      name: R
+      place : retroflex
+      manner : approximant
+      voicing : voiced
+      cavity : oral
 
     s:
-      name: 's'
-      place : 'alveolar'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: s
+      place : alveolar
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     z:
-      name: 'z'
-      place : 'alveolar'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: z
+      place : alveolar
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
-    s:
-      name: 's'
-      place : 'alveolar'
-      manner : 'fricative'
-      voicing : 'voiceless'
+    ts:
+      name: ts
+      place : alveolar
+      manner : affricate
+      voicing : voiceless
+      cavity : oral
 
-    z:
-      name: 'z'
-      place : 'alveolar'
-      manner : 'fricative'
-      voicing : 'voiced'
+    dz:
+      name: dz
+      place : alveolar
+      manner : affricate
+      voicing : voiced
+      cavity : oral
 
     sh:
-      name: 'sh'
-      place : 'postalveolar'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: sh
+      place : postalveolar
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     zh:
-      name: 'zh'
-      place : 'postalveolar'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: zh
+      place : postalveolar
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     ch:
-      name: 'ch'
-      place : 'postalveolar'
-      manner : 'affricative'
-      voicing : 'voiceless'
+      name: ch
+      place : postalveolar
+      manner : affricate
+      voicing : voiceless
+      cavity : oral
 
     dzh:
-      name: 'dzh'
-      place : 'postalveolar'
-      manner : 'affricative'
-      voicing : 'voiced'
+      name: dzh
+      place : postalveolar
+      manner : affricate
+      voicing : voiced
+      cavity : oral
 
     Ch:
-      name: 'Ch'
-      place : 'palatal'
-      manner : 'stop'
-      voicing : 'voiceless'
+      name: Ch
+      place : palatal
+      manner : stop
+      voicing : voiceless
+      cavity : oral
 
     Jh:
-      name: 'Jh'
-      place : 'palatal'
-      manner : 'stop'
-      voicing : 'voiced'
+      name: Jh
+      place : palatal
+      manner : stop
+      voicing : voiced
+      cavity : oral
+
+    nh:
+      name: nh
+      place : palatal
+      manner : stop
+      voicing : voiced
+      cavity : nasal
 
     c:
-      name: 'c'
-      place : 'palatal'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: c
+      place : palatal
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     j:
-      name: 'j'
-      place : 'palatal'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: j
+      place : palatal
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     k:
-      name: 'k'
-      place : 'velar'
-      manner : 'stop'
-      voicing : 'voiceless'
+      name: k
+      place : velar
+      manner : stop
+      voicing : voiceless
+      cavity : oral
 
     g:
-      name: 'g'
-      place : 'velar'
-      manner : 'stop'
-      voicing : 'voiced'
+      name: g
+      place : velar
+      manner : stop
+      voicing : voiced
+      cavity : oral
+
+    ng:
+      name: ng
+      place : velar
+      manner : stop
+      voicing : voiced
+      cavity : nasal
 
     kh:
-      name: 'kh'
-      place : 'velar'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: kh
+      place : velar
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     gh:
-      name: 'gh'
-      place : 'velar'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: gh
+      place : velar
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     q:
-      name: 'q'
-      place : 'uvular'
-      manner : 'stop'
-      voicing : 'voiceless'
+      name: q
+      place : uvular
+      manner : stop
+      voicing : voiceless
+      cavity : oral
 
     G:
-      name: 'G'
-      place : 'uvular'
-      manner : 'stop'
-      voicing : 'voiced'
+      name: G
+      place : uvular
+      manner : stop
+      voicing : voiced
+      cavity : oral
 
     qh:
-      name: 'qh'
-      place : 'uvular'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: qh
+      place : uvular
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
     Gh:
-      name: 'Gh'
-      place : 'uvular'
-      manner : 'fricative'
-      voicing : 'voiced'
+      name: Gh
+      place : uvular
+      manner : fricative
+      voicing : voiced
+      cavity : oral
 
     H:
-      name: 'H'
-      place : 'pharyngeal'
-      manner : 'fricative'
-      voicing : 'voiceless'
+      name: H
+      place : pharyngeal
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
 
-    G3:
-      name: 'G3'
-      place : 'pharyngeal'
-      manner : 'fricative'
-      voicing : 'voiced'
+    a3:
+      name: G3
+      place : pharyngeal
+      manner : fricative
+      voicing : voiced
+      cavity : oral
+
+    h:
+      name: h
+      place : glottal
+      manner : fricative
+      voicing : voiceless
+      cavity : oral
+
+    uh:
+      name: G3
+      place : glottal
+      manner : stop
+      voicing : voiceless
+      cavity : oral
