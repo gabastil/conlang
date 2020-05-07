@@ -23,6 +23,8 @@ phonology:
 
   manner: &manner
     - stop
+    - tap
+    - trill
     - affricate
     - fricative
     - approximant
@@ -103,12 +105,195 @@ phonology:
 
 orthography:
 
-  consonants:
-    p: {place : [bilabial], manner : [stop], voicing : [voiceless]}
-    b: {place : [bilabial], manner : [stop], voicing : [voiced]}
-    f: {place : [labiodental], manner : [fricative], voicing : [voiceless]}
-    v: {place : [labiodental], manner : [fricative], voicing : [voiced]}
-    th: {place : [dental], manner : [fricative], voicing : [voiceless]}
-    dh: {place : [dental], manner : [fricative], voicing : [voiced]}
-    t: {place : [alveolar], manner : [stop], voicing : [voiceless]}
-    d: {place : [alveolar], manner : [stop], voicing : [voiced]}
+  cons
+      onants:p:
+      name: 'p'
+      place : 'bilabial'
+      manner : 'stop'
+      voicing : 'voiceless'
+
+    b:
+      name: 'b'
+      place : 'bilabial'
+      manner : 'stop'
+      voicing : 'voiced'
+
+    f:
+      name: 'f'
+      place : 'labiodental'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    v:
+      name: 'v'
+      place : 'labiodental'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    th:
+      name: 'th'
+      place : 'dental'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    dh:
+      name: 'dh'
+      place : 'dental'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    t:
+      name: 't'
+      place : 'alveolar'
+      manner : 'stop'
+      voicing : 'voiceless'
+
+    d:
+      name: 'd'
+      place : 'alveolar'
+      manner : 'stop'
+      voicing : 'voiced'
+
+    r:
+      name: 'r'
+      place : 'alveolar'
+      manner : 'tap'
+      voicing : 'voiced'
+
+    R:
+      name: 'R'
+      place : 'retroflex'
+      manner : 'approximant'
+      voicing : 'voiced'
+
+    s:
+      name: 's'
+      place : 'alveolar'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    z:
+      name: 'z'
+      place : 'alveolar'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    s:
+      name: 's'
+      place : 'alveolar'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    z:
+      name: 'z'
+      place : 'alveolar'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    sh:
+      name: 'sh'
+      place : 'postalveolar'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    zh:
+      name: 'zh'
+      place : 'postalveolar'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    ch:
+      name: 'ch'
+      place : 'postalveolar'
+      manner : 'affricative'
+      voicing : 'voiceless'
+
+    dzh:
+      name: 'dzh'
+      place : 'postalveolar'
+      manner : 'affricative'
+      voicing : 'voiced'
+
+    Ch:
+      name: 'Ch'
+      place : 'palatal'
+      manner : 'stop'
+      voicing : 'voiceless'
+
+    Jh:
+      name: 'Jh'
+      place : 'palatal'
+      manner : 'stop'
+      voicing : 'voiced'
+
+    c:
+      name: 'c'
+      place : 'palatal'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    j:
+      name: 'j'
+      place : 'palatal'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    k:
+      name: 'k'
+      place : 'velar'
+      manner : 'stop'
+      voicing : 'voiceless'
+
+    g:
+      name: 'g'
+      place : 'velar'
+      manner : 'stop'
+      voicing : 'voiced'
+
+    kh:
+      name: 'kh'
+      place : 'velar'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    gh:
+      name: 'gh'
+      place : 'velar'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    q:
+      name: 'q'
+      place : 'uvular'
+      manner : 'stop'
+      voicing : 'voiceless'
+
+    G:
+      name: 'G'
+      place : 'uvular'
+      manner : 'stop'
+      voicing : 'voiced'
+
+    qh:
+      name: 'qh'
+      place : 'uvular'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    Gh:
+      name: 'Gh'
+      place : 'uvular'
+      manner : 'fricative'
+      voicing : 'voiced'
+
+    H:
+      name: 'H'
+      place : 'pharyngeal'
+      manner : 'fricative'
+      voicing : 'voiceless'
+
+    G3:
+      name: 'G3'
+      place : 'pharyngeal'
+      manner : 'fricative'
+      voicing : 'voiced'
