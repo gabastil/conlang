@@ -5,13 +5,9 @@
 # created: 2020-04-10
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
-import yaml
+from configuration import Phonology
 
-RSRC = yaml.load(open('resources/phonology.yaml'), yaml.Loader)
-PHON = RSRC['phonology']
-
-VOICING, MANNER, PLACE = PHON['voicing'], PHON['manner'], PHON['place']
-FEATURES, LABELS = PHON['features'], PHON['labels']
+PHON = Phonology().phonology
 
 
 class Sound(object):
@@ -30,11 +26,11 @@ class Sound(object):
         sonority : How 'open' or sonorous a sound is
         place : Place of articulation for this sound (e.g., bilabial)
         manner : Manner of articulation for this sound (e.g., fricative)
-        voicing : Voicing for this sound (e.g., unvoiced)
+        voicing : Voicing for this sound (e.g., voiceless)
 
     '''
-    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in FEATURES]
-    ATTRIBUTES = {a: dict(b) for a, b in zip(LABELS, STR_KEYS)}
+    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in PHON.features]
+    ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, STR_KEYS)}
 
     def __init__(self, *features, **kwargs):
         """
@@ -62,16 +58,22 @@ class Sound(object):
                 Include orthographical values like: IPA character and phoneme
 
         """
-        self.rows = len(FEATURES)
-        self.columns = max([len(__) for __ in FEATURES])
+        self.rows = len(PHON.features)
+        self.columns = max([len(__) for __ in PHON.features])
 
         self._features = np.zeros((self.rows, self.columns))
 
         if features:
-            self.__parse_features(*features)
+            self.__parse(*features)
 
         self._ipa = kwargs.get('ipa')
         self._character = kwargs.get('character')
+
+    def __repr__(self):
+        features = [getattr(self, __) for __ in PHON.labels]
+        attributes = [f'{a}={b}' for a, b in zip(PHON.labels, features)]
+        attributes = filter(lambda x : not x.endswith('None'), attributes)
+        return "Sound({})".format(', '.join(attributes))
 
     @property
     def ipa(self):
@@ -145,6 +147,60 @@ class Sound(object):
     def sonority(self, sonority):
         self.__set_feature('sonority', sonority)
 
+    @property
+    def mode(self):
+        ''' Return this sound's mode value '''
+        return self.__get_feature('mode')
+
+    @mode.setter
+    def mode(self, mode):
+        self.__set_feature('mode', mode)
+
+    @property
+    def tone(self):
+        ''' Return this sound's tone value '''
+        return self.__get_feature('tone')
+
+    @tone.setter
+    def tone(self, tone):
+        self.__set_feature('tone', tone)
+
+    @property
+    def speed(self):
+        ''' Return this sound's speed value '''
+        return self.__get_feature('speed')
+
+    @speed.setter
+    def speed(self, speed):
+        self.__set_feature('speed', speed)
+
+    @property
+    def frontness(self):
+        ''' Return this sound's frontness value '''
+        return self.__get_feature('frontness')
+
+    @frontness.setter
+    def frontness(self, frontness):
+        self.__set_feature('frontness', frontness)
+
+    @property
+    def openness(self):
+        ''' Return this sound's openness value '''
+        return self.__get_feature('openness')
+
+    @openness.setter
+    def openness(self, openness):
+        self.__set_feature('openness', openness)
+
+    @property
+    def roundness(self):
+        ''' Return this sound's roundness value '''
+        return self.__get_feature('roundness')
+
+    @roundness.setter
+    def roundness(self, roundness):
+        self.__set_feature('roundness', roundness)
+
     def __get_feature(self, feature):
         '''
         Return the index value of a specfied feature
@@ -177,7 +233,7 @@ class Sound(object):
         arr = self._features[idx]
 
         if isinstance(value, str):
-            features = FEATURES[idx]
+            features = PHON.features[idx]
             value = features.index(value.lower())
 
         if isinstance(value, int) and value < arr.shape[-1]:
@@ -197,9 +253,9 @@ class Sound(object):
 
         if not isinstance(attribute, str):
             return int(attribute)
-        return LABELS.index(attribute)
+        return PHON.labels.index(attribute)
 
-    def __normalize_features(self, features):
+    def __normalize(self, features):
         '''
         [TO BE DEVELOPED]
         Create regular expressions to identify variations of similar
@@ -215,7 +271,7 @@ class Sound(object):
         '''
         return features
 
-    def __parse_features(self, *features):
+    def __parse(self, *features):
         '''
         Configure this sound's feature matrix with specified input features
 
@@ -226,9 +282,7 @@ class Sound(object):
         if isinstance(features, tuple) and len(features) == 1:
             features = features[0].split()
 
-        features = self.__normalize_features(features)
-
-        for feature in features:
+        for feature in self.__normalize(features):
             for feature_, values in self.ATTRIBUTES.items():
                 feature_match = feature in values
 
@@ -246,7 +300,8 @@ class Sound(object):
 
     def __get_argmax_array(self, idx, array, direction):
         '''
-        Return the argmax for the input array and a zero array
+        Return the argmax for the input array and a zero array. Used for mutat-
+        ing the properties of this Sound's sound matrix.
 
         Parameters
         ----------
@@ -259,7 +314,7 @@ class Sound(object):
             Tuple containing the new position and an empty array.
         '''
         argmax, array = array.argmax() + direction, np.zeros(array.size)
-        maxlength = len(FEATURES[idx])
+        maxlength = len(PHON.features[idx])
         if argmax >= maxlength:
             argmax = maxlength - 1
         elif argmax < 0:
@@ -296,7 +351,7 @@ class Sound(object):
         '''
         idx = self.__feature_index(feature)
         if value:
-            return FEATURES[idx].index(value)
+            return PHON.features[idx].index(value)
         return idx
 
     def decode(self, feature, value=None):
@@ -315,9 +370,9 @@ class Sound(object):
             If no value is supplied, the feature name will be decoded.
         '''
         if value:
-            features = FEATURES[feature]
+            features = PHON.features[feature]
             return features[value]
-        return LABELS[feature]
+        return PHON.labels[feature]
 
     def weaken(self, feature):
         '''
@@ -344,31 +399,48 @@ class Sound(object):
         self.__update_feature(idx, argmax, array)
 
 
+class Mora():
+
+    def __init__(self):
+        self.weight = 1
+
+    def add(self):
+        self.weight += 1
+
+    def remove(self):
+        if self.weight > -1:
+            self.weight -= 1
+
+
 class Consonant(Sound):
 
     def __init__(self, *features, **kwargs):
-        super().__init__('unvoiced stop', *features, **kwargs)
+        super().__init__('voiceless stop', *features, **kwargs)
+        self.__default()
 
     def __repr__(self):
-        voicing = VOICING[self.voicing] if self.voicing is not None else None
-        place = PLACE[self.place] if self.place is not None else None
-        manner = MANNER[self.manner] if self.manner is not None else None
+        features = [getattr(self, __) for __ in PHON.labels[:3]]
+        attributes = [f'{a}={b}' for a, b in zip(PHON.labels[:3], features)]
+        return 'Consonant({})'.format(*attributes)
 
-        description = ''
+    def __default(self):
+        ''' Set the default basic properties of a consonant if none exist '''
+        default = 'fast oral egressive voiced alveolar stop'.split()
+        labels = ['speed', 'cavity', 'airway', 'voicing', 'place', 'manner']
 
-        for feature in [voicing, place, manner]:
-            if feature:
-                description += f' {feature}'
+        for i, attr in enumerate(labels):
+            current = getattr(self, attr)
 
-        if self.character:
-            description += f" written as '{self.character}'"
-
-        return description.strip()
+            if current is None:
+                setattr(self, attr, default[i])
 
     @property
     def type(self):
         ''' Return Sound type of consonant '''
         return 'C'
+
+    def set(self, *features, **kwargs):
+        self.__init__(*features, **kwargs)
 
     def weaken(self):
         '''
@@ -384,8 +456,13 @@ class Consonant(Sound):
         '''
         if self.voicing:
             super().weaken('voicing')
-        else:
+        elif self.manner:
             super().weaken('manner')
+        else:
+            super().weaken('place')
+
+        self.__default()
+
 
     def strengthen(self):
         '''
@@ -401,24 +478,81 @@ class Consonant(Sound):
         '''
         if self.voicing:
             super().strengthen('voicing')
-        else:
+        elif self.manner:
             super().strengthen('manner')
+        else:
+            super().strengthen('place')
+
+        self.__default()
+
+
+class Cluster():
+
+    def __init__(self, *consonants):
+        self.consonants = consonants
 
 
 class Vowel(Sound):
 
-    def __init__(self):
-        super().__init__('voiced')
+    def __init__(self, *features, **kwargs):
+        super().__init__('voiced', *features, **kwargs)
+        self.__default()
+
+    def __repr__(self):
+        features = [getattr(self, __) for __ in PHON.labels[:3]]
+        attributes = [f'{a}={b}' for a, b in zip(PHON.labels[:3], features)]
+        return 'Vowel({})'.format(*attributes)
+
+    def __default(self):
+        default = 'medium oral egressive open voiced mid unrounded'.split()
+        labels = ['speed', 'cavity', 'airway',
+                  'openness', 'voicing', 'frontness', 'roundness']
+
+        for i, attr in enumerate(labels):
+            current = getattr(self, attr)
+
+            if current is None:
+                setattr(self, attr, default[i])
+
 
     @property
     def type(self):
         return 'V'
 
+    def set(self, *features, **kwargs):
+        self.__init__(*features, **kwargs)
 
-class Syllable(Sound):
 
-    def __init__(self):
-        pass
+class Syllable(Sound, Mora):
+
+    def __init__(self, structure):
+        super().__init__()
+        self.__parse(structure)
+
+    def __parse(self, structure):
+        structure = structure.lower()
+        onset, coda = [__ for __ in structure.split('v') if __]
+        self.onset(onset)
+        self.nucleus(structure.replace('c', ''))
+        self.coda(coda)
+
+    def onset(self, sound=None):
+        if sound:
+            self.onset_ = sound
+        else:
+            return self.onset_
+
+    def nucleus(self, sound=None):
+        if sound:
+            self.nucleus_ = sound
+        else:
+            return self.nucleus_
+
+    def coda(self, sound=None):
+        if sound:
+            self.coda_ = sound
+        else:
+            return self.coda_
 
 
 if __name__ == '__main__':

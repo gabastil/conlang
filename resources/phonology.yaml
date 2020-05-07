@@ -31,7 +31,7 @@ phonology:
 
   voicing: &voicing
     - voiced
-    - unvoiced
+    - voiceless
 
   tone: &tone
     - high
@@ -44,7 +44,7 @@ phonology:
     - creaky
     - breathy
 
-  time: &time
+  speed: &speed
     - fast
     - medium
     - slow
@@ -76,11 +76,11 @@ phonology:
 
   labels:
     - place
-    - manner
     - voicing
+    - manner
     - tone
     - mode
-    - time
+    - speed
     - cavity
     - airway
     - frontness
@@ -90,18 +90,14 @@ phonology:
 
   features:
     - *place
-    - *manner
     - *voicing
+    - *manner
     - *tone
     - *mode
-    - *time
+    - *speed
     - *cavity
     - *airway
     - *frontness
     - *openness
     - *roundness
     - *sonority
-
-orthography:
-  - vowels
-  - consonants
