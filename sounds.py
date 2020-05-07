@@ -7,113 +7,15 @@
 import numpy as np
 import yaml
 
-# Implement loading data via yaml
+RSRC = yaml.load(open('resources/phonology.yaml'), yaml.Loader)
+PHON = RSRC['phonology']
 
-# --- Base features used by the Sound class and its descendents ---
-
-# Direction of airflow to produce this sound
-AIRWAY = ['ingressive',
-          'egressive']
-
-# Part of the airway that air travels through
-CAVITY = ['nasal',
-          'oral']
-
-# Points of articulation in the oral cavity
-PLACE = ['bilabial',
-         'labiodental',
-         'dental',
-         'alveolar',
-         'postalveolar',
-         'retroflex',
-         'palatal',
-         'velar',
-         'uvular',
-         'pharyngeal',
-         'glottal']
-
-# Technique used to restrict airflow during articulation
-MANNER = ['stop',
-          'affricate',
-          'fricative',
-          'approximant',
-          'lateral']
-
-# Usage of vocal chords to produce sound
-VOICING = ['unvoiced',
-           'voiced']
-
-# Phonemic pitch used with sound
-TONE = ['high',
-        'mid-high',
-        'mid',
-        'low-mid',
-        'low']
-
-# Supravocal properties like creakiness or breathiness
-MODE = ['creaky',
-        'breathy']
-
-# Duration of sound during production
-TIME = ['fast',
-        'medium',
-        'slow']
-
-# Tongue placement in the oral cavity
-FRONTNESS = ['front',
-             'mid',
-             'back']
-
-# How open the mouth is
-OPENNESS = ['open',
-           'mid-open',
-           'mid',
-           'mid-close',
-           'close']
-
-# Lip rounding
-ROUNDNESS = ['rounded',
-             'unrounded']
-
-# Narrow descriptions of sonority of a sound
-SONORITY = ['vowel',
-            'liquid',
-            'nasal',
-            'fricative',
-            'affricate',
-            'voiced-stop',
-            'unvoiced-stop']
-
-FEATURE_LABELS = ['place',
-                  'manner',
-                  'voicing',
-                  'tone',
-                  'mode',
-                  'time',
-                  'cavity',
-                  'airway',
-                  'frontness',
-                  'openness',
-                  'roundness'
-                  'sonority']
-
-FEATURE_ARRAY = [PLACE,
-                 MANNER,
-                 VOICING,
-                 TONE,
-                 MODE,
-                 TIME,
-                 CAVITY,
-                 AIRWAY,
-                 FRONTNESS,
-                 OPENNESS,
-                 ROUNDNESS,
-                 SONORITY]
+VOICING, MANNER, PLACE = PHON['voicing'], PHON['manner'], PHON['place']
+FEATURES, LABELS = PHON['features'], PHON['labels']
 
 
 class Sound(object):
     '''
-
     The Sound class contains properties and auxiliary functions for encoding
     and decoding sound properties like articulation (manner, place, voicing)
     and airway types (e.g., pulmonic). This class serves as the parent class
@@ -131,8 +33,8 @@ class Sound(object):
         voicing : Voicing for this sound (e.g., unvoiced)
 
     '''
-    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in FEATURE_ARRAY]
-    ATTRIBUTES = {a: dict(b) for a, b in zip(FEATURE_LABELS, STR_KEYS)}
+    STR_KEYS = [[(b, a) for a, b in enumerate(__)] for __ in FEATURES]
+    ATTRIBUTES = {a: dict(b) for a, b in zip(LABELS, STR_KEYS)}
 
     def __init__(self, *features, **kwargs):
         """
@@ -160,8 +62,8 @@ class Sound(object):
                 Include orthographical values like: IPA character and phoneme
 
         """
-        self.rows = len(FEATURE_ARRAY)
-        self.columns = max([len(__) for __ in FEATURE_ARRAY])
+        self.rows = len(FEATURES)
+        self.columns = max([len(__) for __ in FEATURES])
 
         self._features = np.zeros((self.rows, self.columns))
 
@@ -275,7 +177,7 @@ class Sound(object):
         arr = self._features[idx]
 
         if isinstance(value, str):
-            features = FEATURE_ARRAY[idx]
+            features = FEATURES[idx]
             value = features.index(value.lower())
 
         if isinstance(value, int) and value < arr.shape[-1]:
@@ -295,7 +197,7 @@ class Sound(object):
 
         if not isinstance(attribute, str):
             return int(attribute)
-        return FEATURE_LABELS.index(attribute)
+        return LABELS.index(attribute)
 
     def __normalize_features(self, features):
         '''
@@ -357,7 +259,7 @@ class Sound(object):
             Tuple containing the new position and an empty array.
         '''
         argmax, array = array.argmax() + direction, np.zeros(array.size)
-        maxlength = len(FEATURE_ARRAY[idx])
+        maxlength = len(FEATURES[idx])
         if argmax >= maxlength:
             argmax = maxlength - 1
         elif argmax < 0:
@@ -394,7 +296,7 @@ class Sound(object):
         '''
         idx = self.__feature_index(feature)
         if value:
-            return FEATURE_ARRAY[idx].index(value)
+            return FEATURES[idx].index(value)
         return idx
 
     def decode(self, feature, value=None):
@@ -413,9 +315,9 @@ class Sound(object):
             If no value is supplied, the feature name will be decoded.
         '''
         if value:
-            features = FEATURE_ARRAY[feature]
+            features = FEATURES[feature]
             return features[value]
-        return FEATURE_LABELS[feature]
+        return LABELS[feature]
 
     def weaken(self, feature):
         '''
