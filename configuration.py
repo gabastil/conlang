@@ -9,8 +9,7 @@ Load and create a resources object that allows for dot-notation access.
 """
 from collections import namedtuple
 import yaml
-import re
-import os
+
 
 class Resource():
 
@@ -18,47 +17,43 @@ class Resource():
         self.__initialize(f'resources/{resource}.yaml')
 
 
-    def __load(self, file):
-        with open(file) as file_in:
-            return yaml.load(file_in, yaml.Loader)
-
-
     def __initialize(self, file):
-        configuration = self.__load(file)
+        with open(file) as file_in:
+            resource = yaml.load(file_in, yaml.Loader)
 
-        for k, v in configuration.items():
-            attribute = self.__attribute(k, v)
-            setattr(self, k, attribute)
+            for key_, val_ in resource.items():
+                attribute = self.__attribute(key_, val_)
+                setattr(self, key_, attribute)
 
 
     def __attribute(self, key, value):
         """ Build a namedtuple data structure """
         if not isinstance(value, dict):
             if isinstance(value, list):
-                dict_found = [isinstance(v, dict) for v in value]
+                has_dict = any([isinstance(v, dict) for v in value])
 
-                if not any(dict_found):
+                if not has_dict:
                     return value
 
-                else:
-                    values_ = []
-                    for value_ in value:
-                        if isinstance(value_, dict):
-                            for k, v in value_.items():
-                                aor = self.__attribute(k, v)
-                                values_.append(aor)
-                    return values_
-            else:
-                return value
+                values_ = []
+                for value_ in value:
+                    if isinstance(value_, dict):
+                        for key_, val_ in value_.items():
+                            attribute = self.__attribute(key_, val_)
+                            values_.append(attribute)
+                return values_
+            return value
 
         # One of the values in value had a dict
         values_ = []
 
-        for k, v in value.items():
-            values_.append(self.__attribute(k, v))
+        for key_, val_ in value.items():
+            attribute = self.__attribute(key_, val_)
+            values_.append(attribute)
 
         container = namedtuple(key, value.keys())
         return container(*values_)
+
 
 class Phonology(Resource):
 

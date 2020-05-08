@@ -6,6 +6,7 @@
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
 from configuration import Phonology
+import math
 
 PHON = Phonology().phonology
 ORTH = Phonology().orthography
@@ -80,12 +81,43 @@ class Sound(object):
         features = [getattr(self, __) for __ in PHON.labels]
         features = enumerate(features)
 
-        A = self.ATTRIBUTER
-        features = [A[PHON.labels[i]][j] for i, j in features if j is not None]
+        __ = self.ATTRIBUTER
+        features = [__[PHON.labels[i]][j] for i, j in features if j is not None]
 
         attributes = ', '.join(features)
 
         return "{}({})".format(label, attributes)
+
+    def __add__(self, sound):
+        ''' Order of addition: voiced > voiceless, stop + fricative == affricate '''
+
+        average = lambda x, y : math.floor(0.5 * (x + y))
+
+        is_stop = lambda x, y : x < 3 or y < 3
+        is_fric = lambda x, y : x > 2 or y > 2
+        both_present = lambda x, y : is_stop(x, y) and is_fric(x, y)
+
+        voicing = min(sound.voicing, self.voicing)
+        place = average(sound.place, self.place)
+        manner = 3 if both_present else self.manner
+
+
+        # is_stop = sound.manner in stop or self.manner in stop
+        # is_fricative = sound.manner in fricative or self.manner in fricative
+
+        # if is_stop and is_fricative:
+        #     manner = 3
+
+        # [TO BE DEVELOPED] Add code to adopt other sound attrs from current
+        basic = ['voicing', 'place', 'manner']
+        labels = list(filter(lambda x : x not in basic, PHON.labels))
+
+        other_features = [(__, getattr(self, __)) for __ in labels if __ ]
+
+        return Sound(self.ATTRIBUTER['voicing'][voicing],
+                     self.ATTRIBUTER['place'][place],
+                     self.ATTRIBUTER['manner'][manner])
+
 
     @property
     def ipa(self):
@@ -601,6 +633,13 @@ if __name__ == '__main__':
 
     k = Consonant('k')
     print(k)
+    print(c + k)
+
+    ll = Consonant('z')
+    m = Consonant('s')
+    print(ll, m)
+    print(ll.manner, m.manner)
+    print(ll + m)
     # cons = Consonant('velar', 'voiceless', 'fricative', character='kh')
     # print(cons)
     # cons.strengthen()
