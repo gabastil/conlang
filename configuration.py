@@ -60,6 +60,12 @@ class Phonology(Resource):
     def __init__(self):
         super().__init__('phonology')
 
+class Syllables(Resource):
+
+    def __init__(self):
+        super().__init__('syllable')
+
+
 if __name__ == "__main__":
     p = Phonology()
     print(p.phonology)

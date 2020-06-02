@@ -103,6 +103,10 @@ phonology:
     - *roundness
     - *sonority
 
+syllable:
+  vowels: [a, i, e, o, u]
+  consonants: [p, b, m, f, v, th, dh, t, d, n, r, R, s, z, ts, dz, sh, zh, ch, dzh, Ch, Jh, nh, C, j, k, g, ng, kh, gh, q, G]
+
 orthography:
   vowels:
     a:
