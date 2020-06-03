@@ -21,38 +21,67 @@ class Resource():
         with open(file) as file_in:
             resource = yaml.load(file_in, yaml.Loader)
 
-            for key_, val_ in resource.items():
-                attribute = self.__attribute(key_, val_)
-                setattr(self, key_, attribute)
-
+            for key, val in resource.items():
+                attribute = self.__attribute(key, val)
+                setattr(self, key, attribute)
+    
 
     def __attribute(self, key, value):
-        """ Build a namedtuple data structure """
-        if not isinstance(value, dict):
-            if isinstance(value, list):
-                has_dict = any([isinstance(v, dict) for v in value])
+        attrs = []
+        if isinstance(value, dict):
+            for k, v in value.items():
+                attr = self.__attribute(k, v)
+                attrs.append(attr)
 
-                if not has_dict:
-                    return value
+            container = namedtuple(key, value.keys())
+            return container(*attrs)
 
-                values_ = []
-                for value_ in value:
-                    if isinstance(value_, dict):
-                        for key_, val_ in value_.items():
-                            attribute = self.__attribute(key_, val_)
-                            values_.append(attribute)
-                return values_
-            return value
+        elif isinstance(value, list):
+            no_dict = not any([isinstance(__, dict) for __ in value])
 
-        # One of the values in value had a dict
-        values_ = []
+            if no_dict:
+                return value
+            else:
+                for item in value:
+                    if isinstance(item, dict):
+                        sub_attrs = []
+                        container = namedtuple(key, item.keys())
+                        for k, v in item.items():
+                            attr = self.__attribute(k, v)
+                            sub_attrs.append(attr)
+                        
+                        attrs.append(container(*sub_attrs))
+            return attrs
+        return value
 
-        for key_, val_ in value.items():
-            attribute = self.__attribute(key_, val_)
-            values_.append(attribute)
 
-        container = namedtuple(key, value.keys())
-        return container(*values_)
+    # def __attribute(self, key, value):
+    #     """ Build a namedtuple data structure """
+    #     if not isinstance(value, dict):
+    #         if isinstance(value, list):
+    #             has_dict = any([isinstance(v, dict) for v in value])
+
+    #             if not has_dict:
+    #                 return value
+
+    #             values_ = []
+    #             for value_ in value:
+    #                 if isinstance(value_, dict):
+    #                     for key_, val_ in value_.items():
+    #                         attribute = self.__attribute(key_, val_)
+    #                         values_.append(attribute)
+    #             return values_
+    #         return value
+
+    #     # One of the values in value had a dict
+    #     values_ = []
+
+    #     for key_, val_ in value.items():
+    #         attribute = self.__attribute(key_, val_)
+    #         values_.append(attribute)
+
+    #     container = namedtuple(key, value.keys())
+    #     return container(*values_)
 
 
 class Phonology(Resource):
@@ -60,15 +89,15 @@ class Phonology(Resource):
     def __init__(self):
         super().__init__('phonology')
 
-class Syllables(Resource):
+class Sounds(Resource):
 
     def __init__(self):
-        super().__init__('orthography')
+        super().__init__('sounds')
 
 
 if __name__ == "__main__":
-    p = Phonology()
-    syl = Syllables()
-    print(p.phonology)
-    print(syl.stops.voiced)
+    # p = Phonology()
+    s = Sounds()
+    # print(p.phonology)
+    print(s.sounds)
 
