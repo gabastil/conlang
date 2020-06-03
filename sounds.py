@@ -6,7 +6,7 @@
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
 from configuration import Phonology
-import math
+import math, random
 
 PHON = Phonology().phonology
 ORTH = Phonology().orthography
@@ -77,6 +77,9 @@ class Sound(object):
         self._ipa = kwargs.get('ipa')
         self._character = kwargs.get('character')
 
+        if kwargs.get('random', False):
+            self.randomize(kwargs.get('random'))
+
     def __repr__(self, label="Sound"):
         features = [getattr(self, __) for __ in PHON.labels]
         features = enumerate(features)
@@ -117,7 +120,6 @@ class Sound(object):
         return Sound(self.ATTRIBUTER['voicing'][voicing],
                      self.ATTRIBUTER['place'][place],
                      self.ATTRIBUTER['manner'][manner])
-
 
     @property
     def ipa(self):
@@ -270,8 +272,8 @@ class Sound(object):
 
         Parameters
         ----------
-            feature (str) : Name of feature to set
-            value (str, int) : Feature value to set
+            feature (str) : Name of feature
+            value (str, int) : Feature value
         '''
         idx = self._feature_index(feature)
         arr = self._features[idx]
@@ -472,6 +474,28 @@ class Sound(object):
         argmax, array = self._get_argmax_array(idx, array, -1)
         self._update_feature(idx, argmax, array)
 
+    def randomize(self, sound_type=None):
+        ''' Generate a random configuration of settings '''
+
+        vsf, csf = PHON.vowel_specific_features, PHON.consonant_specific_features
+
+        ignore = random.choice([vsf, csf])
+
+        if isinstance(sound_type, str):
+            if sound_type.startswith('v'):
+                ignore = vsf
+
+            elif sound_type.startswith('c'):
+                ignore = csf
+
+        print(ignore)
+
+        for i, feature in enumerate(PHON.labels):
+            if feature not in ignore:
+                print(feature, random.choice(PHON.features[i]))
+                value = random.choice(PHON.features[i])
+                self._set_feature(feature, value)
+
 
 class Mora():
 
@@ -537,7 +561,6 @@ class Consonant(Sound):
 
         self.__default()
 
-
     def strengthen(self, intensify=False):
         '''
         Strengthen this consonant like when a consonant undergoes lenition
@@ -601,56 +624,49 @@ class Syllable(Sound, Mora):
         super().__init__()
         self._parse(*args, **kwargs)
 
+    def __repr__(self):
+        syllable = [__.type for __ in self.syllable]
+        return f"Syllable( {''.join(syllable)} )"
+
+    def __getitem__(self, index):
+        return self.syllable[index]
+
     def _parse(self, *args, **kwargs):
+        ''' Parse and detect the sound types that structure this syllable '''
+
         nucleus = 'v'
         if args:
             if len(args) == 1:
-                structure = args[0].lower()
+                syllable = args[0].lower()
 
             else:
-                structure = ''.join(args).lower()
+                syllable = ''.join(args).lower()
 
-            if nucleus not in structure:
-                raise ValueError('No vowel nucleus detected. Unable to determine nucleus.')
+            nucleus *= syllable.count(nucleus)
 
-            onset, *_, coda = structure.split(nucleus)
+            if not nucleus:
+                error = (
+                    'Unable to determine nucleus. No vowel nucleus detected. '
+                    'Define this syllable with a vowel nucleus `v` or using keyword arguments '
+                    'like `onset`, `nucleus`, and `coda` instead (e.g., Syllable(onset="cc", '
+                    'nucleus="c") if the nucleus is a consonant.'
+                )
+                raise ValueError(error)
+
+            onset, *_, coda = syllable.split(nucleus)
         
         elif kwargs:
-            onset = kwargs.get('onset', None)
-            nucleus = kwargs.get('nucleus', None)
-            coda = kwargs.get('coda', None)
-        
-        self.onset = onset
-        self.nucleus = nucleus
-        self.coda = coda
+            onset = kwargs.get('onset', '').lower()
+            nucleus = kwargs.get('nucleus', 'v').lower()
+            coda = kwargs.get('coda', '').lower()
+    
+        self.onset = [Consonant(__) if __ == 'c' else Vowel(__) for __ in onset]
+        self.nucleus = [Consonant(__) if __ == 'c' else Vowel(__) for __ in nucleus]
+        self.coda = [Consonant(__) if __ == 'c' else Vowel(__) for __ in coda]
 
         self.body = self.onset + self.nucleus
         self.rhyme = self.nucleus + self.coda
-    
-    # def __maintain_sonority(self, sound_type):
-    #     def wrapper(func):
-    #         if sound_type.lower().starswith('c'):
-    #             pass
-    #         return func(*args, **kwargs)
-    #     return wrapper
-
-    def onset(self, sound=None):
-        if sound:
-            self.onset_ = sound
-        else:
-            return self.onset_
-
-    def nucleus(self, sound=None):
-        if sound:
-            self.nucleus_ = sound
-        else:
-            return self.nucleus_
-
-    def coda(self, sound=None):
-        if sound:
-            self.coda_ = sound
-        else:
-            return self.coda_
+        self.syllable = self.body + self.coda
 
 
 if __name__ == '__main__':
