@@ -63,9 +63,12 @@ class Phonology(Resource):
 class Syllables(Resource):
 
     def __init__(self):
-        super().__init__('syllable')
+        super().__init__('orthography')
 
 
 if __name__ == "__main__":
     p = Phonology()
+    syl = Syllables()
     print(p.phonology)
+    print(syl.stops.voiced)
+

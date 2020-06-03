@@ -10,3 +10,9 @@ Contents
     * Sound
     * Evolution
   * Functions
+
+
+
+### Syllable
+
+The `syllable` package contains classes to represent the structure of a syllable and functions of its parts. The `syllable` package's classes leverage `Consonant` and `Vowel` classes from the `sounds` package.

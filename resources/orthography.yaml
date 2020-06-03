@@ -1,0 +1,441 @@
+orthography:
+  - char_ɑ:
+      character: ɑ
+      name: open back unrounded
+      decimal: 593
+      hex: 0x0251
+  - char_ɐ:
+      character: ɐ
+      name: open-mid schwa
+      decimal: 592
+      hex: 0x0250
+  - char_ɒ:
+      character: ɒ
+      name: open back rounded
+      decimal: 594
+      hex: 0x0252
+  - char_æ:
+      character: æ
+      name: raised open front unrounded
+      decimal: 230
+      hex: 0x00E6
+  - char_ɓ:
+      character: ɓ
+      name: vd bilabial implosive
+      decimal: 595
+      hex: 0x0253
+  - char_ʙ:
+      character: ʙ
+      name: vd bilabial trill
+      decimal: 665
+      hex: 0x0299
+  - char_β:
+      character: β
+      name: vd bilabial fricative
+      decimal: 946
+      hex: 0x03B2
+  - char_ɔ:
+      character: ɔ
+      name: open-mid back rounded
+      decimal: 596
+      hex: 0x0254
+  - char_ɕ:
+      character: ɕ
+      name: vl alveolopalatal fricative
+      decimal: 597
+      hex: 0x0255
+  - char_ç:
+      character: ç
+      name: vl palatal fricative
+      decimal: 231
+      hex: 0x00E7
+  - char_ɗ:
+      character: ɗ
+      name: vd alveolar implosive
+      decimal: 599
+      hex: 0x0257
+  - char_ɖ:
+      character: ɖ
+      name: vd retroflex plosive
+      decimal: 598
+      hex: 0x0256
+  - char_ð:
+      character: ð
+      name: vd dental fricative
+      decimal: 240
+      hex: 0x00F0
+  - char_ʤ:
+      character: ʤ
+      name: vd postalveolar affricate
+      decimal: 676
+      hex: 0x02A4
+  - char_ə:
+      character: ə
+      name: schwa
+      decimal: 601
+      hex: 0x0259
+  - char_ɘ:
+      character: ɘ
+      name: close-mid schwa
+      decimal: 600
+      hex: 0x0258
+  - char_ɚ:
+      character: ɚ
+      name: rhotacized schwa
+      decimal: 602
+      hex: 0x025A
+  - char_ɛ:
+      character: ɛ
+      name: open-mid front unrounded
+      decimal: 603
+      hex: 0x025B
+  - char_ɜ:
+      character: ɜ
+      name: open-mid central
+      decimal: 604
+      hex: 0x025C
+  - char_ɝ:
+      character: ɝ
+      name: rhotacized open-mid central
+      decimal: 605
+      hex: 0x025D
+  - char_ɞ:
+      character: ɞ
+      name: open-mid central rounded
+      decimal: 606
+      hex: 0x025E
+  - char_ɟ:
+      character: ɟ
+      name: vd palatal plosive
+      decimal: 607
+      hex: 0x025F
+  - char_ʄ:
+      character: ʄ
+      name: vd palatal implosive
+      decimal: 644
+      hex: 0x0284
+  - char_ɡ:
+      character: ɡ
+      name: vd velar plosive
+      decimal: 609
+      hex: 0x0261
+  - (char_ :
+      character: t 
+      n ame: has ruled that an ordinary g is also acceptable)
+      d ecimal: the 
+      h ex: 0xIPA 
+  - char_ɠ:
+      character: ɠ
+      name: vd velar implosive
+      decimal: 608
+      hex: 0x0260
+  - char_ɢ:
+      character: ɢ
+      name: vd uvular plosive
+      decimal: 610
+      hex: 0x0262
+  - char_ʛ:
+      character: ʛ
+      name: vd uvular implosive
+      decimal: 667
+      hex: 0x029B
+  - char_ɦ:
+      character: ɦ
+      name: vd glottal fricative
+      decimal: 614
+      hex: 0x0266
+  - char_ɧ:
+      character: ɧ
+      name: vl multiple-place fricative
+      decimal: 615
+      hex: 0x0267
+  - char_ħ:
+      character: ħ
+      name: vl pharyngeal fricative
+      decimal: 295
+      hex: 0x0127
+  - char_ɥ:
+      character: ɥ
+      name: labial-palatal approximant
+      decimal: 613
+      hex: 0x0265
+  - char_ʜ:
+      character: ʜ
+      name: vl epiglottal fricative
+      decimal: 668
+      hex: 0x029C
+  - char_ɨ:
+      character: ɨ
+      name: close central unrounded
+      decimal: 616
+      hex: 0x0268
+  - char_ɪ:
+      character: ɪ
+      name: lax close front unrounded
+      decimal: 618
+      hex: 0x026A
+  - char_ʝ:
+      character: ʝ
+      name: vd palatal fricative
+      decimal: 669
+      hex: 0x029D
+  - char_ɭ:
+      character: ɭ
+      name: vd retroflex lateral
+      decimal: 621
+      hex: 0x026D
+  - char_ɬ:
+      character: ɬ
+      name: vl alveolar lateral fricative
+      decimal: 620
+      hex: 0x026C
+  - char_ɫ:
+      character: ɫ
+      name: velarized vd alveolar lateral
+      decimal: 619
+      hex: 0x026B
+  - char_ɮ:
+      character: ɮ
+      name: vd alveolar lateral fricative
+      decimal: 622
+      hex: 0x026E
+  - char_ʟ:
+      character: ʟ
+      name: vd velar lateral
+      decimal: 671
+      hex: 0x029F
+  - char_ɱ:
+      character: ɱ
+      name: vd labiodental nasal
+      decimal: 625
+      hex: 0x0271
+  - char_ɯ:
+      character: ɯ
+      name: close back unrounded
+      decimal: 623
+      hex: 0x026F
+  - char_ɰ:
+      character: ɰ
+      name: velar approximant
+      decimal: 624
+      hex: 0x0270
+  - char_ŋ:
+      character: ŋ
+      name: vd velar nasal
+      decimal: 331
+      hex: 0x014B
+  - char_ɳ:
+      character: ɳ
+      name: vd retroflex nasal
+      decimal: 627
+      hex: 0x0273
+  - char_ɲ:
+      character: ɲ
+      name: vd palatal nasal
+      decimal: 626
+      hex: 0x0272
+  - char_ɴ:
+      character: ɴ
+      name: vd uvular nasal
+      decimal: 628
+      hex: 0x0274
+  - char_ø:
+      character: ø
+      name: front close-mid rounded
+      decimal: 248
+      hex: 0x00F8
+  - char_ɵ:
+      character: ɵ
+      name: rounded schwa
+      decimal: 629
+      hex: 0x0275
+  - char_ɸ:
+      character: ɸ
+      name: vl bilabial fricative
+      decimal: 632
+      hex: 0x0278
+  - char_θ:
+      character: θ
+      name: vl dental fricative
+      decimal: 952
+      hex: 0x03B8
+  - char_œ:
+      character: œ
+      name: front open-mid rounded
+      decimal: 339
+      hex: 0x0153
+  - char_ɶ:
+      character: ɶ
+      name: front open rounded
+      decimal: 630
+      hex: 0x0276
+  - char_ʘ:
+      character: ʘ
+      name: bilabial click
+      decimal: 664
+      hex: 0x0298
+  - char_ɹ:
+      character: ɹ
+      name: vd (post)alveolar approximant
+      decimal: 633
+      hex: 0x0279
+  - char_ɺ:
+      character: ɺ
+      name: vd alveolar lateral flap
+      decimal: 634
+      hex: 0x027A
+  - char_ɾ:
+      character: ɾ
+      name: vd alveolar tap
+      decimal: 638
+      hex: 0x027E
+  - char_ɻ:
+      character: ɻ
+      name: vd retroflex approximant
+      decimal: 635
+      hex: 0x027B
+  - char_ʀ:
+      character: ʀ
+      name: vd uvular trill
+      decimal: 640
+      hex: 0x0280
+  - char_ʁ:
+      character: ʁ
+      name: vd uvular fricative
+      decimal: 641
+      hex: 0x0281
+  - char_ɽ:
+      character: ɽ
+      name: vd retroflex flap
+      decimal: 637
+      hex: 0x027D
+  - char_ʂ:
+      character: ʂ
+      name: vl retroflex fricative
+      decimal: 642
+      hex: 0x0282
+  - char_ʃ:
+      character: ʃ
+      name: vl postalveolar fricative
+      decimal: 643
+      hex: 0x0283
+  - char_ʈ:
+      character: ʈ
+      name: vl retroflex plosive
+      decimal: 648
+      hex: 0x0288
+  - char_ʧ:
+      character: ʧ
+      name: vl postalveolar affricate
+      decimal: 679
+      hex: 0x02A7
+  - char_ʉ:
+      character: ʉ
+      name: close central rounded
+      decimal: 649
+      hex: 0x0289
+  - char_ʊ:
+      character: ʊ
+      name: lax close back rounded
+      decimal: 650
+      hex: 0x028A
+  - char_ʋ:
+      character: ʋ
+      name: vd labiodental approximant
+      decimal: 651
+      hex: 0x028B
+  - char_ⱱ:
+      character: ⱱ
+      name: voiced labiodental flap
+      decimal: 11377
+      hex: 0x2C71
+  - char_ʌ:
+      character: ʌ
+      name: open-mid back unrounded
+      decimal: 652
+      hex: 0x028C
+  - char_ɣ:
+      character: ɣ
+      name: vd velar fricative
+      decimal: 611
+      hex: 0x0263
+  - char_ɤ:
+      character: ɤ
+      name: close-mid back unrounded
+      decimal: 612
+      hex: 0x0264
+  - char_ʍ:
+      character: ʍ
+      name: vl labial-velar fricative
+      decimal: 653
+      hex: 0x028D
+  - char_χ:
+      character: χ
+      name: vl uvular fricative
+      decimal: 967
+      hex: 0x03C7
+  - char_ʎ:
+      character: ʎ
+      name: vd palatal lateral
+      decimal: 654
+      hex: 0x028E
+  - char_ʏ:
+      character: ʏ
+      name: lax close front rounded
+      decimal: 655
+      hex: 0x028F
+  - char_ʑ:
+      character: ʑ
+      name: vd alveolopalatal fricative
+      decimal: 657
+      hex: 0x0291
+  - char_ʐ:
+      character: ʐ
+      name: vd retroflex fricative
+      decimal: 656
+      hex: 0x0290
+  - char_ʒ:
+      character: ʒ
+      name: vd postalveolar fricative
+      decimal: 658
+      hex: 0x0292
+  - char_ʔ:
+      character: ʔ
+      name: glottal plosive
+      decimal: 660
+      hex: 0x0294
+  - char_ʡ:
+      character: ʡ
+      name: vd epiglottal plosive
+      decimal: 673
+      hex: 0x02A1
+  - char_ʕ:
+      character: ʕ
+      name: vd pharyngeal fricative
+      decimal: 661
+      hex: 0x0295
+  - char_ʢ:
+      character: ʢ
+      name: vd epiglottal fricative
+      decimal: 674
+      hex: 0x02A2
+  - char_ǀ:
+      character: ǀ
+      name: dental click
+      decimal: 448
+      hex: 0x01C0
+  - char_ǁ:
+      character: ǁ
+      name: alveolar lateral click
+      decimal: 449
+      hex: 0x01C1
+  - char_ǂ:
+      character: ǂ
+      name: alveolar click
+      decimal: 450
+      hex: 0x01C2
+  - char_ǃ:
+      character: ǃ
+      name: retroflex click
+      decimal: 451
+      hex: 0x01C3
