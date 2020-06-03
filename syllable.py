@@ -1,6 +1,3 @@
-from configuration import Phonology
+from configuration import Sounds
 import random
 
-phon = Phonology()
-
-phon.

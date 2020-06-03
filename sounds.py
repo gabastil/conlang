@@ -597,16 +597,42 @@ class Vowel(Sound):
 
 class Syllable(Sound, Mora):
 
-    def __init__(self, structure):
+    def __init__(self, *args, **kwargs):
         super().__init__()
-        self._parse(structure)
+        self._parse(*args, **kwargs)
 
-    def _parse(self, structure):
-        structure = structure.lower()
-        onset, coda = [__ for __ in structure.split('v') if __]
-        self.onset(onset)
-        self.nucleus(structure.replace('c', ''))
-        self.coda(coda)
+    def _parse(self, *args, **kwargs):
+        nucleus = 'v'
+        if args:
+            if len(args) == 1:
+                structure = args[0].lower()
+
+            else:
+                structure = ''.join(args).lower()
+
+            if nucleus not in structure:
+                raise ValueError('No vowel nucleus detected. Unable to determine nucleus.')
+
+            onset, *_, coda = structure.split(nucleus)
+        
+        elif kwargs:
+            onset = kwargs.get('onset', None)
+            nucleus = kwargs.get('nucleus', None)
+            coda = kwargs.get('coda', None)
+        
+        self.onset = onset
+        self.nucleus = nucleus
+        self.coda = coda
+
+        self.body = self.onset + self.nucleus
+        self.rhyme = self.nucleus + self.coda
+    
+    # def __maintain_sonority(self, sound_type):
+    #     def wrapper(func):
+    #         if sound_type.lower().starswith('c'):
+    #             pass
+    #         return func(*args, **kwargs)
+    #     return wrapper
 
     def onset(self, sound=None):
         if sound:
