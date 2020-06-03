@@ -1,0 +1,11 @@
+orthography:
+  - char_ɑ:
+      character: ɑ
+      name: open back unrounded
+      decimal: 593
+      hex: 0x0251
+  - char_ɐ:
+      character: ɐ
+      name: open-mid schwa
+      decimal: 592
+      hex: 0x0250
