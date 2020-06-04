@@ -78,7 +78,7 @@ class Sound(object):
         self._character = kwargs.get('character')
 
         if kwargs.get('random', False):
-            self.randomize(kwargs.get('random'))
+            self.randomize(kwargs.get('kind'))
 
     def __repr__(self, label="Sound"):
         features = [getattr(self, __) for __ in PHON.labels]
@@ -474,27 +474,26 @@ class Sound(object):
         argmax, array = self._get_argmax_array(idx, array, -1)
         self._update_feature(idx, argmax, array)
 
-    def randomize(self, sound_type=None):
+    def randomize(self, kind=None):
         ''' Generate a random configuration of settings '''
 
         vsf, csf = PHON.vowel_specific_features, PHON.consonant_specific_features
 
         ignore = random.choice([vsf, csf])
 
-        if isinstance(sound_type, str):
-            if sound_type.startswith('v'):
-                ignore = vsf
-
-            elif sound_type.startswith('c'):
+        if isinstance(kind, str):
+            if kind.startswith('v'):
                 ignore = csf
 
-        print(ignore)
+            elif kind.startswith('c'):
+                ignore = vsf
 
-        for i, feature in enumerate(PHON.labels):
+        for i, feature in enumerate(PHON.labels[:-1]):
             if feature not in ignore:
-                print(feature, random.choice(PHON.features[i]))
                 value = random.choice(PHON.features[i])
                 self._set_feature(feature, value)
+        
+        self._set_feature('airway', 'egressive')
 
 
 class Mora():
@@ -668,6 +667,10 @@ class Syllable(Sound, Mora):
         self.rhyme = self.nucleus + self.coda
         self.syllable = self.body + self.coda
 
+    def randomize(self):
+        ''' IN DEVELOPMENT USE WITH SOUNDS.YAML '''
+        if self.syllable:
+            pass
 
 if __name__ == '__main__':
     c = Sound('sh')

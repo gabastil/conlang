@@ -12,8 +12,11 @@ phonology:
   place: &place
     - bilabial
     - labiodental
+    - labial-palatal
+    - interdental
     - dental
     - alveolar
+    - alveolopalatal
     - postalveolar
     - retroflex
     - palatal
@@ -21,6 +24,7 @@ phonology:
     - uvular
     - pharyngeal
     - glottal
+    - epiglottal
 
   # Consonant-specific property
   manner: &manner
@@ -64,15 +68,16 @@ phonology:
   # Vowel-specific property
   openness: &openness
     - open
-    - mid-open
+    - open-mid
     - mid
-    - mid-closed
-    - closed
+    - close-mid
+    - close
 
   # Vowel-specific property
   roundness: &roundness
     - rounded
     - unrounded
+    - schwa
 
   sonority: &sonority
     - vowel
@@ -119,6 +124,7 @@ phonology:
   vowel_specific_features:
     - tone
     - mode
+    - speed
     - frontness
     - openness
     - roundness

@@ -61,8 +61,18 @@ class Phonology(Resource):
 
 class Sounds(Resource):
 
+    class Consonant():
+        def __init__(self):
+            pass
+
+    class Vowel():
+        def __init__(self):
+            pass
+
     def __init__(self):
         super().__init__('sounds')
+        self.consonant = Consonant(self.sounds.consonant)
+        self.vowel = Vowel(self.sounds.vowel)
 
 
 if __name__ == "__main__":
