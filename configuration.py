@@ -61,10 +61,15 @@ class Phonology(Resource):
 
 class Sounds(Resource):
 
-    class Consonant():
-        ''' Subclass for consonant properties for this syllable '''
+    class __Sound():
+        ''' Subclass for consonant or vowel properties for this syllable '''
         def __init__(self, resource):
-            self.resource = Resource(resource).consonant
+            self.resource = resource
+            for item in self.resource:
+                setattr(self, item.name.replace(" ", "_").replace("-", "_"), item)
+        
+        def like(self, value):
+            return [__ for __ in self.resource if value in __.name]
         
         def name(self, value):
             for resource in self.resource:
@@ -84,39 +89,15 @@ class Sounds(Resource):
         def character(self, value):
             for resource in self.resource:
                 if resource.character == value:
-                    return resource
-        
-
-    class Vowel():
-        ''' Subclass for vowel properties for this syllable '''
-        def __init__(self, resource):
-            self.resource = Resource(resource).consonant
-        
-        def name(self, value):
-            for resource in self.resource:
-                if resource.name == value:
-                    return resource
-        
-        def decimal(self, value):
-            for resource in self.resource:
-                if resource.decimal == value:
-                    return resource
-        
-        def hexadecimal(self, value):
-            for resource in self.resource:
-                if resource.hexadecimal == value:
-                    return resource
-        
-        def character(self, value):
-            for resource in self.resource:
-                if resource.character == value:
-                    return resource
-        
+                    return resource        
 
     def __init__(self):
         super().__init__('sounds')
-        self.consonant = Consonant(self.sounds.consonant)
-        self.vowel = Vowel(self.sounds.vowel)
+        self.c = self.__Sound(self.consonant)
+        self.v = self.__Sound(self.vowel)
+    
+    def like(self, value):
+        return self.c.like(value) + self.v.like(value)
 
 
 if __name__ == "__main__":
