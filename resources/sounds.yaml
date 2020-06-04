@@ -1,96 +1,97 @@
 # This file contains IPA and orthographic information
 # (Source: https://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm)
-sounds:
-  vowels:
-    - {type: vowel, character: ɑ, name: open back unrounded, decimal: 593, hex: 0x0251}
-    - {type: vowel, character: ɒ, name: open back rounded, decimal: 594, hex: 0x0252}
-    - {type: vowel, character: ɐ, name: open-mid schwa, decimal: 592, hex: 0x0250}
-    - {type: vowel, character: ə, name: schwa, decimal: 601, hex: 0x0259}
-    - {type: vowel, character: ɵ, name: rounded schwa, decimal: 629, hex: 0x0275}
-    - {type: vowel, character: ɘ, name: close-mid schwa, decimal: 600, hex: 0x0258}
-    - {type: vowel, character: ɚ, name: rhotacized schwa, decimal: 602, hex: 0x025A}
-    - {type: vowel, character: ʌ, name: open-mid back unrounded, decimal: 652, hex: 0x028C}
-    - {type: vowel, character: ɔ, name: open-mid back rounded, decimal: 596, hex: 0x0254}
-    - {type: vowel, character: ɛ, name: open-mid front unrounded, decimal: 603, hex: 0x025B}
-    - {type: vowel, character: ɜ, name: open-mid central, decimal: 604, hex: 0x025C}
-    - {type: vowel, character: ɞ, name: open-mid central rounded, decimal: 606, hex: 0x025E}
-    - {type: vowel, character: ɤ, name: close-mid back unrounded, decimal: 612, hex: 0x0264}
-    - {type: vowel, character: ɝ, name: rhotacized open-mid central, decimal: 605, hex: 0x025D}
-    - {type: vowel, character: ø, name: front close-mid rounded, decimal: 248, hex: 0x00F8}
-    - {type: vowel, character: œ, name: front open-mid rounded, decimal: 339, hex: 0x0153}
-    - {type: vowel, character: ɶ, name: front open rounded, decimal: 630, hex: 0x0276}
-    - {type: vowel, character: æ, name: raised open front unrounded, decimal: 230, hex: 0x00E6}
-    - {type: vowel, character: ɪ, name: lax close front unrounded, decimal: 618, hex: 0x026A}
-    - {type: vowel, character: ʏ, name: lax close front rounded, decimal: 655, hex: 0x028F}
-    - {type: vowel, character: ʊ, name: lax close back rounded, decimal: 650, hex: 0x028A}
-    - {type: vowel, character: ɨ, name: close central unrounded, decimal: 616, hex: 0x0268}
-    - {type: vowel, character: ʉ, name: close central rounded, decimal: 649, hex: 0x0289}
-    - {type: vowel, character: ɯ, name: close back unrounded, decimal: 623, hex: 0x026F}
-  consonants:
-    - {type: consonant, character: ɓ, name: voiced bilabial stop ingressive, decimal: 595, hex: 0x0253}
-    - {type: consonant, character: ʙ, name: voiced bilabial trill, decimal: 665, hex: 0x0299}
-    - {type: consonant, character: β, name: voiced bilabial fricative, decimal: 946, hex: 0x03B2}
-    - {type: consonant, character: ɸ, name: voiceless bilabial fricative, decimal: 632, hex: 0x0278}
-    - {type: consonant, character: ɱ, name: voiced labiodental nasal, decimal: 625, hex: 0x0271}
-    - {type: consonant, character: ʋ, name: voiced labiodental approximant, decimal: 651, hex: 0x028B}
-    - {type: consonant, character: ⱱ, name: voiced labiodental flap, decimal: 11377, hex: 0x2C71}
-    - {type: consonant, character: ð, name: voiced dental fricative, decimal: 240, hex: 0x00F0}
-    - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
-    - {type: consonant, character: ɗ, name: voiced alveolar stop ingressive, decimal: 599, hex: 0x0257}
-    - {type: consonant, character: ɬ, name: voiceless alveolar lateral fricative, decimal: 620, hex: 0x026C}
-    - {type: consonant, character: ʤ, name: voiced postalveolar affricate, decimal: 676, hex: 0x02A4}
-    - {type: consonant, character: ɮ, name: voiced alveolar lateral fricative, decimal: 622, hex: 0x026E}
-    - {type: consonant, character: ɺ, name: voiced alveolar lateral flap, decimal: 634, hex: 0x027A}
-    - {type: consonant, character: ɾ, name: voiced alveolar tap, decimal: 638, hex: 0x027E}
-    - {type: consonant, character: ʑ, name: voiced alveolopalatal fricative, decimal: 657, hex: 0x0291}
-    - {type: consonant, character: ɕ, name: voiceless alveolopalatal fricative, decimal: 597, hex: 0x0255}
-    - {type: consonant, character: ɹ, name: voiced postalveolar approximant, decimal: 633, hex: 0x0279}
-    - {type: consonant, character: ʒ, name: voiced postalveolar fricative, decimal: 658, hex: 0x0292}
-    - {type: consonant, character: ʃ, name: voiceless postalveolar fricative, decimal: 643, hex: 0x0283}
-    - {type: consonant, character: ʧ, name: voiceless postalveolar affricate, decimal: 679, hex: 0x02A7}
-    - {type: consonant, character: ɖ, name: voiced retroflex stop, decimal: 598, hex: 0x0256}
-    - {type: consonant, character: ɭ, name: voiced retroflex lateral, decimal: 621, hex: 0x026D}
-    - {type: consonant, character: ɳ, name: voiced retroflex nasal, decimal: 627, hex: 0x0273}
-    - {type: consonant, character: ɻ, name: voiced retroflex approximant, decimal: 635, hex: 0x027B}
-    - {type: consonant, character: ɽ, name: voiced retroflex flap, decimal: 637, hex: 0x027D}
-    - {type: consonant, character: ʂ, name: voiceless retroflex fricative, decimal: 642, hex: 0x0282}
-    - {type: consonant, character: ʈ, name: voiceless retroflex stop, decimal: 648, hex: 0x0288}
-    - {type: consonant, character: ʐ, name: voiced retroflex fricative, decimal: 656, hex: 0x0290}
-    - {type: consonant, character: ç, name: voiceless palatal fricative, decimal: 231, hex: 0x00E7}
-    - {type: consonant, character: ʝ, name: voiced palatal fricative, decimal: 669, hex: 0x029D}
-    - {type: consonant, character: ɟ, name: voiced palatal stop, decimal: 607, hex: 0x025F}
-    - {type: consonant, character: ʄ, name: voiced palatal stop ingressive, decimal: 644, hex: 0x0284}
-    - {type: consonant, character: ɥ, name: labial-palatal approximant, decimal: 613, hex: 0x0265}
-    - {type: consonant, character: ɲ, name: voiced palatal nasal, decimal: 626, hex: 0x0272}
-    - {type: consonant, character: ʎ, name: voiced palatal lateral, decimal: 654, hex: 0x028E}
-    - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
-    - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
-    - {type: consonant, character: ɣ, name: voiced velar fricative, decimal: 611, hex: 0x0263}
-    - {type: consonant, character: ɠ, name: voiced velar stop ingressive, decimal: 608, hex: 0x0260}
-    - {type: consonant, character: ʟ, name: voiced velar lateral, decimal: 671, hex: 0x029F}
-    - {type: consonant, character: ɰ, name: velar approximant, decimal: 624, hex: 0x0270}
-    - {type: consonant, character: ŋ, name: voiced velar nasal, decimal: 331, hex: 0x014B}
-    - {type: consonant, character: ʍ, name: voiceless labial-velar fricative, decimal: 653, hex: 0x028D}
-    - {type: consonant, character: ɢ, name: voiced uvular stop, decimal: 610, hex: 0x0262}
-    - {type: consonant, character: ʛ, name: voiced uvular stop ingressive, decimal: 667, hex: 0x029B}
-    - {type: consonant, character: ɴ, name: voiced uvular nasal, decimal: 628, hex: 0x0274}
-    - {type: consonant, character: ʀ, name: voiced uvular trill, decimal: 640, hex: 0x0280}
-    - {type: consonant, character: ʁ, name: voiced uvular fricative, decimal: 641, hex: 0x0281}
-    - {type: consonant, character: χ, name: voiceless uvular fricative, decimal: 967, hex: 0x03C7}
-    - {type: consonant, character: ħ, name: voiceless pharyngeal fricative, decimal: 295, hex: 0x0127}
-    - {type: consonant, character: ʕ, name: voiced pharyngeal fricative, decimal: 661, hex: 0x0295}
-    - {type: consonant, character: ɧ, name: voiceless multiple-place fricative, decimal: 615, hex: 0x0267}
-    - {type: consonant, character: ʡ, name: voiced epiglottal stop, decimal: 673, hex: 0x02A1}
-    - {type: consonant, character: ʜ, name: voiceless epiglottal fricative, decimal: 668, hex: 0x029C}
-    - {type: consonant, character: ʢ, name: voiced epiglottal fricative, decimal: 674, hex: 0x02A2}
-    - {type: consonant, character: ɦ, name: voiced glottal fricative, decimal: 614, hex: 0x0266}
-    - {type: consonant, character: ʔ, name: glottal stop, decimal: 660, hex: 0x0294}
-    - {type: consonant, character: ʘ, name: bilabial click, decimal: 664, hex: 0x0298}
-    - {type: consonant, character: ǃ, name: retroflex click, decimal: 451, hex: 0x01C3}
-    - {type: consonant, character: ǁ, name: alveolar lateral click, decimal: 449, hex: 0x01C1}
-    - {type: consonant, character: ǂ, name: alveolar click, decimal: 450, hex: 0x01C2}
-    - {type: consonant, character: ǀ, name: dental click, decimal: 448, hex: 0x01C0}
-  
+# sounds:
+vowel:
+  - {type: vowel, character: ɑ, name: open back unrounded, decimal: 593, hex: 0x0251}
+  - {type: vowel, character: ɒ, name: open back rounded, decimal: 594, hex: 0x0252}
+  - {type: vowel, character: ɐ, name: open-mid schwa, decimal: 592, hex: 0x0250}
+  - {type: vowel, character: ə, name: schwa, decimal: 601, hex: 0x0259}
+  - {type: vowel, character: ɵ, name: rounded schwa, decimal: 629, hex: 0x0275}
+  - {type: vowel, character: ɘ, name: close-mid schwa, decimal: 600, hex: 0x0258}
+  - {type: vowel, character: ɚ, name: rhotacized schwa, decimal: 602, hex: 0x025A}
+  - {type: vowel, character: ʌ, name: open-mid back unrounded, decimal: 652, hex: 0x028C}
+  - {type: vowel, character: ɔ, name: open-mid back rounded, decimal: 596, hex: 0x0254}
+  - {type: vowel, character: ɛ, name: open-mid front unrounded, decimal: 603, hex: 0x025B}
+  - {type: vowel, character: ɜ, name: open-mid central, decimal: 604, hex: 0x025C}
+  - {type: vowel, character: ɞ, name: open-mid central rounded, decimal: 606, hex: 0x025E}
+  - {type: vowel, character: ɤ, name: close-mid back unrounded, decimal: 612, hex: 0x0264}
+  - {type: vowel, character: ɝ, name: rhotacized open-mid central, decimal: 605, hex: 0x025D}
+  - {type: vowel, character: ø, name: front close-mid rounded, decimal: 248, hex: 0x00F8}
+  - {type: vowel, character: œ, name: front open-mid rounded, decimal: 339, hex: 0x0153}
+  - {type: vowel, character: ɶ, name: front open rounded, decimal: 630, hex: 0x0276}
+  - {type: vowel, character: æ, name: raised open front unrounded, decimal: 230, hex: 0x00E6}
+  - {type: vowel, character: ɪ, name: lax close front unrounded, decimal: 618, hex: 0x026A}
+  - {type: vowel, character: ʏ, name: lax close front rounded, decimal: 655, hex: 0x028F}
+  - {type: vowel, character: ʊ, name: lax close back rounded, decimal: 650, hex: 0x028A}
+  - {type: vowel, character: ɨ, name: close central unrounded, decimal: 616, hex: 0x0268}
+  - {type: vowel, character: ʉ, name: close central rounded, decimal: 649, hex: 0x0289}
+  - {type: vowel, character: ɯ, name: close back unrounded, decimal: 623, hex: 0x026F}
+
+consonant:
+  - {type: consonant, character: ɓ, name: voiced bilabial stop ingressive, decimal: 595, hex: 0x0253}
+  - {type: consonant, character: ʙ, name: voiced bilabial trill, decimal: 665, hex: 0x0299}
+  - {type: consonant, character: β, name: voiced bilabial fricative, decimal: 946, hex: 0x03B2}
+  - {type: consonant, character: ɸ, name: voiceless bilabial fricative, decimal: 632, hex: 0x0278}
+  - {type: consonant, character: ɱ, name: voiced labiodental nasal, decimal: 625, hex: 0x0271}
+  - {type: consonant, character: ʋ, name: voiced labiodental approximant, decimal: 651, hex: 0x028B}
+  - {type: consonant, character: ⱱ, name: voiced labiodental flap, decimal: 11377, hex: 0x2C71}
+  - {type: consonant, character: ð, name: voiced dental fricative, decimal: 240, hex: 0x00F0}
+  - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
+  - {type: consonant, character: ɗ, name: voiced alveolar stop ingressive, decimal: 599, hex: 0x0257}
+  - {type: consonant, character: ɬ, name: voiceless alveolar lateral fricative, decimal: 620, hex: 0x026C}
+  - {type: consonant, character: ʤ, name: voiced postalveolar affricate, decimal: 676, hex: 0x02A4}
+  - {type: consonant, character: ɮ, name: voiced alveolar lateral fricative, decimal: 622, hex: 0x026E}
+  - {type: consonant, character: ɺ, name: voiced alveolar lateral flap, decimal: 634, hex: 0x027A}
+  - {type: consonant, character: ɾ, name: voiced alveolar tap, decimal: 638, hex: 0x027E}
+  - {type: consonant, character: ʑ, name: voiced alveolopalatal fricative, decimal: 657, hex: 0x0291}
+  - {type: consonant, character: ɕ, name: voiceless alveolopalatal fricative, decimal: 597, hex: 0x0255}
+  - {type: consonant, character: ɹ, name: voiced postalveolar approximant, decimal: 633, hex: 0x0279}
+  - {type: consonant, character: ʒ, name: voiced postalveolar fricative, decimal: 658, hex: 0x0292}
+  - {type: consonant, character: ʃ, name: voiceless postalveolar fricative, decimal: 643, hex: 0x0283}
+  - {type: consonant, character: ʧ, name: voiceless postalveolar affricate, decimal: 679, hex: 0x02A7}
+  - {type: consonant, character: ɖ, name: voiced retroflex stop, decimal: 598, hex: 0x0256}
+  - {type: consonant, character: ɭ, name: voiced retroflex lateral, decimal: 621, hex: 0x026D}
+  - {type: consonant, character: ɳ, name: voiced retroflex nasal, decimal: 627, hex: 0x0273}
+  - {type: consonant, character: ɻ, name: voiced retroflex approximant, decimal: 635, hex: 0x027B}
+  - {type: consonant, character: ɽ, name: voiced retroflex flap, decimal: 637, hex: 0x027D}
+  - {type: consonant, character: ʂ, name: voiceless retroflex fricative, decimal: 642, hex: 0x0282}
+  - {type: consonant, character: ʈ, name: voiceless retroflex stop, decimal: 648, hex: 0x0288}
+  - {type: consonant, character: ʐ, name: voiced retroflex fricative, decimal: 656, hex: 0x0290}
+  - {type: consonant, character: ç, name: voiceless palatal fricative, decimal: 231, hex: 0x00E7}
+  - {type: consonant, character: ʝ, name: voiced palatal fricative, decimal: 669, hex: 0x029D}
+  - {type: consonant, character: ɟ, name: voiced palatal stop, decimal: 607, hex: 0x025F}
+  - {type: consonant, character: ʄ, name: voiced palatal stop ingressive, decimal: 644, hex: 0x0284}
+  - {type: consonant, character: ɥ, name: labial-palatal approximant, decimal: 613, hex: 0x0265}
+  - {type: consonant, character: ɲ, name: voiced palatal nasal, decimal: 626, hex: 0x0272}
+  - {type: consonant, character: ʎ, name: voiced palatal lateral, decimal: 654, hex: 0x028E}
+  - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
+  - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
+  - {type: consonant, character: ɣ, name: voiced velar fricative, decimal: 611, hex: 0x0263}
+  - {type: consonant, character: ɠ, name: voiced velar stop ingressive, decimal: 608, hex: 0x0260}
+  - {type: consonant, character: ʟ, name: voiced velar lateral, decimal: 671, hex: 0x029F}
+  - {type: consonant, character: ɰ, name: velar approximant, decimal: 624, hex: 0x0270}
+  - {type: consonant, character: ŋ, name: voiced velar nasal, decimal: 331, hex: 0x014B}
+  - {type: consonant, character: ʍ, name: voiceless labial-velar fricative, decimal: 653, hex: 0x028D}
+  - {type: consonant, character: ɢ, name: voiced uvular stop, decimal: 610, hex: 0x0262}
+  - {type: consonant, character: ʛ, name: voiced uvular stop ingressive, decimal: 667, hex: 0x029B}
+  - {type: consonant, character: ɴ, name: voiced uvular nasal, decimal: 628, hex: 0x0274}
+  - {type: consonant, character: ʀ, name: voiced uvular trill, decimal: 640, hex: 0x0280}
+  - {type: consonant, character: ʁ, name: voiced uvular fricative, decimal: 641, hex: 0x0281}
+  - {type: consonant, character: χ, name: voiceless uvular fricative, decimal: 967, hex: 0x03C7}
+  - {type: consonant, character: ħ, name: voiceless pharyngeal fricative, decimal: 295, hex: 0x0127}
+  - {type: consonant, character: ʕ, name: voiced pharyngeal fricative, decimal: 661, hex: 0x0295}
+  - {type: consonant, character: ɧ, name: voiceless multiple-place fricative, decimal: 615, hex: 0x0267}
+  - {type: consonant, character: ʡ, name: voiced epiglottal stop, decimal: 673, hex: 0x02A1}
+  - {type: consonant, character: ʜ, name: voiceless epiglottal fricative, decimal: 668, hex: 0x029C}
+  - {type: consonant, character: ʢ, name: voiced epiglottal fricative, decimal: 674, hex: 0x02A2}
+  - {type: consonant, character: ɦ, name: voiced glottal fricative, decimal: 614, hex: 0x0266}
+  - {type: consonant, character: ʔ, name: glottal stop, decimal: 660, hex: 0x0294}
+  - {type: consonant, character: ʘ, name: bilabial click, decimal: 664, hex: 0x0298}
+  - {type: consonant, character: ǃ, name: retroflex click, decimal: 451, hex: 0x01C3}
+  - {type: consonant, character: ǁ, name: alveolar lateral click, decimal: 449, hex: 0x01C1}
+  - {type: consonant, character: ǂ, name: alveolar click, decimal: 450, hex: 0x01C2}
+  - {type: consonant, character: ǀ, name: dental click, decimal: 448, hex: 0x01C0}
+
   
   
   

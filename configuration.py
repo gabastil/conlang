@@ -62,12 +62,56 @@ class Phonology(Resource):
 class Sounds(Resource):
 
     class Consonant():
-        def __init__(self):
-            pass
+        ''' Subclass for consonant properties for this syllable '''
+        def __init__(self, resource):
+            self.resource = Resource(resource).consonant
+        
+        def name(self, value):
+            for resource in self.resource:
+                if resource.decimal == value:
+                    return resource
+        
+        def decimal(self, value):
+            for resource in self.resource:
+                if resource.decimal == value:
+                    return resource
+        
+        def hexadecimal(self, value):
+            for resource in self.resource:
+                if resource.decimal == value:
+                    return resource
+        
+        def character(self, value):
+            for resource in self.resource:
+                if resource.character == value:
+                    return resource
+        
 
     class Vowel():
-        def __init__(self):
-            pass
+        ''' Subclass for vowel properties for this syllable '''
+        def __init__(self, resource):
+            self.resource = Resource(resource).consonant
+        
+        def name(self, value):
+            for resource in self.resource:
+                if resource.name == value:
+                    return resource
+        
+        def decimal(self, value):
+            for resource in self.resource:
+                if resource.decimal == value:
+                    return resource
+        
+        def hexadecimal(self, value):
+            for resource in self.resource:
+                if resource.hexadecimal == value:
+                    return resource
+        
+        def character(self, value):
+            for resource in self.resource:
+                if resource.character == value:
+                    return resource
+        
 
     def __init__(self):
         super().__init__('sounds')
