@@ -28,6 +28,8 @@ vowel:
   - {type: vowel, character: ɯ, name: close back unrounded, decimal: 623, hex: 0x026F}
 
 consonant:
+  - {type: consonant, character: b, name: voiced bilabial stop, decimal: 98, hex: 0x62}
+  - {type: consonant, character: p, name: voiceless bilabial stop, decimal: 112, hex: 0x70}
   - {type: consonant, character: ɓ, name: voiced bilabial stop ingressive, decimal: 595, hex: 0x0253}
   - {type: consonant, character: ʙ, name: voiced bilabial trill, decimal: 665, hex: 0x0299}
   - {type: consonant, character: β, name: voiced bilabial fricative, decimal: 946, hex: 0x03B2}
@@ -36,6 +38,8 @@ consonant:
   - {type: consonant, character: ʋ, name: voiced labiodental approximant, decimal: 651, hex: 0x028B}
   - {type: consonant, character: ⱱ, name: voiced labiodental flap, decimal: 11377, hex: 0x2C71}
   - {type: consonant, character: ð, name: voiced dental fricative, decimal: 240, hex: 0x00F0}
+  - {type: consonant, character: d, name: voiced alveolar stop, decimal: 100, hex: 0x64}
+  - {type: consonant, character: t, name: voiceless alveolar stop, decimal: 116, hex: 0x74}
   - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
   - {type: consonant, character: ɗ, name: voiced alveolar stop ingressive, decimal: 599, hex: 0x0257}
   - {type: consonant, character: ɬ, name: voiceless alveolar lateral fricative, decimal: 620, hex: 0x026C}
@@ -66,6 +70,8 @@ consonant:
   - {type: consonant, character: ʎ, name: voiced palatal lateral, decimal: 654, hex: 0x028E}
   - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
   - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
+  - {type: consonant, character: g, name: voiced velar stop, decimal: 103, hex: 0x67}
+  - {type: consonant, character: k, name: voiced velar stop, decimal: 107, hex: 0x6b}
   - {type: consonant, character: ɣ, name: voiced velar fricative, decimal: 611, hex: 0x0263}
   - {type: consonant, character: ɠ, name: voiced velar stop ingressive, decimal: 608, hex: 0x0260}
   - {type: consonant, character: ʟ, name: voiced velar lateral, decimal: 671, hex: 0x029F}

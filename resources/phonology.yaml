@@ -1,432 +1,130 @@
-phonology:
+# This file contains the parameters used to describe phonological features
 
-  airway: &airway
-    - ingressive
-    - egressive
+airway: &airway
+  - ingressive
+  - egressive
 
-  cavity: &cavity
-    - nasal
-    - oral
+cavity: &cavity
+  - nasal
+  - oral
 
-  # Consonant-specific property
-  place: &place
-    - bilabial
-    - labiodental
-    - labial-palatal
-    - interdental
-    - dental
-    - alveolar
-    - alveolopalatal
-    - postalveolar
-    - retroflex
-    - palatal
-    - velar
-    - uvular
-    - pharyngeal
-    - glottal
-    - epiglottal
+# Consonant-specific property
+place: &place
+  - bilabial
+  - labiodental
+  - labial-palatal
+  - interdental
+  - dental
+  - alveolar
+  - alveolopalatal
+  - postalveolar
+  - retroflex
+  - palatal
+  - velar
+  - uvular
+  - pharyngeal
+  - glottal
+  - epiglottal
 
-  # Consonant-specific property
-  manner: &manner
-    - stop
-    - tap
-    - trill
-    - affricate
-    - fricative
-    - approximant
-    - lateral
-    - click
+# Consonant-specific property
+manner: &manner
+  - stop
+  - tap
+  - trill
+  - affricate
+  - fricative
+  - approximant
+  - lateral
+  - click
 
-  # Consonant-specific property
-  voicing: &voicing
-    - voiced
-    - voiceless
+# Consonant-specific property
+voicing: &voicing
+  - voiced
+  - voiceless
 
-  # Vowel-specific property
-  tone: &tone
-    - high
-    - mid-high
-    - mid
-    - low-mid
-    - low
+# Vowel-specific property
+tone: &tone
+  - high
+  - mid-high
+  - mid
+  - low-mid
+  - low
 
-  mode: &mode
-    - creaky
-    - breathy
+mode: &mode
+  - creaky
+  - breathy
 
-  speed: &speed
-    - fast
-    - medium
-    - slow
+speed: &speed
+  - fast
+  - medium
+  - slow
 
-  # Vowel-specific property
-  frontness: &frontness
-    - front
-    - mid
-    - back
+# Vowel-specific property
+frontness: &frontness
+  - front
+  - mid
+  - back
 
-  # Vowel-specific property
-  openness: &openness
-    - open
-    - open-mid
-    - mid
-    - close-mid
-    - close
+# Vowel-specific property
+openness: &openness
+  - open
+  - open-mid
+  - mid
+  - close-mid
+  - close
 
-  # Vowel-specific property
-  roundness: &roundness
-    - rounded
-    - unrounded
-    - schwa
+# Vowel-specific property
+roundness: &roundness
+  - rounded
+  - unrounded
+  - schwa
 
-  sonority: &sonority
-    - vowel
-    - liquid
-    - nasal
-    - fricative
-    - affricate
-    - voiced stop
-    - voiceless stop
+sonority: &sonority
+  - vowel
+  - liquid
+  - nasal
+  - fricative
+  - affricate
+  - voiced stop
+  - voiceless stop
 
-  labels:
-    - cavity
-    - airway
-    - place
-    - voicing
-    - manner
-    - tone
-    - mode
-    - speed
-    - frontness
-    - openness
-    - roundness
-    - sonority
+labels:
+  - cavity
+  - airway
+  - place
+  - voicing
+  - manner
+  - tone
+  - mode
+  - speed
+  - frontness
+  - openness
+  - roundness
+  - sonority
 
-  features:
-    - *cavity
-    - *airway
-    - *place
-    - *voicing
-    - *manner
-    - *tone
-    - *mode
-    - *speed
-    - *frontness
-    - *openness
-    - *roundness
-    - *sonority
+features:
+  - *cavity
+  - *airway
+  - *place
+  - *voicing
+  - *manner
+  - *tone
+  - *mode
+  - *speed
+  - *frontness
+  - *openness
+  - *roundness
+  - *sonority
 
-  consonant_specific_features:
-    - place
-    - voicing
-    - manner
+consonant_specific_features:
+  - place
+  - voicing
+  - manner
 
-  vowel_specific_features:
-    - tone
-    - mode
-    - speed
-    - frontness
-    - openness
-    - roundness
-    
-
-orthography: None
-  # vowels:
-  #   a:
-  #     name: a
-  #     frontness: mid
-  #     openness: open
-  #     roundness: unrounded
-
-  #   i:
-  #     name: i
-  #     frontness: front
-  #     openness: closed
-  #     roundness: unrounded
-
-  #   e:
-  #     name: e
-  #     frontness: front
-  #     openness: mid-closed
-  #     roundness: unrounded
-
-  #   o:
-  #     name: o
-  #     frontness: back
-  #     openness: mid
-  #     roundness: rounded
-
-  #   u:
-  #     name: u
-  #     frontness: back
-  #     openness: closed
-  #     roundness: rounded
-
-
-  # consonants:
-
-  #   p:
-  #     name: p
-  #     place : bilabial
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   b:
-  #     name: b
-  #     place : bilabial
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   m:
-  #     name: m
-  #     place : bilabial
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : nasal
-
-  #   f:
-  #     name: f
-  #     place : labiodental
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   v:
-  #     name: v
-  #     place : labiodental
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   th:
-  #     name: th
-  #     place : dental
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   dh:
-  #     name: dh
-  #     place : dental
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   t:
-  #     name: t
-  #     place : alveolar
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   d:
-  #     name: d
-  #     place : alveolar
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   n:
-  #     name: n
-  #     place : alveolar
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : nasal
-
-  #   r:
-  #     name: r
-  #     place : alveolar
-  #     manner : tap
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   R:
-  #     name: R
-  #     place : retroflex
-  #     manner : approximant
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   s:
-  #     name: s
-  #     place : alveolar
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   z:
-  #     name: z
-  #     place : alveolar
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   ts:
-  #     name: ts
-  #     place : alveolar
-  #     manner : affricate
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   dz:
-  #     name: dz
-  #     place : alveolar
-  #     manner : affricate
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   sh:
-  #     name: sh
-  #     place : postalveolar
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   zh:
-  #     name: zh
-  #     place : postalveolar
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   ch:
-  #     name: ch
-  #     place : postalveolar
-  #     manner : affricate
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   dzh:
-  #     name: dzh
-  #     place : postalveolar
-  #     manner : affricate
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   Ch:
-  #     name: Ch
-  #     place : palatal
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   Jh:
-  #     name: Jh
-  #     place : palatal
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   nh:
-  #     name: nh
-  #     place : palatal
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : nasal
-
-  #   c:
-  #     name: c
-  #     place : palatal
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   j:
-  #     name: j
-  #     place : palatal
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   k:
-  #     name: k
-  #     place : velar
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   g:
-  #     name: g
-  #     place : velar
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   ng:
-  #     name: ng
-  #     place : velar
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : nasal
-
-  #   kh:
-  #     name: kh
-  #     place : velar
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   gh:
-  #     name: gh
-  #     place : velar
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   q:
-  #     name: q
-  #     place : uvular
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   G:
-  #     name: G
-  #     place : uvular
-  #     manner : stop
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   qh:
-  #     name: qh
-  #     place : uvular
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   Gh:
-  #     name: Gh
-  #     place : uvular
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   H:
-  #     name: H
-  #     place : pharyngeal
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   a3:
-  #     name: a3
-  #     place : pharyngeal
-  #     manner : fricative
-  #     voicing : voiced
-  #     cavity : oral
-
-  #   h:
-  #     name: h
-  #     place : glottal
-  #     manner : fricative
-  #     voicing : voiceless
-  #     cavity : oral
-
-  #   uh:
-  #     name: G3
-  #     place : glottal
-  #     manner : stop
-  #     voicing : voiceless
-  #     cavity : oral
+vowel_specific_features:
+  - tone
+  - mode
+  - speed
+  - frontness
+  - openness
+  - roundness

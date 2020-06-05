@@ -5,11 +5,11 @@
 # created: 2020-04-10
 # description: classes and functions to represent and manipulate phonemes
 import numpy as np
-from configuration import Phonology
+from resource import SoundsResource, PhonologyResource
 import math, random
 
-PHON = Phonology().phonology
-ORTH = Phonology().orthography
+PHON = PhonologyResource()
+SNDS = SoundsResource()
 
 
 class Sound(object):
@@ -353,18 +353,17 @@ class Sound(object):
             letter (str) : Sound defined in phonology.yaml
         '''
         if kind.lower().startswith('c'):
-            orthography = ORTH.consonants
+            orthography = SNDS.consonant
         elif kind.lower().startswith('v'):
-            orthography = ORTH.vowels
+            orthography = SNDS.vowel
         else:
             raise ValueError('`kind` must be `consonant` or `vowel`')
 
         self.character = letter
 
         for letter_ in orthography:
-            if letter_.name == letter:
-                features = list(letter_)[1:]
-                self._parse(*features)
+            if letter_.character == letter:
+                self._parse(*letter_.name)
                 break
         else:
             raise ValueError('Input `letter` or `kind` is incorrect.')
