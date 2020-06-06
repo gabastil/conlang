@@ -568,12 +568,6 @@ class Consonant(Sound):
         self.__default()
 
 
-class Cluster():
-
-    def __init__(self, *consonants):
-        self.consonants = consonants
-
-
 class Vowel(Sound):
 
     def __init__(self, *features, **kwargs):

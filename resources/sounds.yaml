@@ -30,6 +30,7 @@ vowel:
 consonant:
   - {type: consonant, character: b, name: voiced bilabial stop, decimal: 98, hex: 0x62}
   - {type: consonant, character: p, name: voiceless bilabial stop, decimal: 112, hex: 0x70}
+  - {type: consonant, character: m, name: voiced nasal bilabial stop, decimal: 109, hex: 0x6d}
   - {type: consonant, character: ɓ, name: voiced bilabial stop ingressive, decimal: 595, hex: 0x0253}
   - {type: consonant, character: ʙ, name: voiced bilabial trill, decimal: 665, hex: 0x0299}
   - {type: consonant, character: β, name: voiced bilabial fricative, decimal: 946, hex: 0x03B2}
@@ -38,9 +39,12 @@ consonant:
   - {type: consonant, character: ʋ, name: voiced labiodental approximant, decimal: 651, hex: 0x028B}
   - {type: consonant, character: ⱱ, name: voiced labiodental flap, decimal: 11377, hex: 0x2C71}
   - {type: consonant, character: ð, name: voiced dental fricative, decimal: 240, hex: 0x00F0}
+  - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
   - {type: consonant, character: d, name: voiced alveolar stop, decimal: 100, hex: 0x64}
   - {type: consonant, character: t, name: voiceless alveolar stop, decimal: 116, hex: 0x74}
-  - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
+  - {type: consonant, character: n, name: voiced nasal alveolar stop, decimal: 110, hex: 0x6e}
+  - {type: consonant, character: z, name: voiced alveolar fricative, decimal: 122, hex: 0x7a}
+  - {type: consonant, character: s, name: voiceless alveolar fricative, decimal: 115, hex: 0x73}
   - {type: consonant, character: ɗ, name: voiced alveolar stop ingressive, decimal: 599, hex: 0x0257}
   - {type: consonant, character: ɬ, name: voiceless alveolar lateral fricative, decimal: 620, hex: 0x026C}
   - {type: consonant, character: ʤ, name: voiced postalveolar affricate, decimal: 676, hex: 0x02A4}
@@ -64,10 +68,12 @@ consonant:
   - {type: consonant, character: ç, name: voiceless palatal fricative, decimal: 231, hex: 0x00E7}
   - {type: consonant, character: ʝ, name: voiced palatal fricative, decimal: 669, hex: 0x029D}
   - {type: consonant, character: ɟ, name: voiced palatal stop, decimal: 607, hex: 0x025F}
+  - {type: consonant, character: c, name: voiceless palatal stop, decimal: 99, hex: 0x63}
   - {type: consonant, character: ʄ, name: voiced palatal stop ingressive, decimal: 644, hex: 0x0284}
   - {type: consonant, character: ɥ, name: labial-palatal approximant, decimal: 613, hex: 0x0265}
   - {type: consonant, character: ɲ, name: voiced palatal nasal, decimal: 626, hex: 0x0272}
   - {type: consonant, character: ʎ, name: voiced palatal lateral, decimal: 654, hex: 0x028E}
+  - {type: consonant, character: j, name: voiced palatal approximant, decimal: 106, hex: 0x6a}
   - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
   - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
   - {type: consonant, character: g, name: voiced velar stop, decimal: 103, hex: 0x67}

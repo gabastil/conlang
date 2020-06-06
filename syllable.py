@@ -45,10 +45,10 @@ class Syllable(Sound, Mora):
 
             if not nucleus:
                 error = (
-                    'Unable to determine nucleus. No vowel nucleus detected. '
-                    'Define this syllable with a vowel nucleus `v` or using keyword arguments '
-                    'like `onset`, `nucleus`, and `coda` instead (e.g., Syllable(onset="cc", '
-                    'nucleus="c") if the nucleus is a consonant.'
+                    'Unable to determine nucleus. No vowel nucleus detected. Define '
+                    'this syllable with a vowel nucleus `v` or using keyword arguments '
+                    'like `onset`, `nucleus`, and `coda` instead (e.g., Syllable(onset'
+                    '="cc", nucleus="c") if the nucleus is a consonant.'
                 )
                 raise ValueError(error)
 
@@ -59,11 +59,13 @@ class Syllable(Sound, Mora):
             nucleus = kwargs.get('nucleus', 'v').lower()
             coda = kwargs.get('coda', '').lower()
 
-        classify = lambda letters : [Consonant(__) if __.startswith('c') else Vowel(__) for __ in letters]
+        sound_type = lambda L : [Consonant() 
+                                 if __.startswith('c') else Vowel()
+                                 for __ in L]
     
-        self.onset = classify(onset)
-        self.nucleus = classify(nucleus)
-        self.coda = classify(coda)
+        self.onset = sound_type(onset)
+        self.nucleus = sound_type(nucleus)
+        self.coda = sound_type(coda)
 
         self.body = self.onset + self.nucleus
         self.rhyme = self.nucleus + self.coda
