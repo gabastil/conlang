@@ -64,12 +64,13 @@ class Sound(object):
         """
         self.rows = len(PHON.features)
         self.columns = max([len(__) for __ in PHON.features])
-
         self._features = np.zeros((self.rows, self.columns))
 
         if features:
             self._parse(*features)
 
+        # [TO BE DEVELOPED]
+        # If class instantiated with letter, match with existing SNDS resource
         if kwargs.get('letter'):
             kind, letter = kwargs.get('kind'), kwargs.get('letter')
             self._parse_letter(kind, letter)
@@ -316,6 +317,23 @@ class Sound(object):
             Currently, this function just returns the current list of features
         '''
         return features
+    
+    def _parse2(self, *features):
+        ''' Get features from an input string and return a feature matrix '''
+        single_string_input = isinstance(features, tuple) and len(features) == 1
+        
+        if single_string_input:
+            features = features[0].split()
+        
+        for feature in features:
+            for attr, values in self.ATTRIBUTES.items():
+                match = feature in values
+
+                if match:
+                    feature_index = self._feature_index(attr)
+
+
+
 
     def _parse(self, *features):
         '''
@@ -325,9 +343,11 @@ class Sound(object):
         ----------
             features (list): Positional arguments corresponding to features
         '''
+        # Preprocess if feature is a single, space-separated string (e.g., 'voiced dental fricative')
         if isinstance(features, tuple) and len(features) == 1:
             features = features[0].split()
 
+            # [TO BE DEVELOPED]
             # Parse input as a consonant letter by default
             if len(features) < 2 and len(features[0]) < 3:
                 self._parse_letter('c', features[0])
@@ -493,6 +513,11 @@ class Sound(object):
                 self._set_feature(feature, value)
         
         self._set_feature('airway', 'egressive')
+    
+    def orthography(self):
+        ''' Return an orthographical representation of this sound. '''
+        for consonant in SNDS.consonant:
+            current = 
 
 
 class Consonant(Sound):

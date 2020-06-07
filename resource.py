@@ -96,8 +96,18 @@ class SoundsResource(Resource):
         self.c = self.__Sound(self.consonant)
         self.v = self.__Sound(self.vowel)
     
-    def like(self, value):
+    def find(self, value):
         return self.c.like(value) + self.v.like(value)
+    
+    def like(self, sound):
+        ''' 
+        Return sound that matches the input Consonant or Vowel 
+        
+        Properties
+        ----------
+            sound (Sound, Consonant, Vowel): User input to match to resource
+        '''
+        
 
 
 if __name__ == "__main__":

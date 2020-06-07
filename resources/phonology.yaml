@@ -35,6 +35,7 @@ place: &place
 manner: &manner
   - stop
   - tap
+  - flap
   - trill
   - affricate
   - fricative

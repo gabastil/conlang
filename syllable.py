@@ -71,10 +71,14 @@ class Syllable(Sound, Mora):
         self.rhyme = self.nucleus + self.coda
         self.syllable = self.body + self.coda
 
-    def randomize(self):
+    def random_representation(self):
         ''' IN DEVELOPMENT USE WITH SOUNDS.YAML '''
+
         if self.syllable:
-            pass
+            representation = []
+            for syllable in self.syllable:
+                representation.append(syllable.randomize())
+            return ''.join(representation)
 
 if __name__ == "__main__":
     syl = Syllable('cvc')
