@@ -13,6 +13,10 @@ SNDS = SoundsResource()
 
 VSF, CSF = PHON.vowel_specific_features, PHON.consonant_specific_features
 
+KEYS = [[(b, a) for a, b in enumerate(__)] for __ in PHON.features]
+KEYR = [enumerate(__) for __ in PHON.features]
+ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, KEYS)}
+ATTRIBUTER = {a: dict(b) for a, b in zip(PHON.labels, KEYR)}
 
 class Sound(object):
     '''
@@ -33,10 +37,6 @@ class Sound(object):
         voicing : Voicing for this sound (e.g., voiceless)
 
     '''
-    KEYS = [[(b, a) for a, b in enumerate(__)] for __ in PHON.features]
-    KEYR = [enumerate(__) for __ in PHON.features]
-    ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, KEYS)}
-    ATTRIBUTER = {a: dict(b) for a, b in zip(PHON.labels, KEYR)}
 
     def __init__(self, *features, **kwargs):
         """
@@ -87,7 +87,7 @@ class Sound(object):
         features = [getattr(self, __) for __ in PHON.labels]
         features = enumerate(features)
 
-        __ = self.ATTRIBUTER
+        __ = ATTRIBUTER
         features = [__[PHON.labels[i]][j] for i, j in features if j is not None]
 
         attributes = ', '.join(features)
@@ -120,9 +120,9 @@ class Sound(object):
 
         other_features = [(__, getattr(self, __)) for __ in labels if __ ]
 
-        return Sound(self.ATTRIBUTER['voicing'][voicing],
-                     self.ATTRIBUTER['place'][place],
-                     self.ATTRIBUTER['manner'][manner])
+        return Sound(ATTRIBUTER['voicing'][voicing],
+                     ATTRIBUTER['place'][place],
+                     ATTRIBUTER['manner'][manner])
 
     @property
     def ipa(self):
@@ -353,7 +353,7 @@ class Sound(object):
             matrix = np.zeros((self.rows, self.columns))
 
         for feature in self._normalize(features):
-            for feature_, values in self.ATTRIBUTES.items():
+            for feature_, values in ATTRIBUTES.items():
                 feature_match = feature in values
 
                 if feature_match:
@@ -496,8 +496,14 @@ class Sound(object):
         argmax, array = self._get_argmax_array(idx, array, -1)
         self._update_feature(idx, argmax, array)
 
-    def randomize(self, kind=None):
-        ''' Generate a random configuration of settings '''
+    def randomize(self, kind='c'):
+        '''
+        Generate a random configuration of settings 
+        
+        Parameters
+        ----------
+            kind (str) : c for consonant or v for vowel
+        '''
 
         ignore = random.choice([VSF, CSF])
 
@@ -515,10 +521,29 @@ class Sound(object):
         
         self._set_feature('airway', 'egressive')
     
-    def orthography(self):
-        ''' Return an orthographical representation of this sound. '''
+    def orthography(self, kind='c'):
+        ''' 
+        Return an orthographical representation of this sound. 
+        
+        Parameters
+        ----------
+            kind (str) : c for consonant or v for vowel
+        '''
+
+        attr = [self.encode(__) for __ in CSF]
+
+        if kind.lower().startswith('v'):
+            *__, [attr] = [self.encode(__) for __ in VSF]
+        
+        this = self._features[attr]
+
         for consonant in SNDS.consonant:
-            break
+            features = self._parse(consonant.name, return_=True)[attr]
+
+            if (this == features).all():
+                return consonant.character
+        else:
+            return ' '
 
 
 class Consonant(Sound):

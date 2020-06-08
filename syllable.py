@@ -77,7 +77,8 @@ class Syllable(Sound, Mora):
         if self.syllable:
             representation = []
             for syllable in self.syllable:
-                representation.append(syllable.randomize())
+                syllable.randomize()
+                representation.append(syllable.orthography())
             return ''.join(representation)
 
 if __name__ == "__main__":

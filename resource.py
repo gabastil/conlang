@@ -107,7 +107,8 @@ class SoundsResource(Resource):
         ----------
             sound (Sound, Consonant, Vowel): User input to match to resource
         '''
-        
+        raise NotImplementedError()
+
 
 
 if __name__ == "__main__":
