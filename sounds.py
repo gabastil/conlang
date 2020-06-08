@@ -11,6 +11,8 @@ import math, random
 PHON = PhonologyResource()
 SNDS = SoundsResource()
 
+VSF, CSF = PHON.vowel_specific_features, PHON.consonant_specific_features
+
 
 class Sound(object):
     '''
@@ -301,6 +303,17 @@ class Sound(object):
         if not isinstance(attribute, str):
             return int(attribute)
         return PHON.labels.index(attribute)
+    
+    def _value_index(self, values, feature):
+        '''
+        Return the value index for a string value and attribute
+
+        Parameters
+        ----------
+            values (dict) : Mapping of feature names to indices
+            feature (str, int) : Feature to index
+        '''
+        return list(values.keys()).index(feature)
 
     def _normalize(self, features):
         '''
@@ -317,31 +330,15 @@ class Sound(object):
             Currently, this function just returns the current list of features
         '''
         return features
-    
-    def _parse2(self, *features):
-        ''' Get features from an input string and return a feature matrix '''
-        single_string_input = isinstance(features, tuple) and len(features) == 1
-        
-        if single_string_input:
-            features = features[0].split()
-        
-        for feature in features:
-            for attr, values in self.ATTRIBUTES.items():
-                match = feature in values
 
-                if match:
-                    feature_index = self._feature_index(attr)
-
-
-
-
-    def _parse(self, *features):
+    def _parse(self, *features, return_=False):
         '''
         Configure this sound's feature matrix with specified input features
 
         Parameters
         ----------
             features (list): Positional arguments corresponding to features
+            return_ (boolean): Return features if True, else set to class attributes
         '''
         # Preprocess if feature is a single, space-separated string (e.g., 'voiced dental fricative')
         if isinstance(features, tuple) and len(features) == 1:
@@ -351,17 +348,24 @@ class Sound(object):
             # Parse input as a consonant letter by default
             if len(features) < 2 and len(features[0]) < 3:
                 self._parse_letter('c', features[0])
+        
+        matrix = self._features
+        if return_:
+            matrix = np.zeros((self.rows, self.columns))
 
         for feature in self._normalize(features):
             for feature_, values in self.ATTRIBUTES.items():
                 feature_match = feature in values
 
                 if feature_match:
-                    feature_index = self._feature_index(feature_)
-                    value_index = list(values.keys()).index(feature)
+                    __f = self._feature_index(feature_)
+                    __v = self._value_index(values, feature)
 
-                    self._features[feature_index][value_index] = 1
+                    matrix[__f][__v] = 1
                     break
+        
+        if return_:
+            return matrix
 
     def _parse_letter(self, kind, letter):
         '''
@@ -496,16 +500,14 @@ class Sound(object):
     def randomize(self, kind=None):
         ''' Generate a random configuration of settings '''
 
-        vsf, csf = PHON.vowel_specific_features, PHON.consonant_specific_features
-
-        ignore = random.choice([vsf, csf])
+        ignore = random.choice([VSF, CSF])
 
         if isinstance(kind, str):
             if kind.startswith('v'):
-                ignore = csf
+                ignore = CSF
 
             elif kind.startswith('c'):
-                ignore = vsf
+                ignore = VSF
 
         for i, feature in enumerate(PHON.labels[:-1]):
             if feature not in ignore:
@@ -517,7 +519,7 @@ class Sound(object):
     def orthography(self):
         ''' Return an orthographical representation of this sound. '''
         for consonant in SNDS.consonant:
-            current = 
+            break
 
 
 class Consonant(Sound):
@@ -530,6 +532,11 @@ class Consonant(Sound):
 
     def __repr__(self):
         return super().__repr__('Consonant')
+    
+    def __eq__(self, sound):
+        return (self.place == sound.place and
+                self.manner == sound.manner and
+                self.voicing == sound.voicing)
 
     def __default(self):
         ''' Set the default basic properties of a consonant if none exist '''
@@ -601,6 +608,13 @@ class Vowel(Sound):
 
     def __repr__(self):
         return super().__repr__('Vowel')
+    
+    def __eq__(self, sound):
+        return (self.tone == sound.tone and
+                self.mode == sound.mode and
+                self.frontness == sound.frontness and
+                self.openness == sound.openness and
+                self.roundness == sound.roundness)
 
     def __default(self):
         default = 'medium oral egressive open voiced mid unrounded'.split()
