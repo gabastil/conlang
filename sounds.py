@@ -262,7 +262,7 @@ class Sound(object):
         -------
             Integer of property if exists, else None
         '''
-        idx = self._feature_index(feature)
+        idx = self._feature_to_index(feature)
         arr = self._features[idx]
 
         if arr.sum() == 0:
@@ -278,7 +278,7 @@ class Sound(object):
             feature (str) : Name of feature
             value (str, int) : Feature value
         '''
-        idx = self._feature_index(feature)
+        idx = self._feature_to_index(feature)
         arr = self._features[idx]
 
         if isinstance(value, str):
@@ -291,7 +291,7 @@ class Sound(object):
 
         self._features[idx] = arr
 
-    def _feature_index(self, attribute):
+    def _feature_to_index(self, attribute):
         '''
         Return the feature index for an attribute
 
@@ -299,12 +299,11 @@ class Sound(object):
         ----------
             attribute (str, int) : Name or index of an attribute
         '''
-
         if not isinstance(attribute, str):
             return int(attribute)
         return PHON.labels.index(attribute)
     
-    def _value_index(self, values, feature):
+    def _value_to_index(self, values, feature):
         '''
         Return the value index for a string value and attribute
 
@@ -358,8 +357,8 @@ class Sound(object):
                 feature_match = feature in values
 
                 if feature_match:
-                    __f = self._feature_index(feature_)
-                    __v = self._value_index(values, feature)
+                    __f = self.encode(feature_)
+                    __v = self.encode(feature_, feature)
 
                     matrix[__f][__v] = 1
                     break
@@ -448,10 +447,10 @@ class Sound(object):
         -----
             If no value is supplied, the feature name will be encoded.
         '''
-        idx = self._feature_index(feature)
+        index = self._feature_to_index(feature)
         if value:
-            return PHON.features[idx].index(value)
-        return idx
+            return PHON.features[index].index(value)
+        return index
 
     def decode(self, feature, value=None):
         '''
