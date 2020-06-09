@@ -2,30 +2,30 @@
 # (Source: https://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm)
 # sounds:
 vowel:
-  - {type: vowel, character: ɑ, name: open back unrounded, decimal: 593, hex: 0x0251}
-  - {type: vowel, character: ɒ, name: open back rounded, decimal: 594, hex: 0x0252}
-  - {type: vowel, character: ɐ, name: open-mid schwa, decimal: 592, hex: 0x0250}
-  - {type: vowel, character: ə, name: schwa, decimal: 601, hex: 0x0259}
-  - {type: vowel, character: ɵ, name: rounded schwa, decimal: 629, hex: 0x0275}
-  - {type: vowel, character: ɘ, name: close-mid schwa, decimal: 600, hex: 0x0258}
-  - {type: vowel, character: ɚ, name: rhotacized schwa, decimal: 602, hex: 0x025A}
-  - {type: vowel, character: ʌ, name: open-mid back unrounded, decimal: 652, hex: 0x028C}
-  - {type: vowel, character: ɔ, name: open-mid back rounded, decimal: 596, hex: 0x0254}
-  - {type: vowel, character: ɛ, name: open-mid front unrounded, decimal: 603, hex: 0x025B}
-  - {type: vowel, character: ɜ, name: open-mid central, decimal: 604, hex: 0x025C}
-  - {type: vowel, character: ɞ, name: open-mid central rounded, decimal: 606, hex: 0x025E}
-  - {type: vowel, character: ɤ, name: close-mid back unrounded, decimal: 612, hex: 0x0264}
-  - {type: vowel, character: ɝ, name: rhotacized open-mid central, decimal: 605, hex: 0x025D}
-  - {type: vowel, character: ø, name: front close-mid rounded, decimal: 248, hex: 0x00F8}
-  - {type: vowel, character: œ, name: front open-mid rounded, decimal: 339, hex: 0x0153}
-  - {type: vowel, character: ɶ, name: front open rounded, decimal: 630, hex: 0x0276}
-  - {type: vowel, character: æ, name: raised open front unrounded, decimal: 230, hex: 0x00E6}
-  - {type: vowel, character: ɪ, name: lax close front unrounded, decimal: 618, hex: 0x026A}
-  - {type: vowel, character: ʏ, name: lax close front rounded, decimal: 655, hex: 0x028F}
-  - {type: vowel, character: ʊ, name: lax close back rounded, decimal: 650, hex: 0x028A}
-  - {type: vowel, character: ɨ, name: close central unrounded, decimal: 616, hex: 0x0268}
-  - {type: vowel, character: ʉ, name: close central rounded, decimal: 649, hex: 0x0289}
-  - {type: vowel, character: ɯ, name: close back unrounded, decimal: 623, hex: 0x026F}
+  - {type: vowel, character: ɑ, name: voiced open back unrounded, decimal: 593, hex: 0x0251}
+  - {type: vowel, character: ɒ, name: voiced open back rounded, decimal: 594, hex: 0x0252}
+  - {type: vowel, character: ɐ, name: voiced open-mid schwa, decimal: 592, hex: 0x0250}
+  - {type: vowel, character: ə, name: voiced schwa, decimal: 601, hex: 0x0259}
+  - {type: vowel, character: ɵ, name: voiced rounded schwa, decimal: 629, hex: 0x0275}
+  - {type: vowel, character: ɘ, name: voiced close-mid schwa, decimal: 600, hex: 0x0258}
+  - {type: vowel, character: ɚ, name: voiced rhotacized schwa, decimal: 602, hex: 0x025A}
+  - {type: vowel, character: ʌ, name: voiced open-mid back unrounded, decimal: 652, hex: 0x028C}
+  - {type: vowel, character: ɔ, name: voiced open-mid back rounded, decimal: 596, hex: 0x0254}
+  - {type: vowel, character: ɛ, name: voiced open-mid front unrounded, decimal: 603, hex: 0x025B}
+  - {type: vowel, character: ɜ, name: voiced open-mid central, decimal: 604, hex: 0x025C}
+  - {type: vowel, character: ɞ, name: voiced open-mid central rounded, decimal: 606, hex: 0x025E}
+  - {type: vowel, character: ɤ, name: voiced close-mid back unrounded, decimal: 612, hex: 0x0264}
+  - {type: vowel, character: ɝ, name: voiced rhotacized open-mid central, decimal: 605, hex: 0x025D}
+  - {type: vowel, character: ø, name: voiced front close-mid rounded, decimal: 248, hex: 0x00F8}
+  - {type: vowel, character: œ, name: voiced front open-mid rounded, decimal: 339, hex: 0x0153}
+  - {type: vowel, character: ɶ, name: voiced front open rounded, decimal: 630, hex: 0x0276}
+  - {type: vowel, character: æ, name: voiced raised open front unrounded, decimal: 230, hex: 0x00E6}
+  - {type: vowel, character: ɪ, name: voiced lax close front unrounded, decimal: 618, hex: 0x026A}
+  - {type: vowel, character: ʏ, name: voiced lax close front rounded, decimal: 655, hex: 0x028F}
+  - {type: vowel, character: ʊ, name: voiced lax close back rounded, decimal: 650, hex: 0x028A}
+  - {type: vowel, character: ɨ, name: voiced close central unrounded, decimal: 616, hex: 0x0268}
+  - {type: vowel, character: ʉ, name: voiced close central rounded, decimal: 649, hex: 0x0289}
+  - {type: vowel, character: ɯ, name: voiced close back unrounded, decimal: 623, hex: 0x026F}
 
 consonant:
   - {type: consonant, character: b, name: voiced bilabial stop, decimal: 98, hex: 0x62}
@@ -77,14 +77,16 @@ consonant:
   - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
   - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
   - {type: consonant, character: g, name: voiced velar stop, decimal: 103, hex: 0x67}
-  - {type: consonant, character: k, name: voiced velar stop, decimal: 107, hex: 0x6b}
+  - {type: consonant, character: k, name: voiceless velar stop, decimal: 107, hex: 0x6b}
   - {type: consonant, character: ɣ, name: voiced velar fricative, decimal: 611, hex: 0x0263}
+  - {type: consonant, character: x, name: voiceless velar fricative, decimal: 611, hex: 0x0263}
   - {type: consonant, character: ɠ, name: voiced velar stop ingressive, decimal: 608, hex: 0x0260}
   - {type: consonant, character: ʟ, name: voiced velar lateral, decimal: 671, hex: 0x029F}
-  - {type: consonant, character: ɰ, name: velar approximant, decimal: 624, hex: 0x0270}
+  - {type: consonant, character: ɰ, name: voiced velar approximant, decimal: 624, hex: 0x0270}
   - {type: consonant, character: ŋ, name: voiced velar nasal, decimal: 331, hex: 0x014B}
   - {type: consonant, character: ʍ, name: voiceless labial-velar fricative, decimal: 653, hex: 0x028D}
   - {type: consonant, character: ɢ, name: voiced uvular stop, decimal: 610, hex: 0x0262}
+  - {type: consonant, character: q, name: voiceless uvular stop, decimal: 610, hex: 0x0262}
   - {type: consonant, character: ʛ, name: voiced uvular stop ingressive, decimal: 667, hex: 0x029B}
   - {type: consonant, character: ɴ, name: voiced uvular nasal, decimal: 628, hex: 0x0274}
   - {type: consonant, character: ʀ, name: voiced uvular trill, decimal: 640, hex: 0x0280}

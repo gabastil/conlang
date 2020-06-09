@@ -18,6 +18,16 @@ KEYR = [enumerate(__) for __ in PHON.features]
 ATTRIBUTES = {a: dict(b) for a, b in zip(PHON.labels, KEYS)}
 ATTRIBUTER = {a: dict(b) for a, b in zip(PHON.labels, KEYR)}
 
+def analyze_sound_probabilities():
+    from nltk import ConditionalFreqDist, ConditionalProbDist, ELEProbDist
+    from nltk import bigrams
+    cfd = ConditionalFreqDist()
+    data = [gram for __ in SNDS.consonant for gram in bigrams(__.name.split())]
+    for gram in data:
+        cfd[gram[0]][gram[1]] += 1
+    return ConditionalProbDist(cfd, ELEProbDist)
+
+
 class Sound(object):
     '''
     The Sound class contains properties and auxiliary functions for encoding
@@ -504,6 +514,10 @@ class Sound(object):
         ----------
             kind (str) : c for consonant or v for vowel
         '''
+
+        def voicing():
+            raise NotImplementedError()
+            
 
         ignore = random.choice([VSF, CSF])
 
