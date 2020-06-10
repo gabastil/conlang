@@ -7,7 +7,7 @@ Created on Thu Oct 31 09:48:49 2019 / Modified on May 6, 2020
 Load and create a resources object that allows for dot-notation access.
 
 """
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 import yaml
 
 
@@ -89,7 +89,35 @@ class SoundsResource(Resource):
         def character(self, value):
             for resource in self.resource:
                 if resource.character == value:
-                    return resource        
+                    return resource
+        
+        def get_freq(self):
+            container = {}
+            for resource in self.resources:
+                sample = resource.name.split()
+                self.process_name(sample, container)
+            return container
+
+        
+        def process_name(self, array, container):
+            first = array[0]
+            if len(array) == 1:
+                container.setdefault(first, 0)
+                container[first] += 1
+            else:
+                container.setdefault(first, {})
+                container[first] = self.get_freq(array[1:], container[first])
+            return container
+        
+        def probability(self, value):
+            ''' Return the probability of a value for a __Sound property '''
+            data = [resource.name.split() for resource in self.resource]
+
+
+        def conditional_probability(self, condition, value):
+            ''' Return the probability of value given the condition '''
+            raise NotImplementedError()
+
 
     def __init__(self):
         super().__init__('sounds')
@@ -117,3 +145,12 @@ if __name__ == "__main__":
     # print(p.phonology)
     print(s.sounds)
 
+
+# def loop(a, d={}):
+#     if len(a) == 1:
+#         d.setdefault(a[0], 0)
+#         d[a[0]] += 1
+#     else:
+#         d.setdefault(a[0], {})
+#         d[a[0]] = loop(a[1:], d[a[0]])
+#     return d
