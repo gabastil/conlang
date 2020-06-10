@@ -1,7 +1,9 @@
 # This file contains IPA and orthographic information
 # (Source: https://www.phon.ucl.ac.uk/home/wells/ipa-unicode.htm)
-# sounds:
+
 vowel:
+
+  # Need to add vowels that don't have special characters (e.g., a, i, e, o, u)
   - {type: vowel, character: ɑ, name: voiced open back unrounded, decimal: 593, hex: 0x0251}
   - {type: vowel, character: ɒ, name: voiced open back rounded, decimal: 594, hex: 0x0252}
   - {type: vowel, character: ɐ, name: voiced open-mid schwa, decimal: 592, hex: 0x0250}

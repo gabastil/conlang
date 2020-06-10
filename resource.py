@@ -91,22 +91,127 @@ class SoundsResource(Resource):
                 if resource.character == value:
                     return resource
         
-        def get_freq(self):
-            container = {}
-            for resource in self.resources:
-                sample = resource.name.split()
-                self.process_name(sample, container)
+        def get_prob(self, feature, condition=None):
+            '''
+            Return the probability of a feature in the sounds resource
+            
+            Parameters
+            ----------
+                feature (str) : name of feature to check (e.g., voiced, bilabial)
+                condition (str) : name of feature to condition the specified feature on
+             '''
+            freq = self.get_freq()
+            feat = self._get_dict(feature, container=freq)
+            
+            if condition:
+                freq = self._get_dict(condition, container=freq)
+
+            return self._sum_dict(feat) / self._sum_dict(freq)
+        
+        def _get_dict(self, label, container):
+            ''' Return a the dictionary that matches the specified label '''
+            container_is_a_number = isinstance(container, int) or isinstance(container, float)
+            
+            if container_is_a_number:
+                return container
+
+            if label in container:
+                return container[label]
+            
+            if isinstance(container, tuple):
+                return container
+
+
+            '''
+            NEEDS TO BE FIXED SO THAT IT DOESN'T RETURN ANYTHING FOR A NONSENSE label INPUT
+
+            e.g., self._get_dict('asdfadsf', container)
+
+            WILL STILL RETURN SOMETHING
+            '''
+            if isinstance(container, dict):
+                item = None
+
+                for k, v in container.items():
+                    if label in v:
+                        return v[label]
+
+                    item = self._get_dict(label, v)
+
+                    if item:
+                        return item
+
+        def _div_dict(self, divisor, container):
+            # print(divisor, container)
+            if isinstance(container, int) or isinstance(container, float):
+                # print(container / divisor)
+                return container / divisor
+            
+            if isinstance(container, tuple):
+                left, right = container
+                left /= divisor
+                
+                right = self._div_dict(divisor, right)
+                return left, right
+        
+            for k, v in container.items():
+                container[k] = self._div_dict(divisor, v)
+            
             return container
 
+        def _sum_dict(self, container):
+            ''' 
+            Return the sum of all items below the level of this label 
+            
+            Parameters
+            ----------
+                container (dict, tuple, int) : dictionary with values to sum.
+                    if tuple, function checks for integer value and other dicts.
+                    if integer, function returns it.
+            '''
+            total = 0
+
+            if isinstance(container, int) or isinstance(container, float):
+                return container
+            
+            elif isinstance(container, tuple):
+                total += container[0]
+                container = container[1]
+
+            for k, v in container.items():
+                total += self._sum_dict(v)
+                
+            return total
+
+
+        def get_freq(self):
+            container = {}
+            for resource in self.resource:
+                sample = resource.name.split()
+                self._conditional_frequency(sample, container)
+            return container
         
-        def process_name(self, array, container):
+        def _conditional_frequency(self, array, container):
             first = array[0]
             if len(array) == 1:
-                container.setdefault(first, 0)
-                container[first] += 1
+                if isinstance(container, dict):
+                    container.setdefault(first, 0)
+                    container[first] += 1
+                elif isinstance(container, int):
+                    container = (container, {})
+                    container[1].setdefault(first, 0)
+                    container[1][first] += 1
+                else:
+                    container[1].setdefault(first, 0)
+                    container[1][first] += 1
+            elif isinstance(container, int):
+                container = (container, {})
+                container[1] = self._conditional_frequency(array[1:], container[1][first])
+            elif isinstance(container, tuple):
+                container[1] = self._conditional_frequency(array[1:], container[1][first])
             else:
                 container.setdefault(first, {})
-                container[first] = self.get_freq(array[1:], container[first])
+                container[first] = self._conditional_frequency(array[1:], container[first])
             return container
         
         def probability(self, value):
@@ -141,9 +246,39 @@ class SoundsResource(Resource):
 
 if __name__ == "__main__":
     # p = Phonology()
-    s = Sounds()
+    # s = Sounds()
     # print(p.phonology)
-    print(s.sounds)
+    # print(s.sounds)
+
+    sr = SoundsResource()
+    d = sr.c.get_freq()
+    r = sr.c._sum_dict(d)
+    print(r)
+    k = d['voiced']
+    r = sr.c._sum_dict(d['voiced'])
+    print(k)
+    sr.c._div_dict(r, k)
+    print(r)
+    # print(k)
+    # print(k['bilabial']['stop'])
+    # print(sr.c._sum_dict(k['bilabial']))
+
+    print("Check")
+    print(sr.c._get_dict('stop', d))
+    print(sr.c._sum_dict(sr.c._get_dict('stop', d)))
+
+    print("-" * 10)
+    print(sr.c.get_prob('stop', 'voiceless'))
+    print(sr.c.get_prob('asdf', 'voiceless'))
+    print(d)
+    print(sr.c._get_dict('asdfasdf', d))
+
+    p = [(k, sr.c._sum_dict(v)) for k, v in k.items()]
+
+    import pprint
+    pprint.pprint(sorted(p, key=lambda x: x[-1]))
+
+    # print(sr.c._sum_dict(x))
 
 
 # def loop(a, d={}):
