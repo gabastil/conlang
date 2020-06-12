@@ -4,6 +4,7 @@
 vowel:
 
   # Need to add vowels that don't have special characters (e.g., a, i, e, o, u)
+  - {type: vowel, character: a, name: voiced open back unrounded, decimal: 97, hex: 0x61}
   - {type: vowel, character: ɑ, name: voiced open back unrounded, decimal: 593, hex: 0x0251}
   - {type: vowel, character: ɒ, name: voiced open back rounded, decimal: 594, hex: 0x0252}
   - {type: vowel, character: ɐ, name: voiced open-mid schwa, decimal: 592, hex: 0x0250}
@@ -17,17 +18,22 @@ vowel:
   - {type: vowel, character: ɜ, name: voiced open-mid central, decimal: 604, hex: 0x025C}
   - {type: vowel, character: ɞ, name: voiced open-mid central rounded, decimal: 606, hex: 0x025E}
   - {type: vowel, character: ɤ, name: voiced close-mid back unrounded, decimal: 612, hex: 0x0264}
+  - {type: vowel, character: o, name: voiced close-mid back rounded, decimal: 111, hex: 0x6f}
   - {type: vowel, character: ɝ, name: voiced rhotacized open-mid central, decimal: 605, hex: 0x025D}
   - {type: vowel, character: ø, name: voiced front close-mid rounded, decimal: 248, hex: 0x00F8}
+  - {type: vowel, character: e, name: voiced front close-mid unrounded, decimal: 101, hex: 0x0065}
   - {type: vowel, character: œ, name: voiced front open-mid rounded, decimal: 339, hex: 0x0153}
   - {type: vowel, character: ɶ, name: voiced front open rounded, decimal: 630, hex: 0x0276}
   - {type: vowel, character: æ, name: voiced raised open front unrounded, decimal: 230, hex: 0x00E6}
+  - {type: vowel, character: i, name: voiced tense close front unrounded, decimal: 105, hex: 0x0069}
+  - {type: vowel, character: y, name: voiced tense close front rounded, decimal: 121, hex: 0x0079}
   - {type: vowel, character: ɪ, name: voiced lax close front unrounded, decimal: 618, hex: 0x026A}
   - {type: vowel, character: ʏ, name: voiced lax close front rounded, decimal: 655, hex: 0x028F}
   - {type: vowel, character: ʊ, name: voiced lax close back rounded, decimal: 650, hex: 0x028A}
   - {type: vowel, character: ɨ, name: voiced close central unrounded, decimal: 616, hex: 0x0268}
   - {type: vowel, character: ʉ, name: voiced close central rounded, decimal: 649, hex: 0x0289}
   - {type: vowel, character: ɯ, name: voiced close back unrounded, decimal: 623, hex: 0x026F}
+  - {type: vowel, character: u, name: voiced close back rounded, decimal: 117, hex: 0x0075}
 
 consonant:
   - {type: consonant, character: b, name: voiced bilabial stop, decimal: 98, hex: 0x62}
@@ -40,6 +46,8 @@ consonant:
   - {type: consonant, character: ɱ, name: voiced labiodental nasal, decimal: 625, hex: 0x0271}
   - {type: consonant, character: ʋ, name: voiced labiodental approximant, decimal: 651, hex: 0x028B}
   - {type: consonant, character: ⱱ, name: voiced labiodental flap, decimal: 11377, hex: 0x2C71}
+  - {type: consonant, character: v, name: voiced labiodental fricative, decimal: 118, hex: 0x76}
+  - {type: consonant, character: f, name: voiceless labiodental fricative, decimal: 102, hex: 0x66}
   - {type: consonant, character: ð, name: voiced dental fricative, decimal: 240, hex: 0x00F0}
   - {type: consonant, character: θ, name: voiceless dental fricative, decimal: 952, hex: 0x03B8}
   - {type: consonant, character: d, name: voiced alveolar stop, decimal: 100, hex: 0x64}
@@ -77,16 +85,17 @@ consonant:
   - {type: consonant, character: ʎ, name: voiced palatal lateral, decimal: 654, hex: 0x028E}
   - {type: consonant, character: j, name: voiced palatal approximant, decimal: 106, hex: 0x6a}
   - {type: consonant, character: ɫ, name: velarized voiced alveolar lateral, decimal: 619, hex: 0x026B}
-  - {type: consonant, character: ɡ, name: voiced velar stop, decimal: 609, hex: 0x0261}
-  - {type: consonant, character: g, name: voiced velar stop, decimal: 103, hex: 0x67}
   - {type: consonant, character: k, name: voiceless velar stop, decimal: 107, hex: 0x6b}
   - {type: consonant, character: ɣ, name: voiced velar fricative, decimal: 611, hex: 0x0263}
-  - {type: consonant, character: x, name: voiceless velar fricative, decimal: 611, hex: 0x0263}
+  - {type: consonant, character: x, name: voiceless velar fricative, decimal: 120, hex: 0x78}
   - {type: consonant, character: ɠ, name: voiced velar stop ingressive, decimal: 608, hex: 0x0260}
   - {type: consonant, character: ʟ, name: voiced velar lateral, decimal: 671, hex: 0x029F}
   - {type: consonant, character: ɰ, name: voiced velar approximant, decimal: 624, hex: 0x0270}
   - {type: consonant, character: ŋ, name: voiced velar nasal, decimal: 331, hex: 0x014B}
+  - {type: consonant, character: g, name: voiced velar stop, decimal: 103, hex: 0x67}
+  - {type: consonant, character: k, name: voiceless velar stop, decimal: 107, hex: 0x6b}
   - {type: consonant, character: ʍ, name: voiceless labial-velar fricative, decimal: 653, hex: 0x028D}
+  - {type: consonant, character: w, name: voiced labial-velar approximant, decimal: 119, hex: 0x77}
   - {type: consonant, character: ɢ, name: voiced uvular stop, decimal: 610, hex: 0x0262}
   - {type: consonant, character: q, name: voiceless uvular stop, decimal: 610, hex: 0x0262}
   - {type: consonant, character: ʛ, name: voiced uvular stop ingressive, decimal: 667, hex: 0x029B}
@@ -107,10 +116,3 @@ consonant:
   - {type: consonant, character: ǁ, name: alveolar lateral click, decimal: 449, hex: 0x01C1}
   - {type: consonant, character: ǂ, name: alveolar click, decimal: 450, hex: 0x01C2}
   - {type: consonant, character: ǀ, name: dental click, decimal: 448, hex: 0x01C0}
-
-  
-  
-  
-  
-  
-  
