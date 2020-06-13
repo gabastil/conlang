@@ -11,7 +11,8 @@ from collections import namedtuple, defaultdict
 import yaml
 
 
-def process_ipa(text, filename):
+def process_raw_ipa(text, filename):
+    ''' Convert data from GitHub into a list of IPA only entries'''
     import re
     dots = re.compile(r'(.)([:ː])', re.I)
     ipa = re.compile(r'/(.+?)/', re.I)
