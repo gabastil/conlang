@@ -11,20 +11,6 @@ from collections import namedtuple, defaultdict
 import yaml
 
 
-def process_raw_ipa(text, filename):
-    ''' Convert data from GitHub into a list of IPA only entries'''
-    import re
-    dots = re.compile(r'(.)([:ː])', re.I)
-    ipa = re.compile(r'/(.+?)/', re.I)
-
-    text = dots.sub(r'\1\1', text)
-    text = ipa.findall(text)
-
-    with open(filename, 'w') as fout:
-        text = '\n'.join(text)
-        fout.write(text)
-
-
 class Resource():
 
     def __init__(self, resource='phonology'):
