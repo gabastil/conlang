@@ -1,2 +1,4 @@
 /resources/lang
+
+__pycache__/*.pyc
 *.pyc
