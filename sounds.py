@@ -74,8 +74,7 @@ class Sound(object):
                 Include orthographical values like: IPA character and phoneme
 
         """
-        self.rows = len(PHON.features)
-        self.columns = max([len(__) for __ in PHON.features])
+        self.rows, self.columns = self.__get_rows_and_columns()
         self._features = np.zeros((self.rows, self.columns))
 
         if features:
@@ -133,6 +132,9 @@ class Sound(object):
         return Sound(ATTRIBUTER['voicing'][voicing],
                      ATTRIBUTER['place'][place],
                      ATTRIBUTER['manner'][manner])
+
+    def __get_rows_and_columns(self):
+        return len(PHON.features), max([len(__) for __ in PHON.features])
 
     @property
     def ipa(self):
