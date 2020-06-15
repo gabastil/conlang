@@ -1,8 +1,8 @@
 # Files to ignore
 .gitignore
-__pycache__/*.pyc
 *.pyc
 
 # Directories to ignore
-/resources/lang
-/__pycache__/
+resources/lang
+jupyter/
+__pycache__/

@@ -262,9 +262,21 @@ class Sound(object):
     def roundness(self, roundness):
         self._set_feature('roundness', roundness)
 
-    def _get_feature(self, feature):
+    def _reset_feature(self, feature=None):
+        ''' Set feature matrix or specified feature values to zero 
+        
+        Parameters
+        ----------
+            feature (str) : Feature name to reset
         '''
-        Return the index value of a specfied feature
+        if feature:
+            idx = self._get_feature(feature)
+            self._features[idx] = np.zeros((self.columns, ))
+        else:
+            self._features = np.zeros((self.rows, self.columns))
+
+    def _get_feature(self, feature):
+        ''' Return the index value of a specfied feature
 
         Parameters
         ----------
@@ -391,23 +403,18 @@ class Sound(object):
 
         if current:
             self._parse(*current.name.split())
+        
+        else:
+            readme = 'https://github.com/gabastil/conlang'
+            message = (
+                f'Character not found and properties not set.\n'
+                f'For a full set of available characters, please reference {readme} '
+                f'or the sounds.yaml resource file.'
+            )
+
+            raise Warning(message)
 
         return None
-        # if kind.lower().startswith('c'):
-        #     orthography = SNDS.consonant
-        # elif kind.lower().startswith('v'):
-        #     orthography = SNDS.vowel
-        # else:
-        #     raise ValueError('`kind` must be `consonant` or `vowel`')
-
-        # self.character = letter
-
-        # for letter_ in orthography:
-        #     if letter_.character == letter:
-        #         self._parse(*letter_.name)
-        #         break
-        # else:
-        #     raise ValueError('Input `letter` or `kind` is incorrect.')
 
     def _get_index_array(self, feature):
         ''' Return an index and array associated with this feature '''
