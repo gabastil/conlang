@@ -1,3 +1,7 @@
+# ipa.py
+# June 14, 2020
+# Methods to process and develop counts and probabilities from raw language IPA data
+
 from glob import glob
 from nltk import bigrams
 from sounds import Consonant, Vowel

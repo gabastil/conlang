@@ -116,3 +116,10 @@ consonant:
   - {type: consonant, character: ǁ, name: alveolar lateral click, decimal: 449, hex: 0x01C1}
   - {type: consonant, character: ǂ, name: alveolar click, decimal: 450, hex: 0x01C2}
   - {type: consonant, character: ǀ, name: dental click, decimal: 448, hex: 0x01C0}
+
+ipa:
+  vowels: [a, ɑ, ɒ, ɐ, ə, ɵ, ɘ, ɚ, ʌ, ɔ, ɛ, ɜ, ɞ, ɤ, o, ɝ, ø, e, œ, ɶ, æ, i, y, ɪ, ʏ, ʊ, ɨ, ʉ, ɯ, u]
+  consonants: [b, p, m, ɓ, ʙ, β, ɸ, ɱ, ʋ, ⱱ, v, f, ð, θ, d, t, n, z, s, ɗ, ɬ, 
+    ʤ, ɮ, ɺ, ɾ, ʑ, ɕ, ɹ, ʒ, ʃ, ʧ, ɖ, ɭ, ɳ, ɻ, ɽ, ʂ, ʈ, ʐ, ç, ʝ, ɟ, c, ʄ, ɥ, ɲ, 
+    ʎ, j, ɫ, k, ɣ, x, ɠ, ʟ, ɰ, ŋ, g, k, ʍ, w, ɢ, q, ʛ, ɴ, ʀ, ʁ, χ, ħ, ʕ, ɧ, ʡ, 
+    ʜ, ʢ, ɦ, ʔ, ʘ, ǃ, ǁ, ǂ, ǀ, ]
