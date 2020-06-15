@@ -506,13 +506,22 @@ class Sound(object):
         argmax, array = self._get_argmax_array(idx, array, -1)
         self._update_feature(idx, argmax, array)
 
-    def randomize(self, kind='c'):
+    def randomize(self, kind='c', data=None):
         '''
         Generate a random configuration of settings 
         
         Parameters
         ----------
             kind (str) : c for consonant or v for vowel
+            data (str) : path to distribution data for phonemes
+        
+        Notes
+        -----
+            Default probability distribution is uniform, which is unrealistic.
+
+            Use phonetic data (e.g., counts.pkl) to derive probabilities.
+
+            Will need to process all sounds from all languages to get probabilities for each feature.
         '''
 
         def voicing():
