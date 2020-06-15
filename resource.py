@@ -89,7 +89,8 @@ class SoundsResource(Resource):
         def character(self, value):
             for resource in self.resource:
                 if resource.character == value:
-                    return resource
+                    return [resource]
+            return []
         
         def get_prob(self, feature, condition=None):
             '''
@@ -231,6 +232,9 @@ class SoundsResource(Resource):
     
     def find(self, value):
         return self.c.like(value) + self.v.like(value)
+    
+    def character(self, value):
+        return self.c.character(value) + self.v.character(value)
     
     def like(self, sound):
         ''' 

@@ -378,30 +378,36 @@ class Sound(object):
         if return_:
             return matrix
 
-    def _parse_letter(self, kind, letter):
+    def _parse_letter(self, character):
         '''
         Set this sounds properties from the phonology file's set of sounds.
 
         Parameters
         ----------
-            kind (str) : Whether or not the letter is a vowel or consonant
-            letter (str) : Sound defined in phonology.yaml
+            # kind (str) : Whether or not the character is a vowel or consonant
+            character (str) : Sound defined in phonology.yaml
         '''
-        if kind.lower().startswith('c'):
-            orthography = SNDS.consonant
-        elif kind.lower().startswith('v'):
-            orthography = SNDS.vowel
-        else:
-            raise ValueError('`kind` must be `consonant` or `vowel`')
+        current = SNDS.character(character)[0]
 
-        self.character = letter
+        if current:
+            self._parse(*current.name.split())
 
-        for letter_ in orthography:
-            if letter_.character == letter:
-                self._parse(*letter_.name)
-                break
-        else:
-            raise ValueError('Input `letter` or `kind` is incorrect.')
+        return None
+        # if kind.lower().startswith('c'):
+        #     orthography = SNDS.consonant
+        # elif kind.lower().startswith('v'):
+        #     orthography = SNDS.vowel
+        # else:
+        #     raise ValueError('`kind` must be `consonant` or `vowel`')
+
+        # self.character = letter
+
+        # for letter_ in orthography:
+        #     if letter_.character == letter:
+        #         self._parse(*letter_.name)
+        #         break
+        # else:
+        #     raise ValueError('Input `letter` or `kind` is incorrect.')
 
     def _get_index_array(self, feature):
         ''' Return an index and array associated with this feature '''
